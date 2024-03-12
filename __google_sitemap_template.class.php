@@ -70,7 +70,8 @@ class GoogleSitemap
      * @access public
      * @return void
      */
-   function __construct($pdo, $sql_total, $http_host, $sitemap_filename_prefix, $sitemap_changefreq, $path_adj = '', $use_hostname_prefix = true)
+   public function __construct(object $pdo, string $sql_total, string $http_host, string $sitemap_filename_prefix, 
+                               string $sitemap_changefreq, int $path_adj = 0, bool $use_hostname_prefix = true)
    {
       //global $pdo;
 
