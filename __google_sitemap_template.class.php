@@ -107,15 +107,11 @@ class GoogleSitemap
      * Manually set the $total_links var in cases where passing the SQL to calculate the
      * total number of <loc> URLs is not possible (e.g. with calculating the total number of populated categories)
      *
-     * @param  string $sql_total  SQL query for "total" (this must be an SQL field alias - e.g. COUNT(*) AS total)
-     * @param  string $http_host  http hostname to use for URLs - e.g. www.fabuloussavings.com, www.fabuloussavings.ca
-     * @param  string $sitemap_filename_prefix  filename prefix to use for Sitemap index and Sitemap files
-     * @param  string $sitemap_changefreq  Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
-     * @param  int $path_adj  number of steps up to the root directory from the CALLING script, not this one
+     * @param  string $total_links  total number of links/URLs
      * @access public
      * @return void
      */
-   function setTotalLinks($total_links)
+    public function setTotalLinks(int $total_links)
    {
       $this->total_links = $total_links;
    }
@@ -126,7 +122,7 @@ class GoogleSitemap
      * @access public
      * @return void
      */
-   function buildSitemapIndexContents()
+    public function buildSitemapIndexContents()
    {
       $this->sitemap_index_contents = '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n";
       $this->sitemap_index_contents .= '<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84"' . "\r\n";
@@ -154,7 +150,7 @@ class GoogleSitemap
      * @access public
      * @return void
      */
-   function buildSitemapIndexContentsUrlsOnly()
+   public function buildSitemapIndexContentsUrlsOnly()
    {
       $lastmod = date('Y-m-d\TH:i:s+00:00', time());
 
@@ -189,7 +185,7 @@ class GoogleSitemap
      * @param  array $url_arr  array of URLs (if you want to add more urls to the sitemap)
      * @return void
      */
-   function createSitemapFile($sql, $db_field_name_arr, $loc_url_template, $url_arr = '')
+   public function createSitemapFile(string $sql, array $db_field_name_arr, string $loc_url_template, array $url_arr = [])
    {
       $this->sql = $sql; // store this as we're calling buildSitemapContents() in a bit
       $this->db_field_name_arr = $db_field_name_arr;
@@ -266,8 +262,8 @@ class GoogleSitemap
      * @param  array $url_arr  array of URLs (if you want to add more urls to the sitemap)
      * @return void
      */
-   function createSitemapFileWithDelayedWriteOption($sql, $db_field_name_arr, $loc_url_template,
-                                                    $url_arr = '', $build_sitemap_contents = true)
+   public function createSitemapFileWithDelayedWriteOption(string $sql, array $db_field_name_arr, string $loc_url_template,
+                                                           array $url_arr = [], bool $build_sitemap_contents = true)
    {
       $this->createSitemapFileWithDelayedWriteOptionCounter++;
       $this->sql = $sql; // store this as we're calling buildSitemapContents() in a bit
@@ -392,7 +388,7 @@ class GoogleSitemap
      * @access public
      * @return void
      */
-   function writeSitemapIndexFile()
+   public function writeSitemapIndexFile()
    {
       $sitemap_index_filename = "{$this->sitemap_filename_prefix}.xml";
       
@@ -418,7 +414,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   function buildSitemapContents($sql_limit)
+   public function buildSitemapContents($sql_limit): string
    {
       // start processing SQL if passed
       if ($this->sql)
@@ -517,7 +513,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   function buildSitemapContentsUrlsOnly($sql_limit)
+   public function buildSitemapContentsUrlsOnly($sql_limit): string
    {
       // start processing SQL if passed
       if ($this->sql)
@@ -613,7 +609,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   function getUrlArraySitemapUrlTags()
+   public function getUrlArraySitemapUrlTags(): string
    {
       // if url array is present, build the URL entries for them
       if (is_array($this->url_arr))
@@ -639,7 +635,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   function getXmlUrlsetTagStart()
+   public function getXmlUrlsetTagStart(): string
    {
       $sitemap_contents = '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n";
       $sitemap_contents .= '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84"' . "\r\n";
@@ -656,7 +652,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   function getXmlUrlsetTagEnd()
+   public function getXmlUrlsetTagEnd(): string
    {
       $sitemap_contents = '</urlset>';
 
