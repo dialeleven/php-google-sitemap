@@ -73,28 +73,38 @@ class GoogleSitemap
      */
    public function __construct(object $pdo, string $sql_total, string $http_host, string $sitemap_filename_prefix, 
                                string $sitemap_changefreq, int $path_adj = 0, bool $use_hostname_prefix = true)
-   {
-
-      #echo $sql_total;
-      #echo interpolateSQL($pdo, $sql_total, $params = []); // sql debugging
-      #echo interpolateSQL($pdo, $sql, $params = ['cat_name' => $cat_name]); // sql debugging
-      // mysql PDO query non-prepared statement
-      #$stmt = $pdo->query($sql_total);
-
-      $stmt = $pdo->prepare($sql_total);
-      $stmt->execute([]);
-
-      $query_data = $stmt->fetch();
-      $this->total_links += $query_data->total;
-      
+   {  
       $this->pdo = $pdo;
       $this->http_host = $http_host;
       $this->sitemap_filename_prefix = $sitemap_filename_prefix;
       $this->sitemap_changefreq = $sitemap_changefreq;
       $this->use_hostname_prefix = $use_hostname_prefix;
 
+      // set total number of links (URLs) in the XML sitemap
+      $this->setTotalLinks($sql_total);
+
       // relative path adjustment to the root dir to write the sitemap files to
       $this->setPathAdjustmentToRootDir($path_adj);
+   }
+
+   /**
+     * Set the total number of links (URLs) that will be in the Google XML Sitemap.
+     * The SQL query should look like 'SELECT COUNT(*) AS total FROM my_table_name' at a minimum.
+     *
+     * @param  
+     * @access private
+     * @return void
+     */
+   private function setTotalLinks($sql_total)
+   {      
+      #echo $sql_total;
+      #echo interpolateSQL($pdo, $sql_total, $params = []); // sql debugging
+
+      $stmt = $pdo->prepare($sql_total);
+      $stmt->execute([]);
+
+      $query_data = $stmt->fetch();
+      $this->total_links += $query_data->total;
    }
 
    /**
