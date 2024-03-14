@@ -81,7 +81,7 @@ class GoogleSitemap
       $this->use_hostname_prefix = $use_hostname_prefix;
 
       // set total number of links (URLs) in the XML sitemap
-      $this->setTotalLinksSql($sql_total);
+      $this->setTotalLinksSQL($sql_total);
 
       // relative path adjustment to the root dir to write the sitemap files to
       $this->setPathAdjustmentToRootDir($path_adj);
@@ -96,7 +96,7 @@ class GoogleSitemap
      * @access private
      * @return void
      */
-   private function setTotalLinksSql(string $sql_total)
+   private function setTotalLinksSQL(string $sql_total)
    {      
       #echo $sql_total;
       #echo interpolateSQL($pdo, $sql_total, $params = []); // sql debugging
