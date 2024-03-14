@@ -46,9 +46,9 @@ class GoogleSitemap
    public $num_sitemaps = 0;              // total number of Sitemap files
    public $sitemap_index_contents;        // contents of Sitemap index file
    public $sitemap_contents;              // contents of sitemap (URLs)
-   public $status_item;                   // list item status messages
-   public $error_msg;
-   public $path_adj;                      // file path adjustment to root directory (e.g. "../../")
+   private $status_item;                   // list item status messages
+   private $error_msg;
+   private $path_adj;                      // file path adjustment to root directory (e.g. "../../")
    public $use_hostname_prefix;           // flag to use supplied $http_host value for $http_host/whatever/is/passed/
                                        // in <url> tag or only the DB field supplied value which should contain http://www.domain.com
    
