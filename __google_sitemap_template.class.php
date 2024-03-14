@@ -31,7 +31,7 @@ History:          12/06/2011 - commented out <changefreq> tag as Google does not
  */
 class GoogleSitemap
 {
-   public $pdo;
+   private $pdo;
    public $sql;
    public $http_host; // http hostname (minus the "http://" part - e.g. www.fabuloussavings.ca)
    public $sitemap_filename_prefix = 'sitemap_changeme'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
