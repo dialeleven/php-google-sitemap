@@ -74,31 +74,44 @@ class GoogleSitemap
    public function __construct(object $pdo, string $sql_total, string $http_host, string $sitemap_filename_prefix, 
                                string $sitemap_changefreq, int $path_adj = 0, bool $use_hostname_prefix = true)
    {
-      //global $pdo;
-
-      $this->pdo = $pdo;
-
-      // relative path adjustment to the root dir to write the sitemap files to
-      if ($path_adj > 0)
-      {
-         for ($i = 1; $i <= $path_adj; ++$i)
-            $this->path_adj .= '../';
-      }
 
       #echo $sql_total;
-
-      echo interpolateSQL($pdo, $sql, $params = []); // sql debugging
+      #echo interpolateSQL($pdo, $sql_total, $params = []); // sql debugging
       #echo interpolateSQL($pdo, $sql, $params = ['cat_name' => $cat_name]); // sql debugging
-      $stmt = $this->pdo->prepare($sql_total);
+      // mysql PDO query non-prepared statement
+      #$stmt = $pdo->query($sql_total);
+
+      $stmt = $pdo->prepare($sql_total);
       $stmt->execute([]);
 
       $query_data = $stmt->fetch();
       $this->total_links += $query_data->total;
       
+      $this->pdo = $pdo;
       $this->http_host = $http_host;
       $this->sitemap_filename_prefix = $sitemap_filename_prefix;
       $this->sitemap_changefreq = $sitemap_changefreq;
       $this->use_hostname_prefix = $use_hostname_prefix;
+
+      // relative path adjustment to the root dir to write the sitemap files to
+      $this->setPathAdjustmentToRootDir($path_adj);
+   }
+
+   /**
+     * Set the relative path adjustment for writing the sitemap file(s) to the root directory
+     * in case we are somewhere below the root (e.g. /admin/googlesitemapbuilder/)
+     *
+     * @param  
+     * @access private
+     * @return void
+     */
+   private function setPathAdjustmentToRootDir()
+   {      
+      if ($path_adj > 0)
+      {
+         for ($i = 1; $i <= $path_adj; ++$i)
+            $this->path_adj .= '../';
+      }
    }
    
    

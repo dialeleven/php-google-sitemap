@@ -36,7 +36,7 @@ catch (PDOException $e)
 }
 
 
-$sql_total = $sql = 'SELECT * FROM sample';
+$sql_total = $sql = 'SELECT COUNT(*) AS total FROM sample';
 
 // mysql PDO query non-prepared statement
 $stmt = $pdo->query($sql);
@@ -45,7 +45,7 @@ $totalrows = $stmt->rowCount();
 while ($query_data = $stmt->fetch())
 {
    // code here
-   echo "$query_data->id - $query_data->url<br>";
+   echo "Total Rows: $query_data->total<br>";
 }
 
 
