@@ -1,11 +1,15 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/__google_sitemap_template.class.php';
+
+
 $db_host = 'localhost';
 $db_name = 'test';
 $db_username = 'root';
 $db_password = '';
+$db_port = 3308;
 
 /* Connection string, or "data source name" */
-$dsn = 'mysql:host=' . $db_host . ';dbname=' . $db_name;
+$dsn = 'mysql:host=' . $db_host . ';dbname=' . $db_name . ';port=' . $db_port;
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -32,10 +36,17 @@ catch (PDOException $e)
 }
 
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/__google_sitemap_template.class.php';
+$sql_total = $sql = 'SELECT * FROM sample';
 
+// mysql PDO query non-prepared statement
+$stmt = $pdo->query($sql);
+$totalrows = $stmt->rowCount();
 
-$sql_total = 'SELECT COUNT(*) AS total FROM demo WHERE 1 = 1';
+while ($query_data = $stmt->fetch())
+{
+   // code here
+   echo "$query_data->id - $query_data->url<br>";
+}
 
 
 $my_sitemap = new GoogleSitemap($pdo, $sql_total, $http_host = $_SERVER['HTTP_HOST'], $sitemap_filename_prefix = 'mysitemap', 
