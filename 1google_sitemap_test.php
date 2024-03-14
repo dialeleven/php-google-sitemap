@@ -32,10 +32,14 @@ catch (PDOException $e)
 }
 
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '__google_sitemap_template.class.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/__google_sitemap_template.class.php';
 
 
-#$my_sitemap = new GoogleSitemap($sql_total, $http_host, $sitemap_filename_prefix, $sitemap_changefreq, $path_adj);
+$sql_total = 'SELECT COUNT(*) AS total FROM demo WHERE 1 = 1';
+
+
+$my_sitemap = new GoogleSitemap($pdo, $sql_total, $http_host = $_SERVER['HTTP_HOST'], $sitemap_filename_prefix = 'mysitemap', 
+                                $sitemap_changefreq = 'weeklly', $path_adj = 0);
 echo 'hello world';
 ?>
 

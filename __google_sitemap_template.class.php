@@ -66,7 +66,8 @@ class GoogleSitemap
      * @param  string $http_host  http hostname to use for URLs - e.g. www.fabuloussavings.com, www.fabuloussavings.ca
      * @param  string $sitemap_filename_prefix  filename prefix to use for Sitemap index and Sitemap files
      * @param  string $sitemap_changefreq  Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
-     * @param  int $path_adj  number of steps up to the root directory from the CALLING script, not this one
+     * @param  int $path_adj  number of steps up to the root directory from the CALLING script (not this one) to write the sitemap
+     *                        file(s) to the root direcroy
      * @access public
      * @return void
      */
@@ -77,14 +78,11 @@ class GoogleSitemap
 
       $this->pdo = $pdo;
 
-      if (intval($path_adj))
+      // relative path adjustment to the root dir to write the sitemap files to
+      if ($path_adj > 0)
       {
          for ($i = 1; $i <= $path_adj; ++$i)
             $this->path_adj .= '../';
-      }
-      else if (ereg('[^0-9]', $path_adj))
-      {
-         die('ERROR: $path_adj parameter should be an integer value only. ' . $path_adj . ' was passed. Line ' . __LINE__ . ' in file ' . __FILE__);
       }
 
       #echo $sql_total;
