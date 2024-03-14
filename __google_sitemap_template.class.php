@@ -87,6 +87,7 @@ class GoogleSitemap
       $this->setPathAdjustmentToRootDir($path_adj);
    }
 
+   
    /**
      * Set the total number of links (URLs) that will be in the Google XML Sitemap.
      * The SQL query should look like 'SELECT COUNT(*) AS total FROM my_table_name' at a minimum.
@@ -106,6 +107,7 @@ class GoogleSitemap
       $query_data = $stmt->fetch();
       $this->total_links += $query_data->total;
    }
+
 
    /**
      * Set the relative path adjustment for writing the sitemap file(s) to the root directory
