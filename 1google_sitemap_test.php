@@ -39,7 +39,7 @@ $sql_total = 'SELECT COUNT(*) AS total FROM demo WHERE 1 = 1';
 
 
 $my_sitemap = new GoogleSitemap($pdo, $sql_total, $http_host = $_SERVER['HTTP_HOST'], $sitemap_filename_prefix = 'mysitemap', 
-                                $sitemap_changefreq = 'weeklly', $path_adj = 0);
+                                $sitemap_changefreq = 'weekly', $path_adj = 0);
 echo 'hello world';
 ?>
 
@@ -87,7 +87,7 @@ function interpolateSQL($pdo, $query, $params) {
 
    // Surround placehodlers with escape sequence, so we don't accidentally match
    // "?" or ":foo" inside any of the values.
-   $query = preg_replace(['/\?/', '/(:[a-zA-Z0-9_]+)/'], ["$s?$e", "$s$1$e"], $query);
+   $query = preg_replace(['/\?/', '/(:[a-zA-Z0-9_]+)/'], ["$s?$e", "$s$1$e"], $query ?? '');
 
    // Replace placeholders with actual values
    $query = preg_replace($keys, $values, $query, 1, $count);

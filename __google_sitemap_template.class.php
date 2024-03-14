@@ -87,7 +87,8 @@ class GoogleSitemap
 
       #echo $sql_total;
 
-      #echo interpolateSQL($pdo, $sql, $params = ['cat_name' => $cat_name, 'cat_description' => $cat_description, 'meta_title' => $meta_title, 'meta_description' => $meta_description, 'cat_id' => $cat_id]); // sql debugging
+      echo interpolateSQL($pdo, $sql, $params = []); // sql debugging
+      #echo interpolateSQL($pdo, $sql, $params = ['cat_name' => $cat_name]); // sql debugging
       $stmt = $this->pdo->prepare($sql_total);
       $stmt->execute([]);
 
@@ -607,7 +608,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   public function getUrlArraySitemapUrlTags(): string
+    protected function getUrlArraySitemapUrlTags(): string
    {
       // if url array is present, build the URL entries for them
       if (is_array($this->url_arr))
@@ -633,7 +634,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   public function getXmlUrlsetTagStart(): string
+    protected function getXmlUrlsetTagStart(): string
    {
       $sitemap_contents = '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n";
       $sitemap_contents .= '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84"' . "\r\n";
@@ -650,7 +651,7 @@ class GoogleSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   public function getXmlUrlsetTagEnd(): string
+   protected function getXmlUrlsetTagEnd(): string
    {
       $sitemap_contents = '</urlset>';
 
