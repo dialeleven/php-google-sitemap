@@ -101,7 +101,7 @@ class GoogleSitemap
       #echo $sql_total;
       #echo interpolateSQL($pdo, $sql_total, $params = []); // sql debugging
 
-      $stmt = $pdo->prepare($sql_total);
+      $stmt = $this->pdo->prepare($sql_total);
       $stmt->execute([]);
 
       $query_data = $stmt->fetch();
