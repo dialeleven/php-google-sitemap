@@ -96,7 +96,7 @@ class GoogleSitemap
      * @access private
      * @return void
      */
-   private function setTotalLinksSql($sql_total)
+   private function setTotalLinksSql(string $sql_total)
    {      
       #echo $sql_total;
       #echo interpolateSQL($pdo, $sql_total, $params = []); // sql debugging
@@ -117,7 +117,7 @@ class GoogleSitemap
      * @access private
      * @return void
      */
-   private function setPathAdjustmentToRootDir()
+   private function setPathAdjustmentToRootDir(int $path_adj)
    {      
       if ($path_adj > 0)
       {
