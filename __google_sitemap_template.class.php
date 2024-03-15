@@ -59,13 +59,9 @@ class GoogleSitemap
    public $createSitemapFileWithDelayedWriteOptionCounter = 0;
 
    /**
-     * Constructor gets total number of URLs and sets up various settings like Sitemap
-     * filename prefix, HTTP host to use in <loc>, <changefreq>, and file path adjustment
+     * Constructor gets HTTP host to use in <loc> to keep things simple. Call setter methods to set other props as needed.
      *
-     * @param  string $sql_total  SQL query for "total" (this must be an SQL field alias - e.g. COUNT(*) AS total)
-     * @param  string $http_host  http hostname to use for URLs - e.g. www.fabuloussavings.com, www.fabuloussavings.ca
-     * @param  string $sitemap_filename_prefix  filename prefix to use for Sitemap index and Sitemap files
-     * @param  string $sitemap_changefreq  Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
+     * @param  string $http_host  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
 
      * @access public
      * @return void
