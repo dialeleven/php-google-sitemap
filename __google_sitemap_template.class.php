@@ -29,6 +29,11 @@ History:          12/06/2011 - commented out <changefreq> tag as Google does not
  *
  * @author Francis Tsao
  */
+namespace Dialeleven\PhpGoogleXmlSitemap;
+
+use InvalidArgumentException;
+
+
 class GoogleSitemap
 {
    private $pdo;
