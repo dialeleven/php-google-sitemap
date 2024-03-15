@@ -72,7 +72,7 @@ class GoogleSitemap
      * @return void
      */
    public function __construct(object $pdo, string $sql_total, string $http_host, string $sitemap_filename_prefix, 
-                               string $sitemap_changefreq, int $path_adj = 0, bool $use_hostname_prefix = true)
+                               string $sitemap_changefreq, bool $use_hostname_prefix = true)
    {  
       $this->pdo = $pdo;
       $this->http_host = $http_host;
@@ -82,9 +82,6 @@ class GoogleSitemap
 
       // set total number of links (URLs) in the XML sitemap
       $this->setTotalLinksSQL($sql_total);
-
-      // relative path adjustment to the root dir to write the sitemap files to
-      $this->setPathAdjustmentToRootDir($path_adj);
    }
 
    
