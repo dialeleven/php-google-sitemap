@@ -42,7 +42,7 @@ class GoogleSitemap
    public $total_links;                   // total number of <loc> URL links
    private $max_sitemap_links = 50000;     // maximum is 50,000 URLs per file
    
-   MAX_SITEMAP_LINKS = 50000;
+   const MAX_SITEMAP_LINKS = 50000;
 
    #public $max_sitemap_links = 10;     // maximum is 50,000
    //public $max_filesize = 10485760;       // 10MB maximum (unsupported feature currently)
