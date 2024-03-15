@@ -8,13 +8,13 @@ History:
 */
 
 $db_host = 'localhost';
-$db_name = 'googlexmlsitemap';
+$db_name = 'test';
 $db_username = 'root';
 $db_password = '';
-
+$db_port = 3308;
 
 /* Connection string, or "data source name" */
-$dsn = 'mysql:host=' . $db_host . ';dbname=' . $db_name;
+$dsn = 'mysql:host=' . $db_host . ';dbname=' . $db_name . ';port=' . $db_port;
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
