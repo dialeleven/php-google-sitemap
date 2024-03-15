@@ -70,15 +70,19 @@ class GoogleSitemap
      * @access public
      * @return void
      */
-   public function __construct(object $pdo, string $sql_total, string $http_host)
+   public function __construct(string $http_host)
    {  
-      $this->pdo = $pdo;
       $this->http_host = $http_host;
-      $this->sitemap_changefreq = $sitemap_changefreq;
-      $this->use_hostname_prefix = $use_hostname_prefix;
+   }
 
-      // set total number of links (URLs) in the XML sitemap
-      $this->setTotalLinksSQL($sql_total);
+   public function setUseMysqlDbModeFlag(bool $use_db_mode, object $pdo, string $sql_total)
+   {
+      if ($use_db_mode == true)
+      {
+         $this->pdo = $pdo;
+
+         $this->setTotalLinksSQL($sql_total);
+      }
    }
 
    
