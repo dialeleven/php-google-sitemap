@@ -40,10 +40,13 @@ class GoogleSitemap
    private $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
    
    public $total_links;                   // total number of <loc> URL links
-   public $max_sitemap_links = 50000;     // maximum is 50,000 URLs per file
+   private $max_sitemap_links = 50000;     // maximum is 50,000 URLs per file
+   
+   MAX_SITEMAP_LINKS = 50000;
+
    #public $max_sitemap_links = 10;     // maximum is 50,000
    //public $max_filesize = 10485760;       // 10MB maximum (unsupported feature currently)
-   public $num_sitemaps = 0;              // total number of Sitemap files
+   private $num_sitemaps = 0;              // total number of Sitemap files
    public $sitemap_index_contents;        // contents of Sitemap index file
    public $sitemap_contents;              // contents of sitemap (URLs)
    private $status_item;                   // list item status messages
