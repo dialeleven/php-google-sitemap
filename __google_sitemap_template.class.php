@@ -37,7 +37,7 @@ class GoogleSitemap
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                       // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                       // file "sitemap_clients.xml, and sitemap files "sitemap_clients1.xml.gz")
-   public $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
+   private $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
    
    public $total_links;                   // total number of <loc> URL links
    public $max_sitemap_links = 50000;     // maximum is 50,000 URLs per file
@@ -70,7 +70,7 @@ class GoogleSitemap
      * @access public
      * @return void
      */
-   public function __construct(object $pdo, string $sql_total, string $http_host, string $sitemap_changefreq, bool $use_hostname_prefix = true)
+   public function __construct(object $pdo, string $sql_total, string $http_host)
    {  
       $this->pdo = $pdo;
       $this->http_host = $http_host;
@@ -129,6 +129,28 @@ class GoogleSitemap
    public function setSitemapFilenamePrefix(string $sitemap_filename_prefix)
    {
       $this->sitemap_filename_prefix = $sitemap_filename_prefix;
+   }
+
+
+   /**
+     * @param string $sitemap_changefreq  how often the content is expected to change (always, hourly, daily, weekly, monthly, yearly, never)
+     * @access public
+     * @return void
+     */
+   public function setSitemapChangefreq(string $sitemap_changefreq)
+   {
+      $this->sitemap_changefreq = $sitemap_changefreq;
+   }
+
+
+   /**
+     * @param bool $use_hostname_prefix  Flag to use default "https://$this->http_host" or leave blank if pulling a complete URL from DB
+     * @access public
+     * @return void
+     */
+   public function setHostnamePrefixFlag(bool $use_hostname_prefix)
+   {
+      $this->use_hostname_prefix = $use_hostname_prefix;
    }
    
    

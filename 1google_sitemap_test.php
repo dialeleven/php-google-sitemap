@@ -49,13 +49,15 @@ while ($query_data = $stmt->fetch())
 }
 
 
-$my_sitemap = new GoogleSitemap($pdo, $sql_total, $http_host = $_SERVER['HTTP_HOST'], $sitemap_changefreq = 'weekly');
+$my_sitemap = new GoogleSitemap($pdo, $sql_total, $http_host = $_SERVER['HTTP_HOST']);
 
 // is this script not in the root/public dir? enter the number of directories deep we are in (e.g. /in/here/google_sitemap.php = "2")
 #$my_sitemap->setPathAdjustmentToRootDir($path_adj = 0);
 
-// set name of sitemap file
-$my_sitemap->setSitemapFilenamePrefix('mysitemap');
+
+$my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file
+$my_sitemap->setSitemapChangeFreq('weekly'); // set sitemap 'changefreq'
+$my_sitemap->setHostnamePrefixFlag(1); // set to 1 to use "https://$_SERVER['HTTP_HOST]/"+REST-OF-YOUR-URL-HERE/
 ?>
 
 
