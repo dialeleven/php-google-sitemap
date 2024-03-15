@@ -34,7 +34,7 @@ class GoogleSitemap
    private $pdo;
    public $sql;
    public $http_host; // http hostname (minus the "http://" part - e.g. www.fabuloussavings.ca)
-   public $sitemap_filename_prefix = 'sitemap_changeme'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
+   public $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                       // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                       // file "sitemap_clients.xml, and sitemap files "sitemap_clients1.xml.gz")
    public $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
@@ -66,8 +66,7 @@ class GoogleSitemap
      * @param  string $http_host  http hostname to use for URLs - e.g. www.fabuloussavings.com, www.fabuloussavings.ca
      * @param  string $sitemap_filename_prefix  filename prefix to use for Sitemap index and Sitemap files
      * @param  string $sitemap_changefreq  Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
-     * @param  int $path_adj  number of steps up to the root directory from the CALLING script (not this one) to write the sitemap
-     *                        file(s) to the root direcroy
+
      * @access public
      * @return void
      */
@@ -110,7 +109,8 @@ class GoogleSitemap
      * Set the relative path adjustment for writing the sitemap file(s) to the root directory
      * in case we are somewhere below the root (e.g. /admin/googlesitemapbuilder/)
      *
-     * @param  
+     * @param int $path_adj  number of steps up to the root directory from the CALLING script (not this one) to write the sitemap
+     *                       file(s) to the root direcroy
      * @access private
      * @return void
      */
@@ -213,6 +213,8 @@ class GoogleSitemap
       $this->loc_url_template = $loc_url_template;
       $this->url_arr = $url_arr;
 
+      $offset = '';
+
       #print_r($this->db_field_name_arr);
 
       // if URL array (URL, changefreq) is passed, then adjust the total number of links per Sitemap.
@@ -291,6 +293,7 @@ class GoogleSitemap
       $this->db_field_name_arr = $db_field_name_arr;
       $this->loc_url_template = $loc_url_template;
       $this->url_arr = $url_arr;
+      $offset = '';
 
       // get total links for current SQL call
       #echo interpolateSQL($pdo, $sql, $params = ['cat_name' => $cat_name, 'cat_description' => $cat_description, 'meta_title' => $meta_title, 'meta_description' => $meta_description, 'cat_id' => $cat_id]); // sql debugging
@@ -300,7 +303,7 @@ class GoogleSitemap
       $totalrows_for_current_call = $stmt->rowCount();
 
 
-      echo $this->sql . " has [<b style='color: blue;'>$totalrows</b>] rows.<p>Call [$this->createSitemapFileWithDelayedWriteOptionCounter] for createSitemapFileWithDelayedWriteOption()</p>" . '<hr>';
+      echo $this->sql . " has [<b style='color: blue;'>$totalrows_for_current_call</b>] rows.<p>Call [$this->createSitemapFileWithDelayedWriteOptionCounter] for createSitemapFileWithDelayedWriteOption()</p>" . '<hr>';
       #print_r($this->db_field_name_arr);
 
       // if URL array (URL, changefreq) is passed, then adjust the total number of links per Sitemap.
@@ -680,4 +683,3 @@ class GoogleSitemap
       return $sitemap_contents;
    }
 }
-?>
