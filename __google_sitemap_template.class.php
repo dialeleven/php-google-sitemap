@@ -34,7 +34,7 @@ class GoogleSitemap
    private $pdo;
    public $sql;
    public $http_host; // http hostname (minus the "http://" part - e.g. www.fabuloussavings.ca)
-   public $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
+   private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                       // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                       // file "sitemap_clients.xml, and sitemap files "sitemap_clients1.xml.gz")
    public $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
@@ -114,13 +114,23 @@ class GoogleSitemap
      * @access private
      * @return void
      */
-   private function setPathAdjustmentToRootDir(int $path_adj)
+   public function setPathAdjustmentToRootDir(int $path_adj)
    {      
       if ($path_adj > 0)
       {
          for ($i = 1; $i <= $path_adj; ++$i)
             $this->path_adj .= '../';
       }
+   }
+
+   /**
+     * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
+     * @access public
+     * @return void
+     */
+   public function setSitemapFilenamePrefix(string $sitemap_filename_prefix)
+   {
+      $this->sitemap_filename_prefix = $sitemap_filename_prefix;
    }
    
    
