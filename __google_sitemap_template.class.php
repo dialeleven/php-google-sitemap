@@ -11,13 +11,13 @@ History:          12/06/2011 - commented out <changefreq> tag as Google does not
 
 
 /**
- * GoogleSitemapCategory - create Google Sitemap listing of all product pages
+ * GoogleSitemap - create Google XML Sitemap from either a MySQL query or supplied list (array?) of URLs
  *
  * History: 
  *
  * Sample usage
  * <code>
- * $mysitemap = new GoogleSitemap($sql_total, $http_host, $sitemap_filename_prefix, $sitemap_changefreq, $path_adj);
+ * $mysitemap = new GoogleSitemap($http_host);
  * 
  * // repeat this call as many times as required if assembling a sitemap that needs 
  * // to execute several different SQL statements
