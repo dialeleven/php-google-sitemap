@@ -34,7 +34,7 @@ namespace Dialeleven\PhpGoogleXmlSitemap;
 use InvalidArgumentException;
 
 
-class GoogleSitemap
+class GoogleXmlSitemap
 {
    private $pdo;
    public $sql;

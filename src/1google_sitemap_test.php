@@ -2,7 +2,7 @@
 use Dialeleven\PhpGoogleXmlSitemap;
 
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/src/__google_sitemap_template.class.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/src/db_connect.inc.php';
 
 
@@ -21,7 +21,7 @@ while ($query_data = $stmt->fetch())
 }
 
 
-$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleSitemap($http_host = $_SERVER['HTTP_HOST']);
+$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_host = $_SERVER['HTTP_HOST']);
 
 // is this script not in the root/public dir? enter the number of directories deep we are in (e.g. /in/here/google_sitemap.php = "2")
 #$my_sitemap->setPathAdjustmentToRootDir($path_adj = 0);
