@@ -24,6 +24,27 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertStringContainsString('my_sitemap_filename', $mysitemap->getSitemapFilenamePrefix());
    }
 
+   public function testSetSitemapChangefreq()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'http://www.domain.com');
+      $mysitemap->setSitemapChangefreq('weekly');
+
+      $this->assertIsString('weekly', $mysitemap->getSitemapChangefreq());
+      $this->assertStringContainsString('weekly', $mysitemap->getSitemapChangefreq());
+   }
+
+   public function testSetHostnamePrefixFlag()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'http://www.domain.com');
+      $mysitemap->setHostnamePrefixFlag(true);
+
+      $this->assertIsBool($mysitemap->use_hostname_prefix);
+      $this->assertTrue($mysitemap->use_hostname_prefix);
+
+      $mysitemap->setHostnamePrefixFlag(false);
+      $this->assertFalse($mysitemap->use_hostname_prefix);
+   }
+
    /*
    public function testSetUseMysqlDbModeFlag()
    {

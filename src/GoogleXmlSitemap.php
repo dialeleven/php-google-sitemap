@@ -157,6 +157,11 @@ class GoogleXmlSitemap
       $this->sitemap_changefreq = $sitemap_changefreq;
    }
 
+   public function getSitemapChangefreq(): string
+   {
+      return $this->sitemap_changefreq;
+   }
+
 
    /**
      * @param bool $use_hostname_prefix  Flag to use default "https://$this->http_host" or leave blank if pulling a complete URL from DB
