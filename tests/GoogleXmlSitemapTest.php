@@ -20,6 +20,7 @@ class GoogleXmlSitemapTest extends TestCase
       $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
 
       $this->assertTrue($mysitemap->setSitemapFilenamePrefix('my_sitemap_filename'));
+      $this->assertIsString($mysitemap->getSitemapFilenamePrefix());
       $this->assertStringContainsString('my_sitemap_filename', $mysitemap->getSitemapFilenamePrefix());
    }
 
