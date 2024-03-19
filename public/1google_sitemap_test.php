@@ -3,7 +3,7 @@ use Dialeleven\PhpGoogleXmlSitemap;
 
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/src/db_connect.inc.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/public/db_connect.inc.php';
 
 
 
