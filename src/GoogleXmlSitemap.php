@@ -118,7 +118,7 @@ class GoogleXmlSitemap
      * @param int $path_adj  number of steps up to the root directory from the CALLING script (not this one) to write the sitemap
      *                       file(s) to the root direcroy
      * @access private
-     * @return void
+     * @return bool
      */
    public function setPathAdjustmentToRootDir(int $path_adj)
    {      
@@ -132,11 +132,18 @@ class GoogleXmlSitemap
    /**
      * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
      * @access public
-     * @return void
+     * @return bool
      */
-   public function setSitemapFilenamePrefix(string $sitemap_filename_prefix)
+   public function setSitemapFilenamePrefix(string $sitemap_filename_prefix): bool
    {
       $this->sitemap_filename_prefix = $sitemap_filename_prefix;
+
+      return true;
+   }
+
+   public function getSitemapFilenamePrefix(): string
+   {
+      return $this->sitemap_filename_prefix;
    }
 
 
