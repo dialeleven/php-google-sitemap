@@ -7,6 +7,7 @@ Purpose:          MySQL PDO database connection script
 History:          
 */
 
+
 $db_host = 'localhost';
 $db_name = 'test';
 $db_username = 'root';
@@ -20,10 +21,10 @@ $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     #PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     #PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_BOTH,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_LAZY,
 
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
-
 
 /* Connection inside a try/catch block */
 try
@@ -95,4 +96,3 @@ function interpolateSQL($pdo, $query, $params) {
 
    return $query;
 }
-?>
