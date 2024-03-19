@@ -227,6 +227,7 @@ class GoogleXmlSitemap
 
       for ($i = 1; $i <= $this->num_sitemaps; ++$i)
       {
+         // TODO: change 'sitemap_index_contents' to maybe sitemap_index_contents_urls_only?
          $this->sitemap_index_contents .= '   <sitemap>' . "\r\n";
          $this->sitemap_index_contents .= "      <loc>https://$this->http_host/$this->sitemap_filename_prefix{$i}.xml.gz</loc>\r\n";
          $this->sitemap_index_contents .= '      <lastmod>' . $lastmod . '</lastmod>' . "\r\n";

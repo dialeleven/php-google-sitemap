@@ -45,6 +45,31 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertFalse($mysitemap->use_hostname_prefix);
    }
 
+   public function testSetTotalLinks()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'http://www.domain.com');
+      $mysitemap->setTotalLinks(10);
+
+      $this->assertIsInt(10, $mysitemap->total_links);
+      $this->assertEquals(10, $mysitemap->total_links);
+   }
+
+   public function testBuildSitemapIndexContents()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'http://www.domain.com');
+      $mysitemap->buildSitemapIndexContents();
+
+      $this->assertIsString($mysitemap->sitemap_index_contents);
+   }
+
+   public function testBuildSitemapIndexContentsUrlsOnly()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'http://www.domain.com');
+      $mysitemap->buildSitemapIndexContentsUrlsOnly();
+
+      $this->assertIsString($mysitemap->sitemap_index_contents);
+   }
+
    /*
    public function testSetUseMysqlDbModeFlag()
    {
