@@ -201,6 +201,12 @@ class GoogleXmlSitemap
    
    /**
      * Builds contents of the sitemap index file (similar to a table of contents).
+     * This will list all of your sitemap files
+     * 
+     * Example:
+     *   - http://www.domain.com/my_sitemap_file1.xml.gz
+     *   - http://www.domain.com/my_sitemap_file2.xml.gz
+     *   - etc...
      * @access public
      * @return void
      */
