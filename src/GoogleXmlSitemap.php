@@ -131,8 +131,12 @@ class GoogleXmlSitemap
 
          return true;
       }
+      // if zero is passed, set to empty string for PHPUnit
       else
+      {
+         $this->path_adj = '';
          return false;
+      }
    }
 
    public function getPathAdjustmentToRootDir(): string
