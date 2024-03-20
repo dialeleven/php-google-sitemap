@@ -88,5 +88,8 @@ class GoogleXmlSitemapTest extends TestCase
 
       // test setting a valid value
       $this->assertMatchesRegularExpression( '#(\.\./)*#', $mysitemap->getPathAdjustmentToRootDir());
+
+      // test passing zero (should normally be >= 1)
+      $this->assertFalse($mysitemap->setPathAdjustmentToRootDir(0));
    }
 }
