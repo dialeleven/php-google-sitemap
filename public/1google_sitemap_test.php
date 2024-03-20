@@ -34,3 +34,7 @@ $my_sitemap->setHostnamePrefixFlag(true); // 'true' to use "https://$_SERVER['HT
 
 #throw new Exception('Test exception here');
 #throw new InvalidArgumentException('test');
+
+$path = '../../';
+
+echo (preg_match('#(\.\./){1,}#', $path)) ? 'match' : 'no match';

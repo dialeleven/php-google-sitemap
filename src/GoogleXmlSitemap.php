@@ -31,6 +31,7 @@ History:          12/06/2011 - commented out <changefreq> tag as Google does not
  */
 namespace Dialeleven\PhpGoogleXmlSitemap;
 
+use Exception;
 use InvalidArgumentException;
 
 
@@ -79,6 +80,7 @@ class GoogleXmlSitemap
       $this->http_host = $http_host;
    }
 
+   // TODO: PHPUnit test- setUseMysqlDbModeFlag
    public function setUseMysqlDbModeFlag(bool $use_db_mode, object $pdo, string $sql_total)
    {
       if ($use_db_mode == true)
@@ -126,7 +128,16 @@ class GoogleXmlSitemap
       {
          for ($i = 1; $i <= $path_adj; ++$i)
             $this->path_adj .= '../';
+
+         return true;
       }
+      else
+         return false;
+   }
+
+   public function getPathAdjustmentToRootDir(): string
+   {
+      return $this->path_adj;
    }
 
    /**
@@ -193,6 +204,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
+   // TODO: PHPUnit test - buildSitemapIndexContents
     public function buildSitemapIndexContents()
    {
       $this->sitemap_index_contents = '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n";
@@ -233,6 +245,10 @@ class GoogleXmlSitemap
          $this->sitemap_index_contents .= '      <lastmod>' . $lastmod . '</lastmod>' . "\r\n";
          $this->sitemap_index_contents .= '   </sitemap>' . "\r\n";
       }
+
+      // if sitemap index contents are empty, set to empty string for PHPUnit to avoid null error
+      if (empty($this->sitemap_index_contents))
+         $this->sitemap_index_contents = '';
    }
    
    
@@ -257,6 +273,7 @@ class GoogleXmlSitemap
      * @param  array $url_arr  array of URLs (if you want to add more urls to the sitemap)
      * @return void
      */
+   // TODO: PHPUnit test - createSitemapFile
    public function createSitemapFile(string $sql, array $db_field_name_arr, string $loc_url_template, array $url_arr = [])
    {
       $this->sql = $sql; // store this as we're calling buildSitemapContents() in a bit
@@ -336,7 +353,8 @@ class GoogleXmlSitemap
      * @param  array $url_arr  array of URLs (if you want to add more urls to the sitemap)
      * @return void
      */
-   public function createSitemapFileWithDelayedWriteOption(string $sql, array $db_field_name_arr, string $loc_url_template,
+    // TODO: PHPUnit test - createSitemapFileWithDelayedWriteOption
+    public function createSitemapFileWithDelayedWriteOption(string $sql, array $db_field_name_arr, string $loc_url_template,
                                                            array $url_arr = [], bool $build_sitemap_contents = true)
    {
       $this->createSitemapFileWithDelayedWriteOptionCounter++;
@@ -461,16 +479,18 @@ class GoogleXmlSitemap
    /**
      * Writes the sitemap index file listing all of the individual sitemap files used.
      * @access public
-     * @return void
+     * @return bool
      */
-   public function writeSitemapIndexFile()
+   // TODO: PHPUnit test - writeSitemapIndexFile
+     public function writeSitemapIndexFile(): bool
    {
       $sitemap_index_filename = "{$this->sitemap_filename_prefix}.xml";
       
       // open file for writing, any exisint file content will be overwritten
       if ( !($fp = @fopen("$this->path_adj$sitemap_index_filename", 'w') ) )
       {
-         $this->error_msg .= "<li>Could not open file $this->path_adj$sitemap_index_filename for writing</li>";
+         //$this->error_msg .= "<li>Could not open file $this->path_adj$sitemap_index_filename for writing</li>";
+         throw new Exception("ERROR: Could not open file $this->path_adj$sitemap_index_filename for writing");
       }
       // write file contents and update last update date
       else
@@ -479,6 +499,8 @@ class GoogleXmlSitemap
          fclose($fp);
          @chmod("../../$this->path_adj$sitemap_index_filename", 0755);
          $this->status_item .= "<li>Wrote <a href=\"../../$this->path_adj$sitemap_index_filename\">$sitemap_index_filename</a></li>";
+
+         return true;
       }
    }
    
@@ -489,6 +511,7 @@ class GoogleXmlSitemap
      * @access public
      * @return string $sitemap_contents
      */
+   // TODO: PHPUnit test - buildSitemapContents
    public function buildSitemapContents($sql_limit): string
    {
       // start processing SQL if passed

@@ -79,14 +79,14 @@ class GoogleXmlSitemapTest extends TestCase
       //$mysitemap->($use_db_mode = true, $pdo, $sql_total);
 
    }
-   
+   */
 
    public function testSetPathAdjustmentToRootDir()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
+      $mysitemap->setPathAdjustmentToRootDir(2);
 
       // test setting a valid value
-      $this->assertRegExp( '(#\.\./){1,}#', $mysitemap->setPathAdjustmentToRootDir($path_adj = 2) );
+      $this->assertMatchesRegularExpression( '#(\.\./){1,}#', $mysitemap->getPathAdjustmentToRootDir());
    }
-   */
 }
