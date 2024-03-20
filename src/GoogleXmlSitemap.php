@@ -498,8 +498,10 @@ class GoogleXmlSitemap
       // open file for writing, any exisint file content will be overwritten
       if ( !($fp = @fopen("$this->path_adj$sitemap_index_filename", 'w') ) )
       {
-         //$this->error_msg .= "<li>Could not open file $this->path_adj$sitemap_index_filename for writing</li>";
-         throw new Exception("ERROR: Could not open file $this->path_adj$sitemap_index_filename for writing");
+         $this->error_msg .= "<li>Could not open file $this->path_adj$sitemap_index_filename for writing</li>";
+
+         return false;
+         //throw new Exception("ERROR: Could not open file $this->path_adj$sitemap_index_filename for writing");
       }
       // write file contents and update last update date
       else

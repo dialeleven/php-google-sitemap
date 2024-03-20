@@ -101,4 +101,11 @@ class GoogleXmlSitemapTest extends TestCase
       // test passing negative num
       $this->assertFalse($mysitemap->setPathAdjustmentToRootDir(-1));
    }
+
+   public function testWriteSitemapIndexFile()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
+
+      $this->assertIsBool($mysitemap->writeSitemapIndexFile());
+   }
 }

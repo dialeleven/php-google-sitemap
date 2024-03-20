@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CLI Arguments" tests="9" assertions="19" errors="0" failures="0" skipped="0" time="0.011228">
+    <testsuite name="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" tests="9" assertions="19" errors="0" failures="0" skipped="0" time="0.011228">
+      <testcase name="testClassConstructor" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="9" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="1" time="0.003478"/>
+      <testcase name="testSetSitemapFilenamePrefix" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="18" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="3" time="0.000609"/>
+      <testcase name="testSetHostnamePrefixFlag" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="36" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="3" time="0.000207"/>
+      <testcase name="testSetTotalLinks" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="48" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="2" time="0.000278"/>
+      <testcase name="testBuildSitemapIndexContents" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="57" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="1" time="0.000116"/>
+      <testcase name="testBuildSitemapIndexContentsUrlsOnly" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="65" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="1" time="0.000105"/>
+      <testcase name="testSetPathAdjustmentToRootDir" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="84" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="5" time="0.000313"/>
+      <testcase name="testSetSitemapChangefreq" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="27" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="2" time="0.000119"/>
+      <testcase name="testWriteSitemapIndexFile" file="G:\My Documents 2\Websites\php-google-xml-sitemap\tests\GoogleXmlSitemapTest.php" line="105" class="Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemapTest" classname="Dialeleven.PhpGoogleXmlSitemap.GoogleXmlSitemapTest" assertions="1" time="0.006002"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
