@@ -45,7 +45,7 @@ class GoogleXmlSitemap
                                                       // file "sitemap_clients.xml, and sitemap files "sitemap_clients1.xml.gz")
    private $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
    
-   public $total_links;                   // total number of <loc> URL links
+   public $total_links = 0;                   // total number of <loc> URL links
    private $max_sitemap_links = 50000;     // maximum is 50,000 URLs per file
    
    const MAX_SITEMAP_LINKS = 50000;
@@ -199,7 +199,8 @@ class GoogleXmlSitemap
      */
     public function setTotalLinks(int $total_links)
    {
-      $this->total_links = $total_links;
+      if ($total_links >= 0)
+         $this->total_links = $total_links;
    }
    
    
