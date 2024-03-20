@@ -214,7 +214,6 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   // TODO: PHPUnit test - buildSitemapIndexContents
     public function buildSitemapIndexContents()
    {
       $this->sitemap_index_contents = '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n";
