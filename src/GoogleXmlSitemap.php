@@ -75,7 +75,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function __construct(string $http_host)
+   public function __construct(string $http_host): void
    {  
       $this->http_host = $http_host;
    }
@@ -103,7 +103,7 @@ class GoogleXmlSitemap
      * @access private
      * @return void
      */
-   private function setTotalLinksSQL(string $sql_total)
+   private function setTotalLinksSQL(string $sql_total): void
    {      
       #echo $sql_total;
       #echo interpolateSQL($pdo, $sql_total, $params = []); // sql debugging
@@ -125,7 +125,7 @@ class GoogleXmlSitemap
      * @access private
      * @return bool
      */
-   public function setPathAdjustmentToRootDir(int $path_adj)
+   public function setPathAdjustmentToRootDir(int $path_adj): bool
    {      
       if ($path_adj > 0)
       {
@@ -170,7 +170,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function setSitemapChangefreq(string $sitemap_changefreq)
+   public function setSitemapChangefreq(string $sitemap_changefreq): void
    {
       $this->sitemap_changefreq = $sitemap_changefreq;
    }
@@ -186,7 +186,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function setHostnamePrefixFlag(bool $use_hostname_prefix)
+   public function setHostnamePrefixFlag(bool $use_hostname_prefix): void
    {
       $this->use_hostname_prefix = $use_hostname_prefix;
    }
@@ -200,7 +200,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-    public function setTotalLinks(int $total_links)
+    public function setTotalLinks(int $total_links): void
    {
       if ($total_links >= 0)
          $this->total_links = $total_links;
@@ -218,7 +218,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-    public function buildSitemapIndexContents()
+    public function buildSitemapIndexContents(): void
    {
       $this->sitemap_index_contents = '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n";
       $this->sitemap_index_contents .= '<sitemapindex xmlns="http://www.google.com/schemas/sitemap/0.84"' . "\r\n";
@@ -246,7 +246,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function buildSitemapIndexContentsUrlsOnly()
+   public function buildSitemapIndexContentsUrlsOnly(): void
    {
       $lastmod = date('Y-m-d\TH:i:s+00:00', time());
 
@@ -287,7 +287,7 @@ class GoogleXmlSitemap
      * @return void
      */
    // TODO: PHPUnit test - createSitemapFile
-   public function createSitemapFile(string $sql, array $db_field_name_arr, string $loc_url_template, array $url_arr = [])
+   public function createSitemapFile(string $sql, array $db_field_name_arr, string $loc_url_template, array $url_arr = []): void
    {
       $this->sql = $sql; // store this as we're calling buildSitemapContents() in a bit
       $this->db_field_name_arr = $db_field_name_arr;
@@ -368,7 +368,7 @@ class GoogleXmlSitemap
      */
     // TODO: PHPUnit test - createSitemapFileWithDelayedWriteOption
     public function createSitemapFileWithDelayedWriteOption(string $sql, array $db_field_name_arr, string $loc_url_template,
-                                                           array $url_arr = [], bool $build_sitemap_contents = true)
+                                                           array $url_arr = [], bool $build_sitemap_contents = true): void
    {
       $this->createSitemapFileWithDelayedWriteOptionCounter++;
       $this->sql = $sql; // store this as we're calling buildSitemapContents() in a bit

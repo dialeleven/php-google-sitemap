@@ -8,6 +8,15 @@ use PDOStatement;
 class GoogleXmlSitemapTest extends TestCase
 {
    // tests go here
+   public static function setUp(): void
+   {
+      self::$connection = new \PDO($dsn, $usr, $pwd, array());
+   }
+   public static function tearDown(): void
+   {
+      self::$connection = null;
+   }
+
    public function testClassConstructor()
    {
       // Instantiate the GoogleXmlSitemap class
