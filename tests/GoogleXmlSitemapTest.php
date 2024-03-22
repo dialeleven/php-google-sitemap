@@ -154,4 +154,11 @@ class GoogleXmlSitemapTest extends TestCase
 
       $this->assertIsBool($mysitemap->setUseMysqlDbModeFlag($use_db_mode = true, self::$pdo, $sql_total = 'SELECT 1 as total'));
    }
+
+   public function testBuildSitemapContents()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
+
+      $this->assertIsString($mysitemap->buildSitemapContents($sql_limit = ''));
+   }
 }
