@@ -2,6 +2,8 @@
 namespace Dialeleven\PhpGoogleXmlSitemap;
 
 use PHPUnit\Framework\TestCase;
+use PDO;
+use PDOStatement;
 
 class GoogleXmlSitemapTest extends TestCase
 {
@@ -107,5 +109,25 @@ class GoogleXmlSitemapTest extends TestCase
       $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
 
       $this->assertIsBool($mysitemap->writeSitemapIndexFile());
+   }
+
+   public function testSetUseMysqlDbModeFlag()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
+
+      // Create a mock PDO object
+      $mockPDO = $this->getMockBuilder(PDO::class)
+                      ->disableOriginalConstructor()
+                      ->getMock();
+
+      // Set up any expectations or method calls on the mock object
+      $mockPDO->expects($this->once())
+              ->method('prepare')
+              ->willReturn($this->createMock(PDOStatement::class));
+
+
+      $mysitemap->setUseMysqlDbModeFlag($use_db_mode = true, $mockPDO, $sql_total = 'SELECT 1 as total');
+
+      $this->assertIsBool(true);
    }
 }

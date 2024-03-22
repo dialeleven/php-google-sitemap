@@ -81,14 +81,17 @@ class GoogleXmlSitemap
    }
 
    // TODO: PHPUnit test- setUseMysqlDbModeFlag
-   public function setUseMysqlDbModeFlag(bool $use_db_mode, object $pdo, string $sql_total)
+   public function setUseMysqlDbModeFlag(bool $use_db_mode, object $pdo, string $sql_total): bool
    {
       if ($use_db_mode == true)
       {
          $this->pdo = $pdo;
 
          $this->setTotalLinksSQL($sql_total);
+         return true;
       }
+      else
+         return false;
    }
 
    
@@ -491,7 +494,6 @@ class GoogleXmlSitemap
      * @access public
      * @return bool
      */
-   // TODO: PHPUnit test - writeSitemapIndexFile
      public function writeSitemapIndexFile(): bool
    {
       $sitemap_index_filename = "{$this->sitemap_filename_prefix}.xml";
