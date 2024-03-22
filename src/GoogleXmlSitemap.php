@@ -524,7 +524,6 @@ class GoogleXmlSitemap
      * @access public
      * @return string $sitemap_contents
      */
-   // TODO: PHPUnit test - buildSitemapContents
    public function buildSitemapContents($sql_limit): string
    {
       // start processing SQL if passed
@@ -608,6 +607,10 @@ class GoogleXmlSitemap
          
          // get ending </urlset> tag
          $sitemap_contents .= $this->getXmlUrlsetTagEnd();
+      }
+      else
+      {
+         $sitemap_contents = '';
       }
       
       return $sitemap_contents;
