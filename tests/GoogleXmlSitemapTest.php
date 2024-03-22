@@ -126,8 +126,6 @@ class GoogleXmlSitemapTest extends TestCase
               ->willReturn($this->createMock(PDOStatement::class));
 
 
-      $mysitemap->setUseMysqlDbModeFlag($use_db_mode = true, $mockPDO, $sql_total = 'SELECT 1 as total');
-
-      $this->assertIsBool(true);
+      $this->assertIsBool($mysitemap->setUseMysqlDbModeFlag($use_db_mode = true, $mockPDO, $sql_total = 'SELECT 1 as total'));
    }
 }
