@@ -80,7 +80,6 @@ class GoogleXmlSitemap
       $this->http_host = $http_host;
    }
 
-   // TODO: PHPUnit test- setUseMysqlDbModeFlag
    public function setUseMysqlDbModeFlag(bool $use_db_mode, object $pdo, string $sql_total): bool
    {
       if ($use_db_mode == true)
