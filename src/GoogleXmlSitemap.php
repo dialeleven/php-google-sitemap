@@ -75,7 +75,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function __construct(string $http_host): void
+   public function __construct(string $http_host)
    {  
       $this->http_host = $http_host;
    }

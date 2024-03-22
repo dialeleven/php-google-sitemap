@@ -8,14 +8,31 @@ use PDOStatement;
 class GoogleXmlSitemapTest extends TestCase
 {
    // tests go here
-   public static function setUp(): void
+   private static $pdo; // MySQL PDO object if doing a query
+   
+   public function setUp(): void
    {
-      self::$connection = new \PDO($dsn, $usr, $pwd, array());
+      // set up MySQL PDO object for use with DB mode
+      $db_host = 'localhost';
+      $db_name = 'test';
+      $db_username = 'root';
+      $db_password = '';
+      $db_port = 3308;
+
+      $dsn = 'mysql:host=' . $db_host . ';dbname=' . $db_name . ';port=' . $db_port;
+
+      $options = [
+         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+         #PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+         #PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_BOTH,
+         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_LAZY,
+     
+         PDO::ATTR_EMULATE_PREPARES   => false,
+     ];
+
+      self::$pdo = new PDO($dsn, $db_username, $db_password, $options);
    }
-   public static function tearDown(): void
-   {
-      self::$connection = null;
-   }
+
 
    public function testClassConstructor()
    {
@@ -123,7 +140,7 @@ class GoogleXmlSitemapTest extends TestCase
    public function testSetUseMysqlDbModeFlag()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
-
+      /*
       // Create a mock PDO object
       $mockPDO = $this->getMockBuilder(PDO::class)
                       ->disableOriginalConstructor()
@@ -133,8 +150,8 @@ class GoogleXmlSitemapTest extends TestCase
       $mockPDO->expects($this->once())
               ->method('prepare')
               ->willReturn($this->createMock(PDOStatement::class));
+      */
 
-
-      $this->assertIsBool($mysitemap->setUseMysqlDbModeFlag($use_db_mode = true, $mockPDO, $sql_total = 'SELECT 1 as total'));
+      $this->assertIsBool($mysitemap->setUseMysqlDbModeFlag($use_db_mode = true, self::$pdo, $sql_total = 'SELECT 1 as total'));
    }
 }
