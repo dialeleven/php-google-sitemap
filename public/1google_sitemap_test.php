@@ -20,6 +20,8 @@ while ($query_data = $stmt->fetch())
    echo "Total Rows: $query_data->total<br>";
 }
 
+// user should create an array of all their URLs
+
 
 $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_host = $_SERVER['HTTP_HOST']);
 

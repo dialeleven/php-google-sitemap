@@ -65,6 +65,8 @@ class GoogleXmlSitemap
    public $loc_url_template;
    public $url_arr;
 
+   private $urls = array(); // array of URLs supplied by user
+
    public $createSitemapFileWithDelayedWriteOptionCounter = 0;
 
    /**
@@ -203,6 +205,36 @@ class GoogleXmlSitemap
    {
       if ($total_links >= 0)
          $this->total_links = $total_links;
+   }
+
+
+   public function addUrl($url, $lastmod = '', $changefreq = '', $priority = ''): bool
+   {
+      if ($url)
+      {
+         $this->urls[] = $url;
+         
+         $this->sitemap_contents .= "   <url>\r\n";
+         $this->sitemap_contents .= "      <loc>";
+         $this->sitemap_contents .= ($this->use_hostname_prefix) ? "https://$this->http_host" : '';
+         $this->sitemap_contents .= "</loc>\r\n";
+         
+         if ($lastmod)
+            $this->sitemap_contents .= "      <lastmod>$lastmod</lastmod>\r\n";
+         
+         if ($changefreq)
+            $this->sitemap_contents .= "      <changefreq>$changefreq</changefreq>\r\n";
+
+         if ($priority)
+            $this->sitemap_contents .= "      <priority>$priority</priority>\r\n";
+         
+         if ($changefreq)
+            $this->sitemap_contents .= "      <changefreq>changefreq</changefreq>\r\n";
+
+         $this->sitemap_contents .= "   </url>\r\n";
+         return true;
+      }
+
    }
    
    

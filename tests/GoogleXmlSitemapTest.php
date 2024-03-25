@@ -161,4 +161,15 @@ class GoogleXmlSitemapTest extends TestCase
 
       $this->assertIsString($mysitemap->buildSitemapContents($sql_limit = ''));
    }
+
+   public function testAddUrl()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
+
+      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com'));
+      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24'));
+      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24', $changefreq = 'weekly'));
+      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24', $changefreq = 'weekly', $priority = '1.0'));
+      #$this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com'));
+   }
 }
