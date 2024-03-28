@@ -38,6 +38,9 @@ use InvalidArgumentException;
 class GoogleXmlSitemap
 {
    private $pdo;
+
+   private $xml_writer;
+
    public $sql;
    public $http_host; // http hostname (minus the "http://" part - e.g. www.fabuloussavings.ca)
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
@@ -234,7 +237,7 @@ class GoogleXmlSitemap
          $this->sitemap_contents .= "   </url>\r\n";
          return true;
       }
-      
+
       return false;
 
    }
