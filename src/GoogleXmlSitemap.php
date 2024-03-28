@@ -234,6 +234,8 @@ class GoogleXmlSitemap
          $this->sitemap_contents .= "   </url>\r\n";
          return true;
       }
+      
+      return false;
 
    }
    
