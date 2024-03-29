@@ -41,6 +41,8 @@ class GoogleXmlSitemap
 
    private $xml_writer;
 
+   private $url_count = 0;
+
    public $sql;
    public $http_host; // http hostname (minus the "http://" part - e.g. www.fabuloussavings.ca)
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
@@ -213,6 +215,12 @@ class GoogleXmlSitemap
 
    public function addUrl($url, $lastmod = '', $changefreq = '', $priority = ''): bool
    {
+      if ($this->url_count > MAX_SITEMAP_LINKS)
+      {
+         // method to end current sitemap file and start a new one
+         #$this->startNewXmlFile();
+      }
+
       if ($url)
       {
          $this->urls[] = $url;
@@ -235,6 +243,9 @@ class GoogleXmlSitemap
             $this->sitemap_contents .= "      <changefreq>changefreq</changefreq>\r\n";
 
          $this->sitemap_contents .= "   </url>\r\n";
+
+         // increment total url counter
+         ++$this->url_count;
          return true;
       }
 
