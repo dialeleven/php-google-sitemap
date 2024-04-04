@@ -177,10 +177,15 @@ class GoogleXmlSitemapTest extends TestCase
    public function testOpenXml()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'openXml');
+
+      // make protected method accessible for testing
       $method->setAccessible(true);
   
-      $result = $method->invoke($mysitemap, 'memory');
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($mysitemap, $mode = 'memory');
       
       $this->assertTrue(true, $result);
    }
