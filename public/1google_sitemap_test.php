@@ -33,6 +33,8 @@ $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file 
 $my_sitemap->setSitemapChangeFreq('weekly'); // set sitemap 'changefreq' how often the content is expected to change (always, hourly, daily, weekly, monthly, yearly, never)
 $my_sitemap->setHostnamePrefixFlag(true); // 'true' to use "https://$_SERVER['HTTP_HOST]/"+REST-OF-YOUR-URL-HERE/. 'false' if using full URLs.
 
+//$my_sitemap->openXml($mode = 'memory');
+
 
 #throw new Exception('Test exception here');
 #throw new InvalidArgumentException('test');

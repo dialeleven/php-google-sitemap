@@ -33,6 +33,7 @@ namespace Dialeleven\PhpGoogleXmlSitemap;
 
 use Exception;
 use InvalidArgumentException;
+use XMLWriter;
 
 
 class GoogleXmlSitemap
@@ -54,6 +55,7 @@ class GoogleXmlSitemap
    private $max_sitemap_links = 50000;     // maximum is 50,000 URLs per file
    
    const MAX_SITEMAP_LINKS = 50000;
+   const SITEMAP_FILENAME_SUFFIX = '.xml';
 
    #public $max_sitemap_links = 10;     // maximum is 50,000
    //public $max_filesize = 10485760;       // 10MB maximum (unsupported feature currently)
@@ -215,7 +217,7 @@ class GoogleXmlSitemap
 
    public function addUrl($url, $lastmod = '', $changefreq = '', $priority = ''): bool
    {
-      if ($this->url_count > MAX_SITEMAP_LINKS)
+      if ($this->url_count > self::MAX_SITEMAP_LINKS)
       {
          // method to end current sitemap file and start a new one
          #$this->startNewXmlFile();
@@ -820,4 +822,32 @@ class GoogleXmlSitemap
 
       return $sitemap_contents;
    }
+
+
+
+   /////////////////////// NEW XMLwriter methods ///////////////////////////
+   protected function openXml($mode = 'memory'): bool
+   {
+      // Create a new XMLWriter instance
+      $this->xml_writer = new XMLWriter();
+
+      // Set the output to memory (for testing mainly)
+      if ($mode == 'memory')
+         $this->xml_writer->openMemory();
+      // file writing mode
+      else
+         $xmlWriter->openURI($this->sitemap_filename_prefix . self::SITEMAP_FILENAME_SUFFIX);
+
+
+      // Set indentation and line breaks for readability
+      $this->xml_writer->setIndent(true);
+      $this->xml_writer->setIndentString('   '); // Adjust the number of spaces for indentation as desired
+
+
+      // Start the document with XML declaration and encoding
+      $this->xml_writer->startDocument('1.0', 'UTF-8');
+
+      return true;
+   }
+
 }

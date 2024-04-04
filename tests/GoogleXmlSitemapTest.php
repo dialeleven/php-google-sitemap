@@ -4,6 +4,7 @@ namespace Dialeleven\PhpGoogleXmlSitemap;
 use PHPUnit\Framework\TestCase;
 use PDO;
 use PDOStatement;
+use ReflectionMethod;
 
 class GoogleXmlSitemapTest extends TestCase
 {
@@ -171,5 +172,16 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24', $changefreq = 'weekly'));
       $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24', $changefreq = 'weekly', $priority = '1.0'));
       #$this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com'));
+   }
+
+   public function testOpenXml()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'openXml');
+      $method->setAccessible(true);
+  
+      $result = $method->invoke($mysitemap, 'memory');
+      
+      $this->assertTrue(true, $result);
    }
 }
