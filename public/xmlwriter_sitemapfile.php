@@ -15,6 +15,9 @@ $xmlWriter->setIndentString('   '); // Adjust the number of spaces for indentati
 // Start the document with XML declaration and encoding
 $xmlWriter->startDocument('1.0', 'UTF-8');
 
+
+
+
 // Start the 'urlset' element with namespace and attributes
 $xmlWriter->startElementNS(null, 'urlset', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 $xmlWriter->writeAttributeNS('xmlns', 'xsi', null, 'http://www.w3.org/2001/XMLSchema-instance');
@@ -34,7 +37,7 @@ $xmlWriter->writeElement('priority', '1.0');
 $xmlWriter->endElement();
 
 
-// End the 'urlset' element
+// End the 'sitemapindex/urlset' element
 $xmlWriter->endElement();
 
 // End the document

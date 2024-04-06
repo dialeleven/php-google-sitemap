@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 use PDO;
 use PDOStatement;
 use ReflectionMethod;
+use ReflectionProperty;
 
 class GoogleXmlSitemapTest extends TestCase
 {
@@ -187,6 +188,51 @@ class GoogleXmlSitemapTest extends TestCase
       // invoke protected method and pass whatever param is needed
       $result = $method->invoke($mysitemap, $mode = 'memory');
       
-      $this->assertTrue(true, $result);
+      $this->assertTrue($result);
+   }
+
+   public function testStartXmlNsElement()
+   {
+      $myObject = new GoogleXmlSitemap($http_host = '');
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'xml_writer');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $value = $reflectionProperty->getValue($myObject);
+
+      // Assert the value or perform any necessary checks
+      #$this->assertEquals('expectedValue', $value);
+      $this->assertNotNull($value);
+
+
+      
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'openXml');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject, $mode = 'memory');
+      
+      $this->assertTrue($result);
+
+
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlNsElement');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject, $xml_ns_type = 'sitemapindex');
+      
+      #$this->assertTrue($result);
    }
 }

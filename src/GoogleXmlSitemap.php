@@ -40,7 +40,7 @@ class GoogleXmlSitemap
 {
    private $pdo;
 
-   private $xml_writer;
+   public $xml_writer;
 
    private $url_count = 0;
 
@@ -87,6 +87,9 @@ class GoogleXmlSitemap
    public function __construct(string $http_host)
    {  
       $this->http_host = $http_host;
+      
+      // Create a new XMLWriter instance
+      $this->xml_writer = new XMLWriter();
    }
 
    public function setUseMysqlDbModeFlag(bool $use_db_mode, object $pdo, string $sql_total): bool
@@ -829,14 +832,14 @@ class GoogleXmlSitemap
    protected function openXml($mode = 'memory'): bool
    {
       // Create a new XMLWriter instance
-      $this->xml_writer = new XMLWriter();
+      #$this->xml_writer = new XMLWriter();
 
       // Set the output to memory (for testing mainly)
       if ($mode == 'memory')
          $this->xml_writer->openMemory();
       // file writing mode
       else
-         $xmlWriter->openURI($this->sitemap_filename_prefix . self::SITEMAP_FILENAME_SUFFIX);
+         $this->xml_writer->openURI($this->sitemap_filename_prefix . self::SITEMAP_FILENAME_SUFFIX);
 
 
       // Set indentation and line breaks for readability
@@ -850,4 +853,41 @@ class GoogleXmlSitemap
       return true;
    }
 
+   protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool
+   {
+      // Start the XMLNS element according to what Google needs based on 'sitemapindex' vs. 'urlset'
+      if ($xml_ns_type == 'sitemapindex')
+         $this->xml_writer->startElementNS(null, 'sitemapindex', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+      // Start the 'urlset' element with namespace and attributes
+      else
+         $this->xml_writer->startElementNS(null, 'urlset', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+
+      // remaining 'xmlns' attributes for both sitemapindex and urlset files are the same
+      $this->xml_writer->writeAttributeNS('xmlns', 'xsi', null, 'http://www.w3.org/2001/XMLSchema-instance');
+      $this->xml_writer->writeAttributeNS('xsi', 'schemaLocation', null, 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd');
+
+      return true;
+   }
+
+   protected function endXmlNsElement(): bool
+   {
+      // End the 'sitemapindex/urlset' element
+      $this->xml_writer->endElement();
+   }
+
+   
+   protected function endXmlDoc(): bool
+   {
+      // End the 'sitemapindex/urlset' element
+      $this->xml_writer->endDocument();
+   }
+
+   protected function outputXML($mode = 'browser'): bool
+   {
+      // Output the XML content
+      if ($mode == 'browser')
+         echo '<pre>'.htmlspecialchars($xmlWriter->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
+      else
+         $this->xml_writer->outputMemory();
+   }
 }

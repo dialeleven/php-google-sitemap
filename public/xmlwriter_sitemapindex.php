@@ -32,6 +32,18 @@ $xmlWriter->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
 $xmlWriter->endElement();
 
 
+
+// Start the 'sitemap' element
+$xmlWriter->startElement('sitemap');
+
+// Write the 'loc' element
+$xmlWriter->writeElement('loc', 'http://www.mydomain.com/someurl/sitemap2.xml.gz');
+$xmlWriter->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
+
+// End the 'sitemap' element
+$xmlWriter->endElement();
+
+
 // End the 'sitemapindex' element
 $xmlWriter->endElement();
 
