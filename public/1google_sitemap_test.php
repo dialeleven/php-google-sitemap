@@ -7,21 +7,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/public/db_connect.inc.php';
 
 
 
-
-$sql_total = $sql = 'SELECT COUNT(*) AS total FROM sample';
-
-// mysql PDO query non-prepared statement
-$stmt = $pdo->query($sql);
-$totalrows = $stmt->rowCount();
-
-while ($query_data = $stmt->fetch())
-{
-   // code here
-   echo "Total Rows: $query_data->total<br>";
-}
-
-// user should create an array of all their URLs
-
 /*
 Instansiate the PHP Google XML Sitemap Class. Pass your hostname below as an 
 argument using PHP's $_SERVER['HTTP_HOST'] or you can hard code your hostname
@@ -45,13 +30,25 @@ $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file 
 $my_sitemap->setSitemapChangeFreq('weekly'); // set sitemap 'changefreq' how often the content is expected to change (always, hourly, daily, weekly, monthly, yearly, never)
 $my_sitemap->setHostnamePrefixFlag(true); // 'true' to use "https://$_SERVER['HTTP_HOST]/"+REST-OF-YOUR-URL-HERE/. 'false' if using full URLs.
 
+
+// start XML file for <urlset> XML file(s)
+$my_sitemap->openXml($mode = 'memory', $xml_ns_type = 'urlset'); //$my_sitemap->openXml($mode = 'file');
 /*
 Start adding your URLs
 */
 
-$my_sitemap->openXml($mode = 'memory'); //$my_sitemap->openXml($mode = 'file');
 
 
+$sql_urls = 'SELECT url FROM sample ORDER BY url';
+
+// mysql PDO query non-prepared statement
+$stmt = $pdo->query($sql);
+
+while ($query_data = $stmt->fetch())
+{
+   // code here
+   
+}
 
 
 #throw new Exception('Test exception here');

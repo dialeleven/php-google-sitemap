@@ -835,9 +835,11 @@ class GoogleXmlSitemap
      * save as a file with the specified filename. Set our indentation and then of course
      * start with the <?xml version="1.0" encoding="UTF-8"?> tag.
      * @access protected
+     * @param  string $mode  send the resulting XML to 'memory' (browser) or 'file'
+     * @param  string $xml_ns_type  values ('urlset' or 'sitemapindex') create either a <urlset xmlns> tag or <sitemapindex> tag
      * @return bool
      */      
-   protected function openXml($mode = 'memory'): bool
+   protected function openXml($mode = 'memory', $xml_ns_type = 'urlset'): bool
    {
       // Create a new XMLWriter instance
       #$this->xml_writer = new XMLWriter();
@@ -893,6 +895,19 @@ class GoogleXmlSitemap
       return true;
    }
 
+   protected function startNewUrlsetXmlFile()
+   {
+      // increment number of sitemaps counter
+      ++$this->num_sitemaps;
+
+      if ($this->url_count >= self::MAX_SITEMAP_LINKS)
+      {
+         // TODO: end the </urlset> tag
+
+         // TODO: start new XML document and <urlset>
+      }
+   }
+
 
    /**
      * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
@@ -907,8 +922,11 @@ class GoogleXmlSitemap
      * @access public
      * @return bool
      */   
-    public function addUrlNew(string $url, string $lastmod = '', string $changefreq = '', string $priority = '')
+    public function addUrlNew2(string $url, string $lastmod = '', string $changefreq = '', string $priority = '')
     {
+       // TODO: check if we need a new XML file
+       $this->startNewUrlsetXmlFile();
+
        // Start the 'url' element
        $this->xml_writer->startElement('url');
  
@@ -928,6 +946,9 @@ class GoogleXmlSitemap
  
        // End the 'url' element
        $this->xml_writer->endElement();
+
+       // increment URL count so we can start a new <urlset> XML file if needed
+       ++$this->url_count;
  
        return true;
     }

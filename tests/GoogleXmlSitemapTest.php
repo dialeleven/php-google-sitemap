@@ -253,9 +253,25 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertTrue($result);
 
       // call addUrlNew() method
-      $this->assertTrue($mysitemap->addUrlNew($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0'));
+      $this->assertTrue($mysitemap->addUrlNew2($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0'));
       
       // invalid test
       #$this->assertTrue($mysitemap->addUrlNew($url, $lastmod, $changefreq, $priority));
+
+
+      
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $value = $reflectionProperty->getValue($mysitemap);
+
+      // Assert the value or perform any necessary checks
+      #$this->assertEquals('expectedValue', $value);
+      $this->assertEquals(1, $value);
+
    }
 }
