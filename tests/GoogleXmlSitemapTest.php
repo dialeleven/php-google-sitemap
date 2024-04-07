@@ -235,4 +235,27 @@ class GoogleXmlSitemapTest extends TestCase
       
       #$this->assertTrue($result);
    }
+
+
+   public function testAddUrl2()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'openXml');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($mysitemap, $mode = 'memory');
+      
+      $this->assertTrue($result);
+
+      // call addUrlNew() method
+      $this->assertTrue($mysitemap->addUrlNew($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0'));
+      
+      // invalid test
+      #$this->assertTrue($mysitemap->addUrlNew($url, $lastmod, $changefreq, $priority));
+   }
 }

@@ -829,6 +829,14 @@ class GoogleXmlSitemap
 
 
    /////////////////////// NEW XMLwriter methods ///////////////////////////
+
+   /**
+     * Start the XML document. Use either 'memory' mode to send to browser or 'openURI()'
+     * save as a file with the specified filename. Set our indentation and then of course
+     * start with the <?xml version="1.0" encoding="UTF-8"?> tag.
+     * @access protected
+     * @return bool
+     */      
    protected function openXml($mode = 'memory'): bool
    {
       // Create a new XMLWriter instance
@@ -850,9 +858,25 @@ class GoogleXmlSitemap
       // Start the document with XML declaration and encoding
       $this->xml_writer->startDocument('1.0', 'UTF-8');
 
+      // open our cotainting tag either 'sitemapindex' or 'urlset'
+      $this->startXmlNsElement($xml_ns_type = 'urlset');
+
       return true;
    }
 
+
+   /**
+     * Open the "xmlns" tag for either the Sitemap Index or 'urlset' list of
+     * tags including the xmlns and xsi attributes needed. 
+     * 
+     * e.g. sitemap index follows:
+     *   <sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     * 
+     * 'urlset' XML file container tag follows:
+     *   <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     * @access protected
+     * @return bool
+     */      
    protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool
    {
       // Start the XMLNS element according to what Google needs based on 'sitemapindex' vs. 'urlset'
@@ -868,6 +892,48 @@ class GoogleXmlSitemap
 
       return true;
    }
+
+
+   /**
+     * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
+     * 
+     * e.g.
+     *    <url>
+     *       <loc>http://www.mydomain.com/someurl/</loc>
+     *       <lastmod>2024-04-06</lastmod>
+     *       <changefreq>weekly</changefreq>
+     *       <priority>1.0</priority>
+     *    </url>
+     * @access public
+     * @return bool
+     */   
+    public function addUrlNew(string $url, string $lastmod = '', string $changefreq = '', string $priority = '')
+    {
+       // Start the 'url' element
+       $this->xml_writer->startElement('url');
+ 
+       if (empty($url))
+         throw new Exception("ERROR: url cannot be empty");
+
+       $this->xml_writer->writeElement('loc', $url);
+ 
+       if ($lastmod)
+          $this->xml_writer->writeElement('lastmod', $lastmod);
+ 
+       if ($changefreq)
+          $this->xml_writer->writeElement('changefreq', $changefreq);
+ 
+       if ($priority)
+          $this->xml_writer->writeElement('priority', $priority);
+ 
+       // End the 'url' element
+       $this->xml_writer->endElement();
+ 
+       return true;
+    }
+ 
+
+
 
    protected function endXmlNsElement(): bool
    {
