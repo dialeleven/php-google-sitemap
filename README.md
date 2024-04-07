@@ -19,8 +19,8 @@ Briefly, a Google XML Sitemap contains two parts:
 </sitemapindex>
 
 2. 'urlset' XML file(s) - a list of each of your website's URLs. For example:
-
-```<?xml version="1.0" encoding="UTF-8"?>
+```
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>http://www.mydomain.com/someurl/</loc>
@@ -35,6 +35,7 @@ Briefly, a Google XML Sitemap contains two parts:
       <priority>1.0</priority>
    </url>
 </urlset>
+```
 
 As you can see the structure is quite similar with the differences being the 'sitemapindex' vs 'urlset' as our opening tag (attributes are identical). The tags contained in our sitemapindex/urlset will contain either a 'sitemap' container tag or 'url' container tag.
 
@@ -69,3 +70,4 @@ foreach ($url_md_arr as $url_arr)
 
 // signal that you're done adding URLs to generate your sitemap index file now
 $my_sitemap->generateSitemapIndex();
+```
