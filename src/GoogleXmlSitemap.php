@@ -900,11 +900,18 @@ class GoogleXmlSitemap
       // increment number of sitemaps counter
       ++$this->num_sitemaps;
 
+      // start new XML file if we reach maximum number of URLs per urlset file
       if ($this->url_count >= self::MAX_SITEMAP_LINKS)
       {
          // TODO: end the </urlset> tag
+         $this->openXml($mode = 'memory', $xml_ns_type = 'urlset');
 
          // TODO: start new XML document and <urlset>
+      }
+      // first call to addURLNew2(), so open up the XML file
+      else if ($this->url_count == 0)
+      {
+         $this->openXml($mode = 'memory', $xml_ns_type = 'urlset');
       }
    }
 

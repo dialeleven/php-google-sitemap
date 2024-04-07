@@ -25,21 +25,17 @@ This will adjust where your sitemap file gets written.
 /*
 Some configuratation methods for your sitemap file(s) to be generated.
 */
-$my_sitemap->setUseMysqlDbModeFlag(true, $pdo, $sql_total); // generate URLs for sitemap from MySQL? true/false, your PDO object, basic SQL "COUNT(*) AS total"
+#$my_sitemap->setUseMysqlDbModeFlag(true, $pdo, $sql_total); // generate URLs for sitemap from MySQL? true/false, your PDO object, basic SQL "COUNT(*) AS total"
 $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
 $my_sitemap->setSitemapChangeFreq('weekly'); // set sitemap 'changefreq' how often the content is expected to change (always, hourly, daily, weekly, monthly, yearly, never)
 $my_sitemap->setHostnamePrefixFlag(true); // 'true' to use "https://$_SERVER['HTTP_HOST]/"+REST-OF-YOUR-URL-HERE/. 'false' if using full URLs.
 
 
-// start XML file for <urlset> XML file(s)
-$my_sitemap->openXml($mode = 'memory', $xml_ns_type = 'urlset'); //$my_sitemap->openXml($mode = 'file');
+
 /*
 Start adding your URLs
 */
-
-
-
-$sql_urls = 'SELECT url FROM sample ORDER BY url';
+$sql = 'SELECT url FROM sample ORDER BY url';
 
 // mysql PDO query non-prepared statement
 $stmt = $pdo->query($sql);
