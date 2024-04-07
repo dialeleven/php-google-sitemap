@@ -4,7 +4,7 @@ A PHP class to generate a [Google XML Sitemap](https://developers.google.com/sea
 
 Briefly, a Google XML Sitemap contains two parts:
 
-1. A Sitemap Index XML file - a table of contents listing each 'urlset' file. For example:
+1. A Sitemap Index XML file - a table of contents listing each 'urlset' file. Note that we're gzipping the resulting XML file to reduce file sizes. We could also leave the XML file uncompressed. For example:
 
 ```
    <?xml version="1.0" encoding="UTF-8"?>
