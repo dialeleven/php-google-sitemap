@@ -20,7 +20,7 @@ Briefly, a Google XML Sitemap contains two parts:
    </sitemapindex>
 ```
 
-2. 'urlset' XML file(s) - a list of each of your website's URLs. For example:
+2. 'urlset' XML file(s) - a list of each of your website's URLs. For example sitemap1.xml may contain something like:
 
 ```
    <?xml version="1.0" encoding="UTF-8"?>
