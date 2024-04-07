@@ -46,10 +46,15 @@ $stmt = $pdo->query($sql);
 
 while ($query_data = $stmt->fetch())
 {
-   // code here
-   
+   // Add URLs from your database or array (if that's your thing)
+   // The lastmod, changefreq, priority can generally be left out from my experience, but you can include it if you like.
+   // The class will create a new 'urlset' file if you reach the 50,000 URL limit and create
+   // the 'sitemapindex' file listing each urlset file that was generated.
+   $my_sitemap->addUrlNew2($url = $query_data->url, $lastmod = '', $changefreq = '', $priority = '');
 }
 
+// TODO: need to notify class that we're done adding URLs though; must be a public method right?
+// some logic to be added...........
 
 #throw new Exception('Test exception here');
 #throw new InvalidArgumentException('test');
