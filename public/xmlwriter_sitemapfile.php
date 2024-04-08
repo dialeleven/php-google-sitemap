@@ -37,10 +37,20 @@ $xmlWriter->writeElement('priority', '1.0');
 $xmlWriter->endElement();
 
 
-// End the 'sitemapindex/urlset' element
+// Start the 'url' element
+$xmlWriter->startElement('url');
+
+// Write the 'loc' element
+$xmlWriter->writeElement('loc', 'http://www.mydomain.com/anotherurl/');
+$xmlWriter->writeElement('lastmod', date('Y-m-d'));
+$xmlWriter->writeElement('changefreq', 'weekly');
+$xmlWriter->writeElement('priority', '1.0');
+
+// End the 'url' element
 $xmlWriter->endElement();
 
-// End the document
+
+// End the document (urlset)
 $xmlWriter->endDocument();
 
 // Output the XML content

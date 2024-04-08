@@ -44,10 +44,8 @@ $xmlWriter->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
 $xmlWriter->endElement();
 
 
-// End the 'sitemapindex' element
-$xmlWriter->endElement();
 
-// End the document
+// End the document (sitemapindex)
 $xmlWriter->endDocument();
 
 // Output the XML content

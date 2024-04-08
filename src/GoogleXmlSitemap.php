@@ -44,6 +44,8 @@ class GoogleXmlSitemap
 
    private $url_count = 0;
 
+   private $xml_mode = 'browser'; // send XML to 'broswer' or 'file'
+
    public $sql;
    public $http_host; // http hostname (minus the "http://" part - e.g. www.fabuloussavings.ca)
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
@@ -846,11 +848,18 @@ class GoogleXmlSitemap
 
       // Set the output to memory (for testing mainly)
       if ($mode == 'memory')
+      {
+         $this->xml_mode = $mode;
          $this->xml_writer->openMemory();
+      }
       // file writing mode
-      else
+      else if ($mode == 'file')
+      {
+         $this->xml_mode = $mode;
          $this->xml_writer->openURI($this->sitemap_filename_prefix . self::SITEMAP_FILENAME_SUFFIX);
-
+      }
+      else
+         throw new Exception("Invalid xml_mode value $mode");
 
       // Set indentation and line breaks for readability
       $this->xml_writer->setIndent(true);
@@ -903,14 +912,19 @@ class GoogleXmlSitemap
       // start new XML file if we reach maximum number of URLs per urlset file
       if ($this->url_count >= self::MAX_SITEMAP_LINKS)
       {
-         // TODO: end the </urlset> tag
-         $this->openXml($mode = 'memory', $xml_ns_type = 'urlset');
+         // end the </urlset> tag
+         $this->endXmlNsElement();
 
-         // TODO: start new XML document and <urlset>
+         // end the XML document
+         $this->endXmlDoc();
+
+         // start new XML doc
+         $this->openXml($mode = 'memory', $xml_ns_type = 'urlset');
       }
       // first call to addURLNew2(), so open up the XML file
       else if ($this->url_count == 0)
       {
+         // start new XML doc
          $this->openXml($mode = 'memory', $xml_ns_type = 'urlset');
       }
    }
@@ -931,7 +945,7 @@ class GoogleXmlSitemap
      */   
     public function addUrlNew2(string $url, string $lastmod = '', string $changefreq = '', string $priority = '')
     {
-       // TODO: check if we need a new XML file
+       // check if we need a new XML file
        $this->startNewUrlsetXmlFile();
 
        // Start the 'url' element
@@ -958,10 +972,8 @@ class GoogleXmlSitemap
        ++$this->url_count;
  
        return true;
-    }
+   }
  
-
-
 
    protected function endXmlNsElement(): bool
    {
@@ -969,17 +981,53 @@ class GoogleXmlSitemap
       $this->xml_writer->endElement();
    }
 
-   
-   protected function endXmlDoc(): bool
+
+   /**
+     * End the XML document. User has added all of their URLs and now we can
+     * generate our sitemapindex XML file and send the generated XML to file
+     * or browser (for testing/debugging).
+     * 
+     * @param $mode
+     * @access public
+     * @return bool
+     */  
+   public function endXmlDoc(): bool
    {
       // End the 'sitemapindex/urlset' element
       $this->xml_writer->endDocument();
+
+      $this->outputXml();
+
+
+      // create our sitemap index file
+      $this->generateSitemapIndexFile();
+
+      return true;
    }
 
-   protected function outputXML($mode = 'browser'): bool
+
+   protected function generateSitemapIndexFile(): bool
+   {
+      // start XML doc <?xml version="1.0" ? > and 'sitemapindex' tag
+      $this->openXml($mode = $this->mode, $xml_ns_type = 'sitemapindex');
+
+      // generate X number of <sitemap> entries for each of the urlset sitemaps
+      for ($i = 1; $i <= $this->num_sitemaps; ++$i)
+      {
+         // Start the 'sitemap' element
+         $this->xml_writer->startElement('sitemap');
+         $this->xml_writer->writeElement('loc', $url);
+         $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
+         $this->xml_writer->endElement();
+      }
+
+      $this->endXmlDoc();
+   }
+
+   protected function outputXml(): bool
    {
       // Output the XML content
-      if ($mode == 'browser')
+      if ($this->mode == 'browser')
          echo '<pre>'.htmlspecialchars($xmlWriter->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
       else
          $this->xml_writer->outputMemory();
