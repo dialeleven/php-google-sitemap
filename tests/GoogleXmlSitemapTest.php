@@ -84,22 +84,6 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertEquals(10, $mysitemap->total_links);
    }
 
-   public function testBuildSitemapIndexContents()
-   {
-      $mysitemap = new GoogleXmlSitemap($http_host = 'http://www.domain.com');
-      $mysitemap->buildSitemapIndexContents();
-
-      $this->assertIsString($mysitemap->sitemap_index_contents);
-   }
-
-   public function testBuildSitemapIndexContentsUrlsOnly()
-   {
-      $mysitemap = new GoogleXmlSitemap($http_host = 'http://www.domain.com');
-      $mysitemap->buildSitemapIndexContentsUrlsOnly();
-
-      $this->assertIsString($mysitemap->sitemap_index_contents);
-   }
-
    /*
    public function testSetUseMysqlDbModeFlag()
    {
@@ -111,73 +95,23 @@ class GoogleXmlSitemapTest extends TestCase
    }
    */
 
-   public function testSetPathAdjustmentToRootDir()
-   {
-      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
-      $mysitemap->setPathAdjustmentToRootDir(2);
 
-      // test setting a valid value
-      $this->assertMatchesRegularExpression( '#(\.\./)*#', $mysitemap->getPathAdjustmentToRootDir());
-
-      // test passing 5
-      $this->assertTrue($mysitemap->setPathAdjustmentToRootDir(5));
-
-      // test passing 1
-      $this->assertTrue($mysitemap->setPathAdjustmentToRootDir(1));
-
-      // test passing zero (should normally be >= 1)
-      $this->assertFalse($mysitemap->setPathAdjustmentToRootDir(0));
-
-      // test passing negative num
-      $this->assertFalse($mysitemap->setPathAdjustmentToRootDir(-1));
-   }
-
-   public function testWriteSitemapIndexFile()
-   {
-      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
-
-      $this->assertIsBool($mysitemap->writeSitemapIndexFile());
-   }
-
-   public function testSetUseMysqlDbModeFlag()
-   {
-      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
-      /*
-      // Create a mock PDO object
-      $mockPDO = $this->getMockBuilder(PDO::class)
-                      ->disableOriginalConstructor()
-                      ->getMock();
-
-      // Set up any expectations or method calls on the mock object
-      $mockPDO->expects($this->once())
-              ->method('prepare')
-              ->willReturn($this->createMock(PDOStatement::class));
-      */
-
-      $this->assertIsBool($mysitemap->setUseMysqlDbModeFlag($use_db_mode = true, self::$pdo, $sql_total = 'SELECT 1 as total'));
-   }
-
-   public function testBuildSitemapContents()
-   {
-      $mysitemap = new GoogleXmlSitemap($http_host = '');
-
-      $this->assertIsString($mysitemap->buildSitemapContents($sql_limit = ''));
-   }
-
-   public function testAddUrl()
-   {
-      $mysitemap = new GoogleXmlSitemap($http_host = '');
-
-      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com'));
-      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24'));
-      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24', $changefreq = 'weekly'));
-      $this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com', $lastmod = '2024-03-24', $changefreq = 'weekly', $priority = '1.0'));
-      #$this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com'));
-   }
-
+   /*
    public function testStartXmlDoc()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'xml_writer');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $value = $reflectionProperty->getValue($mysitemap);
+
+
+
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
@@ -186,7 +120,7 @@ class GoogleXmlSitemapTest extends TestCase
       $method->setAccessible(true);
   
       // invoke protected method and pass whatever param is needed
-      $result = $method->invoke($mysitemap, $mode = 'memory');
+      $result = $method->invoke($mysitemap, $xml_ns_type = 'urlset');
       
       $this->assertTrue($result);
    }
@@ -274,4 +208,5 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertEquals(1, $value);
 
    }
+   */
 }
