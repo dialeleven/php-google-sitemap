@@ -841,7 +841,7 @@ class GoogleXmlSitemap
      * @param  string $xml_ns_type  values ('urlset' or 'sitemapindex') create either a <urlset xmlns> tag or <sitemapindex> tag
      * @return bool
      */      
-   protected function openXml($mode = 'memory', $xml_ns_type = 'urlset'): bool
+   protected function startXmlDoc($mode = 'memory', $xml_ns_type = 'urlset'): bool
    {
       // Create a new XMLWriter instance
       #$this->xml_writer = new XMLWriter();
@@ -919,13 +919,13 @@ class GoogleXmlSitemap
          $this->endXmlDoc();
 
          // start new XML doc
-         $this->openXml($mode = 'memory', $xml_ns_type = 'urlset');
+         $this->startXmlDoc($mode = 'memory', $xml_ns_type = 'urlset');
       }
       // first call to addURLNew2(), so open up the XML file
       else if ($this->url_count == 0)
       {
          // start new XML doc
-         $this->openXml($mode = 'memory', $xml_ns_type = 'urlset');
+         $this->startXmlDoc($mode = 'memory', $xml_ns_type = 'urlset');
       }
    }
 
@@ -1009,7 +1009,7 @@ class GoogleXmlSitemap
    protected function generateSitemapIndexFile(): bool
    {
       // start XML doc <?xml version="1.0" ? > and 'sitemapindex' tag
-      $this->openXml($mode = $this->mode, $xml_ns_type = 'sitemapindex');
+      $this->startXmlDoc($mode = $this->mode, $xml_ns_type = 'sitemapindex');
 
       // generate X number of <sitemap> entries for each of the urlset sitemaps
       for ($i = 1; $i <= $this->num_sitemaps; ++$i)

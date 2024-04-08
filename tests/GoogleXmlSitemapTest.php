@@ -175,12 +175,12 @@ class GoogleXmlSitemapTest extends TestCase
       #$this->assertIsBool($mysitemap->addUrl($url = 'http://www.google.com'));
    }
 
-   public function testOpenXml()
+   public function testStartXmlDoc()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
-      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'openXml');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
 
       // make protected method accessible for testing
       $method->setAccessible(true);
@@ -212,7 +212,7 @@ class GoogleXmlSitemapTest extends TestCase
       
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
-      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'openXml');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
 
       // make protected method accessible for testing
       $method->setAccessible(true);
@@ -242,7 +242,7 @@ class GoogleXmlSitemapTest extends TestCase
       $mysitemap = new GoogleXmlSitemap($http_host = '');
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
-      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'openXml');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
 
       // make protected method accessible for testing
       $method->setAccessible(true);
