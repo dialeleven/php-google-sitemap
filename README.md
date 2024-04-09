@@ -81,7 +81,7 @@ Remaining logic for usage:
    Some configuratation methods for your sitemap file(s) to be generated.
    */
    $my_sitemap->setUseHttpsUrls(true); // use "https" scheme (true) for your URLs or plain "http" (false)
-   $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+   $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file(s) minus ".xml" (e.g. mysitemap.xml)
    
 
    // you might store your arrays like this
@@ -91,13 +91,13 @@ Remaining logic for usage:
       array('http://www.domain.com/url3/', '2024-01-01', 'weekly', '1.0')
    );
 
-   // you might probably want to pull your URLs from your database though (e.g. MySQL, Postgres, Mongo, etc...)
+   // you probably want to pull your URLs from your database though (e.g. MySQL, Postgres, Mongo, etc...)
    /*
    INCLUDE YOUR DATABASE LOGIC HERE TO PULL YOUR URLs FROM THE REQUIRED TABLE(s)...
    */
 
 
-   // add your URLs
+   // loop through your URLs from your array or preferred database (array example for simplicity)
    foreach ($url_md_arr as $url_arr)
    {
       // the important part - adding each URL
