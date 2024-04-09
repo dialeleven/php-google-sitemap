@@ -49,6 +49,12 @@ As you can see the structure is quite similar with the differences being the 'si
    // create new instance of the PHP Google XML Sitemap class
    $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
 
+   /*
+   Some configuratation methods for your sitemap file(s) to be generated.
+   */
+   $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
+   $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+   
 
    // you might store your arrays like this
    $url_md_arr = array(
