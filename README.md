@@ -51,6 +51,8 @@ Files you'll need:
 
 ### Sample Usage
 ```
+   use Dialeleven\PhpGoogleXmlSitemap;
+
    // adjust the path to the PHP class depending on your site architecture
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 
