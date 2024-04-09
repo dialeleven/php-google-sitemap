@@ -4,7 +4,7 @@ $xmlWriter = new XMLWriter();
 
 // Set the output to memory or a file
 $xmlWriter->openMemory();
-//$xmlWriter->openURI('sitemap.xml');
+//$xmlWriter->openURI('xmlwriter_sitemap.xml');
 
 
 // Set indentation and line breaks for readability
