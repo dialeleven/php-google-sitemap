@@ -20,16 +20,16 @@ TODO: 3) support/checking for MAX_FILESIZE
  *
  * Sample usage
  * <code>
-  $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');
-  $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
-  $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
-  foreach ($url_array as $url)
-  {
-     $my_sitemap->addUrlNew2($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
-  }
-  
-  // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
-  $my_sitemap->endXmlDoc();
+ * $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');
+ * $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
+ * $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+ * foreach ($url_array as $url)
+ * {
+ *    $my_sitemap->addUrlNew2($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+ * }
+ * 
+ * // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
+ *  $my_sitemap->endXmlDoc();
  * </code>
  *
  * @author Francis Tsao
@@ -47,7 +47,8 @@ class GoogleXmlSitemap
    #const MAX_SITEMAP_LINKS = 5;
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
-      
+   
+   
    public $xml_writer;
 
    private $current_url_count = 0; // total number of <loc> URL links for current <urlset> XML file
