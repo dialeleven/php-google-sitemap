@@ -53,7 +53,7 @@ class GoogleXmlSitemap
 
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                       // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
-                                                      // file "sitemap_clients.xml, and sitemap files "sitemap_clients1.xml.gz")
+                                                      // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
    private $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
    
    public $total_links = 0;                   // total number of <loc> URL links
@@ -196,8 +196,9 @@ class GoogleXmlSitemap
       // file writing mode
       else if ($this->xml_mode == 'file')
       {
+         // sitemapindex will be "userspecifiedname_index.xml"
          if ($xml_ns_type == 'sitemapindex')
-            $this->xml_writer->openURI('sitemapindex.xml');
+            $this->xml_writer->openURI("{$this->sitemap_filename_prefix}_index" . self::SITEMAP_FILENAME_SUFFIX);
          else
             $this->xml_writer->openURI($this->sitemap_filename_prefix . self::SITEMAP_FILENAME_SUFFIX);
       }
