@@ -76,6 +76,8 @@ class GoogleXmlSitemap
       // Create a new XMLWriter instance
       $this->xml_writer = new XMLWriter();
 
+      $this->setXmlMode();
+
       $this->setUrlSchemeHost();
    }
    
