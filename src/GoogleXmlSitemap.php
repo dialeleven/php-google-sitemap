@@ -49,24 +49,26 @@ class GoogleXmlSitemap
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
    
    
-   public $xml_writer;
+   protected $xml_writer;
 
-   private $current_url_count = 0; // total number of <loc> URL links for current <urlset> XML file
-   private $total_url_count = 0; // grand total number of <loc> URL links
+   protected $current_url_count = 0; // total number of <loc> URL links for current <urlset> XML file
+   protected $total_url_count = 0; // grand total number of <loc> URL links
 
-   private $xml_mode = 'browser'; // send XML to 'browser' or 'file'
+   protected $xml_mode = 'browser'; // send XML to 'browser' or 'file'
+
+   protected $directory;
 
    public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
 
-   private $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
+   protected $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
 
-   private $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
+   protected $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
 
-   private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
+   protected $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                           // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                           // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
    
-   private $num_sitemaps = 0;              // total number of Sitemap files
+   protected $num_sitemaps = 0;              // total number of Sitemap files
    
 
    /**
@@ -77,9 +79,10 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function __construct(string $http_hostname)
+   public function __construct(string $http_hostname, $directory = '')
    {  
       $this->http_hostname = $http_hostname;
+      $this->directory = "$directory/";
       
       // Create a new XMLWriter instance
       $this->xml_writer = new XMLWriter();
@@ -173,10 +176,21 @@ class GoogleXmlSitemap
       {
          // sitemapindex will be "userspecifiedname_index.xml"
          if ($xml_ns_type == 'sitemapindex')
-            $this->xml_writer->openURI("{$this->sitemap_filename_prefix}_index" . self::SITEMAP_FILENAME_SUFFIX);
+         {
+            $uri = $this->directory . "{$this->sitemap_filename_prefix}_index" . self::SITEMAP_FILENAME_SUFFIX;
+            $uri_return_val = $this->xml_writer->openURI($uri);
+         }
+         // urlset file
          else
-            $this->xml_writer->openURI($this->sitemap_filename_prefix . ($this->num_sitemaps + 1). self::SITEMAP_FILENAME_SUFFIX);
+         {
+            $uri = $this->directory . $this->sitemap_filename_prefix . ($this->num_sitemaps + 1) . self::SITEMAP_FILENAME_SUFFIX;
+            $uri_return_val = $this->xml_writer->openURI($uri);
+         }
+
+         // error opening the URI - path error or directory doesn't exist
+         if ($uri_return_val == false) { throw new Exception("Error opening '$uri.' Please check your directory path and that the directory exists.***"); }
       }
+
 
       // Set indentation and line breaks for readability
       $this->xml_writer->setIndent(true);

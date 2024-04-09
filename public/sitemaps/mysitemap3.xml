@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <sitemap>
-      <loc>https://www.testdomain.com/mysitemap1.xml</loc>
-      <lastmod>2024-04-09T08:49:07+00:00</lastmod>
-   </sitemap>
+   <url>
+      <loc>https://www.testdomain.com/yyy/</loc>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/zzz/</loc>
+   </url>
 </urlset>
