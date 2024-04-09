@@ -50,6 +50,7 @@ Files you'll need:
 - /src/GoogleXmlSitemap.php
 
 ### Sample Usage
+Start off with the required namespace (e.g. "use _____;") and include the GoogleXmlSitemap.php PHP class.
 ```
    use Dialeleven\PhpGoogleXmlSitemap;
 
@@ -57,11 +58,11 @@ Files you'll need:
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 ```
 
-**You can either have the resulting XML files be created in the same path as your script using the Google XML Sitemap class which is the default behavior if $xml_files_dir is blank or not passed as an argument.**
+Next, you can either have the resulting XML files be created in the same path as your script using the Google XML Sitemap class which is the default behavior if $xml_files_dir is blank or not passed as an argument.
 
 ```
-   // create new instance of the PHP Google XML Sitemap class (XML files will be written to the same path as the script  in the line below - uncomment if using)
-   //$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
+   // create new instance of the PHP Google XML Sitemap class (using default save dir)
+   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
 ```
 
 **OR**
