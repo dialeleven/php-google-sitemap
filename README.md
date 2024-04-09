@@ -49,6 +49,7 @@ Files you'll need:
 
 - /src/GoogleXmlSitemap.php
 
+### Sample Usage
 ```
    // adjust the path to the PHP class depending on your site architecture
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
