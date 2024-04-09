@@ -188,13 +188,13 @@ class GoogleXmlSitemap
          // sitemapindex will be "userspecifiedname_index.xml"
          if ($xml_ns_type == 'sitemapindex')
          {
-            $uri = $this->directory . "{$this->sitemap_filename_prefix}_index" . self::SITEMAP_FILENAME_SUFFIX;
+            $uri = $this->xml_files_dir . "{$this->sitemap_filename_prefix}_index" . self::SITEMAP_FILENAME_SUFFIX;
             $uri_return_val = $this->xml_writer->openURI($uri);
          }
          // urlset file
          else
          {
-            $uri = $this->directory . $this->sitemap_filename_prefix . ($this->num_sitemaps + 1) . self::SITEMAP_FILENAME_SUFFIX;
+            $uri = $this->xml_files_dir . $this->sitemap_filename_prefix . ($this->num_sitemaps + 1) . self::SITEMAP_FILENAME_SUFFIX;
             $uri_return_val = $this->xml_writer->openURI($uri);
          }
 
