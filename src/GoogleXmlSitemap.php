@@ -72,9 +72,11 @@ class GoogleXmlSitemap
    
 
    /**
-     * Constructor gets HTTP host to use in <loc> to keep things simple. Call setter methods to set other props as needed.
+     * Constructor gets HTTP host to use in <loc> and where to save the XML files (optional).
+     * By default, it will save to the script path that calls the GoogleXMLSitemap class.
      *
      * @param  string $http_hostname  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
+     * @param  string $directory  full document root path and subdirectory path to save files
 
      * @access public
      * @return void
@@ -82,14 +84,29 @@ class GoogleXmlSitemap
    public function __construct(string $http_hostname, $directory = '')
    {  
       $this->http_hostname = $http_hostname;
-      $this->directory = "$directory/";
+      $this->directory = $directory;
       
       // Create a new XMLWriter instance
       $this->xml_writer = new XMLWriter();
 
-      $this->setXmlMode('file');
+      $this->checkDirectoryTrailingSlash($directory); // ensure directory includes trailing slash
 
-      $this->setUrlSchemeHost();
+      $this->setXmlMode('file'); // should be 'file' mode unless debugging in 'memory' (browser)
+
+      $this->setUrlSchemeHost(); // assemble scheme+host (e.g. https://hostname.ext)
+   }
+
+   /**
+     * Check if the specified sitemaps directory included a trailing slash.
+     * Add one if not present to avoid "mysubdirsitemap.xml" vs "mysubdir/sitemap.xml"
+     * to avoid confusion where the file(s) are.
+     * @access protected
+     * @return void
+     */
+   protected function checkDirectoryTrailingSlash($directory)
+   {
+      if ($directory AND !preg_match('#\/$#', $directory))
+         $this->directory = $directory . '/';
    }
    
    /**
@@ -119,6 +136,9 @@ class GoogleXmlSitemap
      * Set what mode to use for the XMLWriter interface. Either 'memory' (send to browser)
      * or 'file' (save to file). Memory mode should only be used for debugging/testing to
      * review the <urlset> XML contents easier than opening up the written XML file.
+     * 
+     * Created for development purposes of viewing the urlset XML file in the browser
+     * immediately. This would just output one XML file of course.
      *
      * @param  string $xml_mode  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
 
