@@ -54,6 +54,64 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertStringContainsString('my_sitemap_filename', $mysitemap->getSitemapFilenamePrefix());
    }
 
+   public function testSetUseHttpsUrls()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
+      $mysitemap->setUseHttpsUrls(true);
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'http_host_use_https');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $value = $reflectionProperty->getValue($mysitemap);
+
+      $this->assertTrue($value);
+      
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_scheme_host');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $value = $reflectionProperty->getValue($mysitemap);
+
+      // use https was set to true, so url scheme should contain 'https://'
+      $this->assertStringContainsString('https://', $value);
+
+      
+
+      $mysitemap->setUseHttpsUrls(false);
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'http_host_use_https');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $value = $reflectionProperty->getValue($mysitemap);
+
+      $this->assertFalse($value);
+
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_scheme_host');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $value = $reflectionProperty->getValue($mysitemap);
+
+      // use https was set to false, so url scheme should contain 'http://'
+      $this->assertStringContainsString('http://', $value);
+   }
+
 
    /*
    public function testSetUseMysqlDbModeFlag()

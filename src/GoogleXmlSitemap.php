@@ -20,14 +20,8 @@ TODO: 2) allow user to specify what path to write XML files to
  *
  * Sample usage
  * <code>
- * $mysitemap = new GoogleSitemap($http_host);
- * 
- * // repeat this call as many times as required if assembling a sitemap that needs 
- * // to execute several different SQL statements
- * $mysitemap->createSitemapFile($sql, $db_field_name_arr, $loc_url_template, $url_arr);
+ * $mysitemap = new GoogleSitemap($http_hostname);
  
- * $mysitemap->buildSitemapContents();
- * $mysitemap->buildSitemapIndexContents();
  * </code>
  *
  * @author Francis Tsao
@@ -89,6 +83,7 @@ class GoogleXmlSitemap
    {
       $this->http_host_use_https = $use_https_urls;
 
+      // update the URL scheme+host as we toggle http/https on or off
       $this->setUrlSchemeHost();
    }
 
