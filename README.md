@@ -55,14 +55,27 @@ Files you'll need:
 
    // adjust the path to the PHP class depending on your site architecture
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
+```
 
+**You can either have the resulting XML files be created in the same path as your script using the Google XML Sitemap class which is the default behavior if $xml_files_dir is blank or not passed as an argument.**
 
-   // create new instance of the PHP Google XML Sitemap class (XML files will be written to the same path as the script using the Google XML Sitemap class in the line below - uncomment if using)
+```
+   // create new instance of the PHP Google XML Sitemap class (XML files will be written to the same path as the script  in the line below - uncomment if using)
    //$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
+```
 
+**OR**
+
+If you want the resulting XML files saved in a subdirectory, pass the full DOCUMENT_ROOT and directory path(s)
+
+```
    // create new instance of the PHP Google XML Sitemap class (using specified XML save directory)
    $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
+```
+
+Remaining logic for usage:
+```
    /*
    Some configuratation methods for your sitemap file(s) to be generated.
    */
