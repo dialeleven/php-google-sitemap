@@ -69,7 +69,7 @@ class GoogleXmlSitemapTest extends TestCase
       $value = $reflectionProperty->getValue($mysitemap);
 
       $this->assertTrue($value);
-      
+
 
       // Create a ReflectionProperty object for the private property
       $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_scheme_host');
@@ -200,7 +200,7 @@ class GoogleXmlSitemapTest extends TestCase
    }
 
 
-   public function testAddUrl2()
+   public function testAddUrl()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
 
@@ -215,11 +215,11 @@ class GoogleXmlSitemapTest extends TestCase
       
       $this->assertTrue($result);
 
-      // call addUrlNew() method
-      $this->assertTrue($mysitemap->addUrlNew2($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0'));
+      // call addUrl() method
+      $this->assertTrue($mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0'));
       
       // invalid test
-      #$this->assertTrue($mysitemap->addUrlNew($url, $lastmod, $changefreq, $priority));
+      #$this->assertTrue($mysitemap->addUrl($url, $lastmod, $changefreq, $priority));
 
 
       

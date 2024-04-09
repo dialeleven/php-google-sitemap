@@ -48,7 +48,7 @@ while ($query_data = $stmt->fetch())
 
    // The class will create a new 'urlset' file if you reach the 50,000 URL limit and create
    // the 'sitemapindex' file listing each urlset file that was generated.
-   $my_sitemap->addUrlNew2($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+   $my_sitemap->addUrl($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
 }
 
 // signal when done adding URLs, so we can generate the sitemap index file (table of contents)

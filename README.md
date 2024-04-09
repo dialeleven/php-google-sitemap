@@ -71,8 +71,8 @@ As you can see the structure is quite similar with the differences being the 'si
    }
 
 
-   // signal that you're done adding URLs to generate your sitemap index file now
-   $my_sitemap->generateSitemapIndex();
+   // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
+   $my_sitemap->endXmlDoc();
 ```
 
 Future content...
