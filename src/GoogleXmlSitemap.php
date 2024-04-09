@@ -54,7 +54,7 @@ class GoogleXmlSitemap
    private $current_url_count = 0; // total number of <loc> URL links for current <urlset> XML file
    private $total_url_count = 0; // grand total number of <loc> URL links
 
-   private $xml_mode = 'browser'; // send XML to 'broswer' or 'file'
+   private $xml_mode = 'browser'; // send XML to 'browser' or 'file'
 
    public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
 
