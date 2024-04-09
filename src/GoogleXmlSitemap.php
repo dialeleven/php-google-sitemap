@@ -39,14 +39,15 @@ use XMLWriter;
 class GoogleXmlSitemap
 {
    #const MAX_SITEMAP_LINKS = 50000;
-   const MAX_SITEMAP_LINKS = 1;
+   const MAX_SITEMAP_LINKS = 5;
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
    
    
    public $xml_writer;
 
-   private $url_count = 0; // total number of <loc> URL links
+   private $current_url_count = 0; // total number of <loc> URL links for current <urlset> XML file
+   private $total_url_count = 0; // grand total number of <loc> URL links
 
    private $xml_mode = 'browser'; // send XML to 'broswer' or 'file'
 
@@ -206,7 +207,7 @@ class GoogleXmlSitemap
    {
 
       // start new XML file if we reach maximum number of URLs per urlset file
-      if ($this->url_count >= self::MAX_SITEMAP_LINKS)
+      if ($this->current_url_count >= self::MAX_SITEMAP_LINKS)
       {
          // end the XML document
          $this->endXmlDoc();
@@ -214,11 +215,14 @@ class GoogleXmlSitemap
          // start new XML doc
          $this->startXmlDoc($mode = 'memory', $xml_ns_type = 'urlset');
 
+         // reset counter for current urlset XML file
+         $this->current_url_count = 0;
+
          // increment number of sitemaps counter
          ++$this->num_sitemaps;
       }
       // first call to addURLNew2(), so open up the XML file
-      else if ($this->url_count == 0)
+      else if ($this->current_url_count == 0)
       {
          // start new XML doc
          $this->startXmlDoc($mode = 'memory', $xml_ns_type = 'urlset');
@@ -271,7 +275,8 @@ class GoogleXmlSitemap
       $this->xml_writer->endElement();
 
       // increment URL count so we can start a new <urlset> XML file if needed
-      ++$this->url_count;
+      ++$this->current_url_count;
+      ++$this->total_url_count;
  
       return true;
    }
