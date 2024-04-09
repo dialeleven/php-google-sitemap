@@ -47,7 +47,7 @@ class GoogleXmlSitemap
    private $xml_mode = 'browser'; // send XML to 'broswer' or 'file'
 
    public $sql;
-   public $http_host; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
+   public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
 
    private $http_host_use_https = true;
 
@@ -81,7 +81,7 @@ class GoogleXmlSitemap
      */
    public function __construct(string $http_host)
    {  
-      $this->http_host = $http_host;
+      $this->http_hostname = $http_host;
       
       // Create a new XMLWriter instance
       $this->xml_writer = new XMLWriter();
@@ -298,7 +298,7 @@ class GoogleXmlSitemap
         throw new Exception("ERROR: url cannot be empty");
 
       // assemble full http(s) URL portion
-      $http_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_host . '/';
+      $http_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_hostname . '/';
 
       // TODO: strip/add leading trailing slash after http host like https://www.domain.com/
 
@@ -367,12 +367,19 @@ class GoogleXmlSitemap
 
          #if ($this->http_host == true)
          
-         $this->xml_writer->writeElement('loc', $url);
+         $this->xml_writer->writeElement('loc', $this->sitemap_filename_prefix . $i . self::SITEMAP_FILENAME_SUFFIX);
          $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
          $this->xml_writer->endElement();
          
          #echo "in for loop: \$this->num_sitemaps = $this->num_sitemaps, \$i = $i<br>";
       }
+
+      // End the document (sitemapindex)
+      $this->xml_writer->endDocument();
+
+      // Output the XML content
+      //echo '<pre>'.htmlspecialchars($xmlWriter->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
+      $this->xml_writer->outputMemory();
 
       return true;
    }
