@@ -106,6 +106,7 @@ Remaining logic for usage:
    // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
    $my_sitemap->endXmlDoc();
 ```
+That's all there is to it!
 
 > [!NOTE]
 > The **addURL()** method only requires **$url** to be passed as an argument. 
