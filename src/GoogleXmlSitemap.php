@@ -71,7 +71,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function __construct(string $http_hostname, $xml_files_dir = '')
+   public function __construct(string $http_hostname, string $xml_files_dir = '')
    {  
       $this->http_hostname = $http_hostname;
       $this->xml_files_dir = $xml_files_dir;
@@ -93,7 +93,7 @@ class GoogleXmlSitemap
      * @access protected
      * @return void
      */
-   protected function checkDirectoryTrailingSlash($xml_files_dir)
+   protected function checkDirectoryTrailingSlash(string $xml_files_dir): void
    {
       if ($xml_files_dir AND !preg_match('#\/$#', $xml_files_dir))
          $this->xml_files_dir = $xml_files_dir . '/';
@@ -122,7 +122,7 @@ class GoogleXmlSitemap
             throw new Exception('Gzip compression is not enabled on this server. Please enable "zlib.output_compression" in php.ini.');
    }
 
-   protected function getUseGzip()
+   protected function getUseGzip(): void
    {
       return $this->use_gzip;
    }
@@ -189,7 +189,7 @@ class GoogleXmlSitemap
      * @param  string $xml_ns_type  values ('urlset' or 'sitemapindex') create either a <urlset xmlns> tag or <sitemapindex> tag
      * @return bool
      */      
-   protected function startXmlDoc($xml_ns_type = 'urlset'): bool
+   protected function startXmlDoc(string $xml_ns_type = 'urlset'): bool
    {
       // Set the output to memory (for testing mainly)
       if ($this->xml_mode == 'memory')
