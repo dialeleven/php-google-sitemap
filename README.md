@@ -107,6 +107,21 @@ Remaining logic for usage:
    $my_sitemap->endXmlDoc();
 ```
 
+> [!NOTE]
+> The **addURL()** method only requires **$url** to be passed as an argument. 
+> The other arguments lastmod, changefreq, and priority are optional and can
+> be omitted.
+
+Instead of calling the method like:
+```
+$my_sitemap->addUrl($url = $url_arr[0], $lastmod = $url_arr[1]', $changefreq = $url_arr[2', $priority = $url_arr[3]);
+```
+
+You can just use the following to simplify your code:
+```
+$my_sitemap->addUrl($url = $url_arr[0]);
+```
+
 ## Summary
 
 As you can see, the usage is pretty simple. 
