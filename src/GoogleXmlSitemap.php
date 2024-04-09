@@ -38,8 +38,11 @@ use XMLWriter;
 
 class GoogleXmlSitemap
 {
-   private $pdo;
-
+   const MAX_SITEMAP_LINKS = 50000;
+   const SITEMAP_FILENAME_SUFFIX = '.xml';
+   //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
+   
+   
    public $xml_writer;
 
    private $url_count = 0; // total number of <loc> URL links
@@ -48,25 +51,16 @@ class GoogleXmlSitemap
 
    public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
 
-   private $http_host_use_https = true;
+   private $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
 
-   private $url_scheme_host;
+   private $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
 
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                       // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                       // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
-      
-   const MAX_SITEMAP_LINKS = 50000;
-   const SITEMAP_FILENAME_SUFFIX = '.xml';
-
-   #public $max_sitemap_links = 10;     // maximum is 50,000
-   //public $max_filesize = 10485760;       // 10MB maximum (unsupported feature currently)
+   
    private $num_sitemaps = 0;              // total number of Sitemap files
-   public $sitemap_index_contents = '';        // contents of Sitemap index file
-   public $sitemap_contents;              // contents of sitemap (URLs)
-   private $path_adj;                      // file path adjustment to root directory (e.g. "../../")
-   public $use_hostname_prefix;           // flag to use supplied $http_host value for $http_host/whatever/is/passed/
-                                       // in <url> tag or only the DB field supplied value which should contain http://www.domain.com
+   
 
    /**
      * Constructor gets HTTP host to use in <loc> to keep things simple. Call setter methods to set other props as needed.
