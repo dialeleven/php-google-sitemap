@@ -109,7 +109,11 @@ class GoogleXmlSitemap
      */
    public function setXmlMode(string $xml_mode)
    {
-      // TODO: Validation for either 'memory' or 'file'
+      $valid_modes = array('memory', 'file');
+
+      // Validation for either 'memory' or 'file'
+      if ( !in_array($xml_mode, array('memory', 'file') ) )
+         throw new Exception("\$xml_mode: $xml_mode is not a valid option. Valid modes are " . print_r($valid_modes, true));
 
       $this->xml_mode = $xml_mode;
    }
