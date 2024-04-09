@@ -108,7 +108,7 @@ Remaining logic for usage:
 ```
 **That's all there is to it!**
 
-## About addURL()
+## About addURL() Method
 > [!NOTE]
 > The **addURL()** method only requires **$url** to be passed as an argument. 
 > The other arguments lastmod, changefreq, and priority are optional and can
