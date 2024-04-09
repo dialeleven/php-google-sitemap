@@ -7,6 +7,9 @@ Purpose:          Creates a gzipped google sitemap xml file with a list of URLs 
                   by the passed SQL.
 History:          12/06/2011 - commented out <changefreq> tag as Google does not pay
                                attention to this according to Nine By Blue [ft]
+
+TODO: 1) add gzip support to XML files
+TODO: 2) allow user to specify what path to write XML files to
 */
 
 
