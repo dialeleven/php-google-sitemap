@@ -58,7 +58,7 @@ Start off with the required namespace (e.g. "use _____;") and include the Google
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 ```
 
-Next, you can either have the resulting XML files be created in the same path as your script using the PHP Google XML Sitemap class which is the default behavior if $xml_files_dir is blank or not passed as an argument.
+**By default, the resulting XML files will be created in the same path as your script** using the PHP Google XML Sitemap class if $xml_files_dir is blank or not passed as an argument.
 
 ```
    // create new instance of the PHP Google XML Sitemap class (using default save dir)
@@ -67,7 +67,7 @@ Next, you can either have the resulting XML files be created in the same path as
 
 **OR**
 
-If you want the resulting XML files saved in a subdirectory, pass the full DOCUMENT_ROOT and directory path(s)
+To **save the resulting XML files saved in a subdirectory**, pass the full DOCUMENT_ROOT and directory path(s)
 
 ```
    // create new instance of the PHP Google XML Sitemap class (using specified XML save directory)
