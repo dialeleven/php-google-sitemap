@@ -15,7 +15,7 @@ such as 'https://www.yourdomain.com' for example.
 */
 
 #$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
-$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com', $directory = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
 
 
