@@ -56,7 +56,7 @@ class GoogleXmlSitemap
 
    protected $xml_mode = 'browser'; // send XML to 'browser' or 'file'
 
-   protected $directory;
+   protected $xml_files_dir;
 
    public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
 
@@ -76,20 +76,20 @@ class GoogleXmlSitemap
      * By default, it will save to the script path that calls the GoogleXMLSitemap class.
      *
      * @param  string $http_hostname  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
-     * @param  string $directory  full document root path and subdirectory path to save files
+     * @param  string $xml_files_dir  full document root path and subdirectory path to save files
 
      * @access public
      * @return void
      */
-   public function __construct(string $http_hostname, $directory = '')
+   public function __construct(string $http_hostname, $xml_files_dir = '')
    {  
       $this->http_hostname = $http_hostname;
-      $this->directory = $directory;
+      $this->xml_files_dir = $xml_files_dir;
       
       // Create a new XMLWriter instance
       $this->xml_writer = new XMLWriter();
 
-      $this->checkDirectoryTrailingSlash($directory); // ensure directory includes trailing slash
+      $this->checkDirectoryTrailingSlash($xml_files_dir); // ensure directory includes trailing slash
 
       $this->setXmlMode('file'); // should be 'file' mode unless debugging in 'memory' (browser)
 
@@ -103,10 +103,10 @@ class GoogleXmlSitemap
      * @access protected
      * @return void
      */
-   protected function checkDirectoryTrailingSlash($directory)
+   protected function checkDirectoryTrailingSlash($xml_files_dir)
    {
-      if ($directory AND !preg_match('#\/$#', $directory))
-         $this->directory = $directory . '/';
+      if ($xml_files_dir AND !preg_match('#\/$#', $xml_files_dir))
+         $this->xml_files_dir = $xml_files_dir . '/';
    }
    
    /**
