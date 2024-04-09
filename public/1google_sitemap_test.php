@@ -26,6 +26,7 @@ Some configuratation methods for your sitemap file(s) to be generated.
 
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
 $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+$my_sitemap->setUseGzip($use_gzip = false);
 
 
 
