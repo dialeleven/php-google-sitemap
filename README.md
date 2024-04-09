@@ -45,9 +45,9 @@ As you can see the structure is quite similar with the differences being the 'si
 
 ## How to use the PHP Google XML Sitemap Class
 
-Files you'll need:
-
-- /src/GoogleXmlSitemap.php
+> [!IMPORTANT]
+> Files you'll need:
+> * /src/GoogleXmlSitemap.php
 
 ### Sample Usage
 Start off with the required namespace (e.g. "use _____;") and include the GoogleXmlSitemap.php PHP class.
