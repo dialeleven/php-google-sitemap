@@ -9,8 +9,7 @@ History:          04/09/2024 - modernized from PHP 5.6 to PHP 8.2 and using XMLW
                   12/06/2011 - commented out <changefreq> tag as Google does not pay
                                attention to this according to N*** B* B*** [ft]
 
-TODO: 1) add gzip support to XML files
-TODO: 2) support/checking for MAX_FILESIZE
+TODO: support/checking for MAX_FILESIZE
 */
 
 
@@ -55,6 +54,7 @@ class GoogleXmlSitemap
    public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
    protected $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
    protected $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
+   protected $use_gzip;
    protected $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                           // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                           // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
@@ -110,6 +110,21 @@ class GoogleXmlSitemap
 
       // update the URL scheme+host as we toggle http/https on or off
       $this->setUrlSchemeHost();
+   }
+
+
+   public function setUseGzip(bool $use_gzip): void
+   {
+      if ($use_gzip)
+         if (function_exists('ob_gzhandler') && ini_get('zlib.output_compression'))
+            $this->use_gzip = $use_gzip;
+         else
+            throw new Exception('Gzip compression is not enabled on this server. Please enable "zlib.output_compression" in php.ini.');
+   }
+
+   protected function getUseGzip()
+   {
+      return $this->use_gzip;
    }
 
    /**
@@ -257,9 +272,6 @@ class GoogleXmlSitemap
       // start new XML file if we reach maximum number of URLs per urlset file
       if ($this->current_url_count >= self::MAX_SITEMAP_LINKS)
       {
-         // end the XML document
-         $this->endXmlDoc();
-
          // start new XML doc
          $this->startXmlDoc($xml_ns_type = 'urlset');
 
@@ -347,8 +359,39 @@ class GoogleXmlSitemap
       // output XML from memory using outputMemory() and format for browser if needed
       $this->outputXml();
 
+      // gzip files if needed
+      if ($this->getUseGzip()) { $this->gzipXmlFiles(); }
+
       // create our sitemap index file
       $this->generateSitemapIndexFile();
+
+      return true;
+   }
+
+
+   /**
+     * Gzip the <urlset> XML files and discard the original urlset file after
+     * 
+     * @access protected
+     * @return bool
+     */  
+   protected function gzipXmlFiles(): bool
+   {
+      for ($i = 1; $i <= $this->num_sitemaps; ++$i)
+      {
+         $gz = gzopen($this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml.gz', 'w9');
+         
+         // uncompressed gzip filename
+         $filename = $this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml';
+         $handle = fopen($filename, "r");
+         $contents = fread($handle, filesize($filename));
+
+         if ($bytes_written = gzwrite($gz, $contents))
+         {
+            gzclose($gz);
+            unlink($filename); // remove original urlset XML file to avoid dir clutter
+         }
+      }
 
       return true;
    }
@@ -372,14 +415,15 @@ class GoogleXmlSitemap
       for ($i = 1; $i <= $this->num_sitemaps; ++$i)
       {
          // Start the 'sitemap' element
-         
          $this->xml_writer->startElement('sitemap');
 
-         #if ($this->http_host == true)
+         // our "loc" URL to each urlset XML file
+         $loc = $this->url_scheme_host .  $this->sitemap_filename_prefix . $i . self::SITEMAP_FILENAME_SUFFIX;
          
-         $this->xml_writer->writeElement('loc', $this->url_scheme_host . 
-                                                $this->sitemap_filename_prefix . $i . 
-                                                self::SITEMAP_FILENAME_SUFFIX);
+         // add ".gz" gzip extension to filename if compressing with gzip
+         if ($this->getUseGzip()) { $loc .= '.gz'; }
+
+         $this->xml_writer->writeElement('loc', $loc);
          $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
          $this->xml_writer->endElement();
          
