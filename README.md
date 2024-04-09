@@ -128,14 +128,14 @@ It cut down the lines of code by about 200-300. Hope you find this class useful.
 
 Taken from https://www.sitemaps.org/protocol.html#xmlTagDefinitions
 
-code <lastmod>
+```<lastmod>```	optional	
 The date of last modification of the page. This date should be in W3C Datetime format. This format allows you to omit the time portion, if desired, and use YYYY-MM-DD.
 
 Note that the date must be set to the date the linked page was last modified, not when the sitemap is generated.
 
 Note also that this tag is separate from the If-Modified-Since (304) header the server can return, and search engines may use the information from both sources differently.
 
-<changefreq>	optional	
+```<changefreq>```	optional	
 How frequently the page is likely to change. This value provides general information to search engines and may not correlate exactly to how often they crawl the page. Valid values are:
 
 always
@@ -146,7 +146,7 @@ monthly
 yearly
 never
 
-<priority>	optional	
+```<priority>```	optional	
 The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0. This value does not affect how your pages are compared to pages on other sites—it only lets the search engines know which pages you deem most important for the crawlers.
 
 The default priority of a page is 0.5.
