@@ -26,7 +26,6 @@ $my_sitemap->setXmlMode($mode = 'file'); // mode = memory (browser), mode = file
 
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
 $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
-$my_sitemap->setHostnamePrefixFlag(true); // 'true' to use "https://$_SERVER['HTTP_HOST]/"+REST-OF-YOUR-URL-HERE/. 'false' if using full URLs.
 
 
 

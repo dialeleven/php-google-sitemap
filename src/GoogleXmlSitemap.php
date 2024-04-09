@@ -38,7 +38,8 @@ use XMLWriter;
 
 class GoogleXmlSitemap
 {
-   const MAX_SITEMAP_LINKS = 50000;
+   #const MAX_SITEMAP_LINKS = 50000;
+   const MAX_SITEMAP_LINKS = 1;
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
    
@@ -125,19 +126,6 @@ class GoogleXmlSitemap
    {
       return $this->sitemap_filename_prefix;
    }
-
-
-   /**
-     * @param bool $use_hostname_prefix  Flag to use default "https://$this->http_host" or leave blank if pulling a complete URL from DB
-     * @access public
-     * @return void
-     */
-   public function setHostnamePrefixFlag(bool $use_hostname_prefix): void
-   {
-      $this->use_hostname_prefix = $use_hostname_prefix;
-   }
-
-
 
 
    /////////////////////// NEW XMLwriter methods ///////////////////////////
