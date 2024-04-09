@@ -128,7 +128,7 @@ It cut down the lines of code by about 200-300. Hope you find this class useful.
 
 Taken from https://www.sitemaps.org/protocol.html#xmlTagDefinitions
 
-<lastmod>	optional	
+code <lastmod>
 The date of last modification of the page. This date should be in W3C Datetime format. This format allows you to omit the time portion, if desired, and use YYYY-MM-DD.
 
 Note that the date must be set to the date the linked page was last modified, not when the sitemap is generated.
