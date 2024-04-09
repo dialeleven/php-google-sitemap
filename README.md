@@ -45,7 +45,15 @@ As you can see the structure is quite similar with the differences being the 'si
 
 ## How to use the PHP Google XML Sitemap Class (using PHP XMLWriter extension)
 
+Files you'll need:
+
+- /src/GoogleXmlSitemap.php
+
 ```
+   // adjust the path to the PHP class depending on your site architecture
+   include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
+
+
    // create new instance of the PHP Google XML Sitemap class
    $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
 

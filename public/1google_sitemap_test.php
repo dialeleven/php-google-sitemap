@@ -6,7 +6,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/public/db_connect.inc.php';
 
 
-
 /*
 Instansiate the PHP Google XML Sitemap Class. Pass your hostname below as an 
 argument using PHP's $_SERVER['HTTP_HOST'] or you can hard code your hostname
@@ -58,7 +57,3 @@ $my_sitemap->endXmlDoc();
 
 #throw new Exception('Test exception here');
 #throw new InvalidArgumentException('test');
-
-$path = '../../';
-
-echo (preg_match('#(\.\./){1,}#', $path)) ? 'match' : 'no match';
