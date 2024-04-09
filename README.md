@@ -1,6 +1,5 @@
-# PHP Google XML Sitemap
+# PHP Google XML Sitemap - Overview
 
-## Overview
 A PHP class to generate a [Google XML Sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview).
 
 Briefly, a Google XML Sitemap contains two parts:
@@ -44,7 +43,7 @@ Briefly, a Google XML Sitemap contains two parts:
 As you can see the structure is quite similar with the differences being the 'sitemapindex' vs 'urlset' as our opening tag (attributes are identical). The tags contained in our sitemapindex/urlset will contain either a 'sitemap' container tag or 'url' container tag.
 
 
-## How to use the PHP Google XML Sitemap Class (using PHP XMLWriter extension)
+## How to use the PHP Google XML Sitemap Class
 
 Files you'll need:
 
