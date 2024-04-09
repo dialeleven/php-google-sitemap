@@ -81,4 +81,11 @@ As you can see the structure is quite similar with the differences being the 'si
    $my_sitemap->endXmlDoc();
 ```
 
-Future content...
+As you can see, the usage is pretty simple. 
+
+1. Instantiate the class.
+2. A couple configuration methods.
+3. Set up your loop and iterate through your array or database records.
+4. Call addUrl() method until you're out of URLs to add.
+5. Wrap up by calling endXmlDoc() which will generate your sitemapindex TOC.
+6. Submit your sitemapindex XML file to Google. Done!
