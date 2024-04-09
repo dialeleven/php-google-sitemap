@@ -25,7 +25,7 @@ TODO: 3) support/checking for MAX_FILESIZE
  * $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
  * foreach ($url_array as $url)
  * {
- *    $my_sitemap->addUrlNew2($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+ *    $my_sitemap->addUrl($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
  * }
  * 
  * // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
