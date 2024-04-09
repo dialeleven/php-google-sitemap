@@ -42,11 +42,10 @@ class GoogleXmlSitemap
 
    public $xml_writer;
 
-   private $url_count = 0;
+   private $url_count = 0; // total number of <loc> URL links
 
    private $xml_mode = 'browser'; // send XML to 'broswer' or 'file'
 
-   public $sql;
    public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
 
    private $http_host_use_https = true;
@@ -56,10 +55,7 @@ class GoogleXmlSitemap
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                       // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                       // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
-   
-   public $total_links = 0; // total number of <loc> URL links
-
-   
+      
    const MAX_SITEMAP_LINKS = 50000;
    const SITEMAP_FILENAME_SUFFIX = '.xml';
 
@@ -146,22 +142,6 @@ class GoogleXmlSitemap
    {
       $this->use_hostname_prefix = $use_hostname_prefix;
    }
-   
-   
-   /**
-     * Manually set the $total_links var in cases where passing the SQL to calculate the
-     * total number of <loc> URLs is not possible (e.g. with calculating the total number of populated categories)
-     *
-     * @param  string $total_links  total number of links/URLs
-     * @access public
-     * @return void
-     */
-    public function setTotalLinks(int $total_links): void
-   {
-      if ($total_links >= 0)
-         $this->total_links = $total_links;
-   }
-
 
 
 
