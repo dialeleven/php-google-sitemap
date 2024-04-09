@@ -1,27 +1,35 @@
 <?php
 /*
-Filename:         google_sitemap_template.class.php
+Filename:         GoogleXmlSitemap.php
 Author:           Francis Tsao
 Date Created:     08/01/2008
 Purpose:          Creates a gzipped google sitemap xml file with a list of URLs specified
                   by the passed SQL.
-History:          12/06/2011 - commented out <changefreq> tag as Google does not pay
-                               attention to this according to Nine By Blue [ft]
+History:          04/09/2024 - modernized from PHP 5.6 to PHP 8.2 and using XMLWriter interface [ft]
+                  12/06/2011 - commented out <changefreq> tag as Google does not pay
+                               attention to this according to N*** B* B*** [ft]
 
 TODO: 1) add gzip support to XML files
 TODO: 2) allow user to specify what path to write XML files to
+TODO: 3) support/checking for MAX_FILESIZE
 */
 
 
 /**
- * GoogleSitemap - create Google XML Sitemap from either a MySQL query or supplied list (array?) of URLs
- *
- * History: 
+ * GoogleXmlSitemap - create Google XML Sitemap (sitemapindex and urlset file(s))
  *
  * Sample usage
  * <code>
- * $mysitemap = new GoogleSitemap($http_hostname);
- 
+  $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');
+  $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
+  $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+  foreach ($url_array as $url)
+  {
+     $my_sitemap->addUrlNew2($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+  }
+  
+  // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
+  $my_sitemap->endXmlDoc();
  * </code>
  *
  * @author Francis Tsao
@@ -35,12 +43,11 @@ use XMLWriter;
 
 class GoogleXmlSitemap
 {
-   #const MAX_SITEMAP_LINKS = 50000;
-   const MAX_SITEMAP_LINKS = 5;
+   const MAX_SITEMAP_LINKS = 50000;
+   #const MAX_SITEMAP_LINKS = 5;
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
-   
-   
+      
    public $xml_writer;
 
    private $current_url_count = 0; // total number of <loc> URL links for current <urlset> XML file
@@ -55,8 +62,8 @@ class GoogleXmlSitemap
    private $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
 
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
-                                                      // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
-                                                      // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
+                                                          // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
+                                                          // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
    
    private $num_sitemaps = 0;              // total number of Sitemap files
    
@@ -64,7 +71,7 @@ class GoogleXmlSitemap
    /**
      * Constructor gets HTTP host to use in <loc> to keep things simple. Call setter methods to set other props as needed.
      *
-     * @param  string $http_host  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
+     * @param  string $http_hostname  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
 
      * @access public
      * @return void
@@ -81,6 +88,11 @@ class GoogleXmlSitemap
       $this->setUrlSchemeHost();
    }
    
+   /**
+     * Set flag for "use HTTPS" in host name. Assemble full URL scheme+host propery string.
+     * @access protected
+     * @return void
+     */
    public function setUseHttpsUrls(bool $use_https_urls): void
    {
       $this->http_host_use_https = $use_https_urls;
@@ -89,6 +101,11 @@ class GoogleXmlSitemap
       $this->setUrlSchemeHost();
    }
 
+   /**
+     * Assemble the URL scheme+host string (e.g. 'https://' + 'www.domain.com')
+     * @access protected
+     * @return void
+     */
    protected function setUrlSchemeHost(): void
    {
       $this->url_scheme_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_hostname . '/';
@@ -104,7 +121,7 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function setXmlMode(string $xml_mode)
+   public function setXmlMode(string $xml_mode): void
    {
       $valid_modes = array('memory', 'file');
 
@@ -140,7 +157,6 @@ class GoogleXmlSitemap
      * save as a file with the specified filename. Set our indentation and then of course
      * start with the <?xml version="1.0" encoding="UTF-8"?> tag.
      * @access protected
-     * @param  string $mode  send the resulting XML to 'memory' (browser) or 'file'
      * @param  string $xml_ns_type  values ('urlset' or 'sitemapindex') create either a <urlset xmlns> tag or <sitemapindex> tag
      * @return bool
      */      
@@ -180,7 +196,7 @@ class GoogleXmlSitemap
 
 
    /**
-     * Open the "xmlns" tag for either the Sitemap Index or 'urlset' list of
+     * Open the "xmlns" tag for either the 'sitemapindex' or 'urlset' list of
      * tags including the xmlns and xsi attributes needed. 
      * 
      * e.g. sitemap index follows:
@@ -188,6 +204,7 @@ class GoogleXmlSitemap
      * 
      * 'urlset' XML file container tag follows:
      *   <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     * @param $xml_ns_type ('sitemapindex' or 'urlset')
      * @access protected
      * @return bool
      */      
@@ -207,9 +224,14 @@ class GoogleXmlSitemap
       return true;
    }
 
-   protected function startNewUrlsetXmlFile()
+   /**
+     * Check if we need to start a new urlset XML file based on how many urls
+     * have been added.
+     * @access protected
+     * @return void
+     */   
+   protected function startNewUrlsetXmlFile(): void
    {
-
       // start new XML file if we reach maximum number of URLs per urlset file
       if ($this->current_url_count >= self::MAX_SITEMAP_LINKS)
       {
@@ -286,7 +308,6 @@ class GoogleXmlSitemap
    }
 
 
-
    /**
      * End the XML document. User has added all of their URLs and now we can
      * generate our sitemapindex XML file and send the generated XML to file
@@ -301,7 +322,7 @@ class GoogleXmlSitemap
       // End the 'sitemapindex/urlset' element
       $this->xml_writer->endDocument();
 
-      
+      // output XML from memory using outputMemory() and format for browser if needed
       $this->outputXml();
 
       // create our sitemap index file
@@ -310,7 +331,13 @@ class GoogleXmlSitemap
       return true;
    }
 
-
+   /**
+     * Generate the sitemapindex XML file based on the number of urlset files
+     * that were created.
+     * 
+     * @access protected
+     * @return bool
+     */  
    protected function generateSitemapIndexFile(): bool
    {
       #echo "num_sitemaps: $this->num_sitemaps, \$i = $i<br>";
@@ -347,11 +374,16 @@ class GoogleXmlSitemap
       return true;
    }
 
+   
+   /**
+     * Done with the XML file, so output what's in memory to file/browser.
+     * 
+     * @access protected
+     * @return bool
+     */  
    protected function outputXml(): bool
    {
-      #echo "<p>\$this->xml_mode: $this->xml_mode</p>";
-
-      // Output the XML content
+      // Output the XML content nicely for 'memory' (browser output)
       if ($this->xml_mode == 'memory')
          echo '<pre>'.htmlspecialchars($this->xml_writer->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
       else
