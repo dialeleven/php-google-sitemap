@@ -124,6 +124,7 @@ It cut down the lines of code by about 200-300. Hope you find this class useful.
 
 ## Additional XML Attributes for <urlset> Files
 
+[!NOTE]
 If you choose to pass other arguments to addURL() like **lastmod**, **changefreq**, or **priority**, please refer to the following for valid values.
 
 Taken from https://www.sitemaps.org/protocol.html#xmlTagDefinitions
