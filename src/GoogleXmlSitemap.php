@@ -163,9 +163,6 @@ class GoogleXmlSitemap
      */      
    protected function startXmlDoc($xml_ns_type = 'urlset'): bool
    {
-      // Create a new XMLWriter instance
-      #$this->xml_writer = new XMLWriter();
-
       // Set the output to memory (for testing mainly)
       if ($this->xml_mode == 'memory')
       {
