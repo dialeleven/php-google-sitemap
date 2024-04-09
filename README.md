@@ -47,7 +47,7 @@ As you can see the structure is quite similar with the differences being the 'si
 
 ```
    // create new instance of the PHP Google XML Sitemap class
-   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_host = $_SERVER['HTTP_HOST']);
+   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
 
 
    // you might store your arrays like this

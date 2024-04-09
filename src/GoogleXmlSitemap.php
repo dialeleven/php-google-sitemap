@@ -51,13 +51,15 @@ class GoogleXmlSitemap
 
    private $http_host_use_https = true;
 
+   private $url_scheme_host;
+
    private $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                       // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                       // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
    private $sitemap_changefreq = 'weekly'; // Google Sitemap <changefreq> value (always, hourly, daily, weekly, monthly, yearly, never)
    
-   public $total_links = 0;                   // total number of <loc> URL links
-   private $max_sitemap_links = 50000;     // maximum is 50,000 URLs per file
+   public $total_links = 0; // total number of <loc> URL links
+
    
    const MAX_SITEMAP_LINKS = 50000;
    const SITEMAP_FILENAME_SUFFIX = '.xml';
@@ -79,17 +81,26 @@ class GoogleXmlSitemap
      * @access public
      * @return void
      */
-   public function __construct(string $http_host)
+   public function __construct(string $http_hostname)
    {  
-      $this->http_hostname = $http_host;
+      $this->http_hostname = $http_hostname;
       
       // Create a new XMLWriter instance
       $this->xml_writer = new XMLWriter();
+
+      $this->setUrlSchemeHost();
    }
    
    public function setUseHttpsUrls(bool $use_https_urls): void
    {
       $this->http_host_use_https = $use_https_urls;
+
+      $this->setUrlSchemeHost();
+   }
+
+   protected function setUrlSchemeHost(): void
+   {
+      $this->url_scheme_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_hostname . '/';
    }
 
    /**
@@ -200,7 +211,7 @@ class GoogleXmlSitemap
          if ($xml_ns_type == 'sitemapindex')
             $this->xml_writer->openURI("{$this->sitemap_filename_prefix}_index" . self::SITEMAP_FILENAME_SUFFIX);
          else
-            $this->xml_writer->openURI($this->sitemap_filename_prefix . self::SITEMAP_FILENAME_SUFFIX);
+            $this->xml_writer->openURI($this->sitemap_filename_prefix . ($this->num_sitemaps + 1). self::SITEMAP_FILENAME_SUFFIX);
       }
 
       // Set indentation and line breaks for readability
@@ -297,14 +308,10 @@ class GoogleXmlSitemap
       if (empty($url))
         throw new Exception("ERROR: url cannot be empty");
 
-      // assemble full http(s) URL portion
-      $http_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_hostname . '/';
-
       // TODO: strip/add leading trailing slash after http host like https://www.domain.com/
 
 
-
-      $this->xml_writer->writeElement('loc', $http_host . $url);
+      $this->xml_writer->writeElement('loc', $this->url_scheme_host . $url);
 
       if ($lastmod)
          $this->xml_writer->writeElement('lastmod', $lastmod);
@@ -367,7 +374,9 @@ class GoogleXmlSitemap
 
          #if ($this->http_host == true)
          
-         $this->xml_writer->writeElement('loc', $this->sitemap_filename_prefix . $i . self::SITEMAP_FILENAME_SUFFIX);
+         $this->xml_writer->writeElement('loc', $this->url_scheme_host . 
+                                                $this->sitemap_filename_prefix . $i . 
+                                                self::SITEMAP_FILENAME_SUFFIX);
          $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
          $this->xml_writer->endElement();
          

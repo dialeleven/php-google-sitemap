@@ -11,9 +11,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/public/db_connect.inc.php';
 Instansiate the PHP Google XML Sitemap Class. Pass your hostname below as an 
 argument using PHP's $_SERVER['HTTP_HOST'] or you can hard code your hostname
 such as 'https://www.yourdomain.com' for example.
+
+*** DO NOT INCLUDE A TRAILING SLASH AT THE END OF YOUR HOSTNAME! ***
 */
-#$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_host = $_SERVER['HTTP_HOST']);
-$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_host = 'www.testdomain.com');
+#$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
+$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');
 
 
 
