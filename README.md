@@ -57,8 +57,11 @@ Files you'll need:
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 
 
-   // create new instance of the PHP Google XML Sitemap class
-   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
+   // create new instance of the PHP Google XML Sitemap class (XML files will be written to the same path as the script using the Google XML Sitemap class in the line below - uncomment if using)
+   //$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
+
+   // create new instance of the PHP Google XML Sitemap class (using specified XML save directory)
+   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
    /*
    Some configuratation methods for your sitemap file(s) to be generated.
