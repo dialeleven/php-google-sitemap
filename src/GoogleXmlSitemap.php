@@ -10,8 +10,7 @@ History:          04/09/2024 - modernized from PHP 5.6 to PHP 8.2 and using XMLW
                                attention to this according to N*** B* B*** [ft]
 
 TODO: 1) add gzip support to XML files
-TODO: 2) allow user to specify what path to write XML files to
-TODO: 3) support/checking for MAX_FILESIZE
+TODO: 2) support/checking for MAX_FILESIZE
 */
 
 
