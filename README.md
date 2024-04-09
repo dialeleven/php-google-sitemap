@@ -89,3 +89,7 @@ As you can see, the usage is pretty simple.
 4. Call addUrl() method until you're out of URLs to add.
 5. Wrap up by calling endXmlDoc() which will generate your sitemapindex TOC.
 6. Submit your sitemapindex XML file to Google. Done!
+
+This was rewritten from PHP 5.6 to 8 and greatly simplified from a class that
+did too much and was rather confusing to read and maintain even though it worked.
+It cut down the lines of code by about 200-300. Hope you find this class useful.
