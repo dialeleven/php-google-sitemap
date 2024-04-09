@@ -237,7 +237,7 @@ class GoogleXmlSitemap
          $this->endXmlDoc();
 
          // start new XML doc
-         $this->startXmlDoc($mode = 'memory', $xml_ns_type = 'urlset');
+         $this->startXmlDoc($xml_ns_type = 'urlset');
 
          // reset counter for current urlset XML file
          $this->current_url_count = 0;
@@ -249,7 +249,7 @@ class GoogleXmlSitemap
       else if ($this->current_url_count == 0)
       {
          // start new XML doc
-         $this->startXmlDoc($mode = 'memory', $xml_ns_type = 'urlset');
+         $this->startXmlDoc($xml_ns_type = 'urlset');
          
          // increment number of sitemaps counter
          ++$this->num_sitemaps;
