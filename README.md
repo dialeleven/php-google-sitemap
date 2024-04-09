@@ -77,9 +77,7 @@ If you want the resulting XML files saved in a subdirectory, pass the full DOCUM
 
 Remaining logic for usage:
 ```
-   /*
-   Some configuratation methods for your sitemap file(s) to be generated.
-   */
+   // Some configuratation methods for your sitemap file(s) to be generated.
    $my_sitemap->setUseHttpsUrls(true); // use "https" scheme (true) for your URLs or plain "http" (false)
    $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file(s) minus ".xml" (e.g. mysitemap.xml)
    
