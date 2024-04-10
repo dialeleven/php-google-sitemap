@@ -120,9 +120,11 @@ class GoogleXmlSitemap
             $this->use_gzip = $use_gzip;
          else
             throw new Exception('Gzip compression is not enabled on this server. Please enable "zlib.output_compression" in php.ini.');
+      else
+         $this->use_gzip = false;
    }
 
-   protected function getUseGzip(): void
+   protected function getUseGzip(): bool
    {
       return $this->use_gzip;
    }

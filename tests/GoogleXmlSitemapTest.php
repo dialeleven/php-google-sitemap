@@ -54,6 +54,32 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertStringContainsString('my_sitemap_filename', $mysitemap->getSitemapFilenamePrefix());
    }
 
+   public function testCheckDirectoryTrailingSlash()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'checkDirectoryTrailingSlash');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($mysitemap, $xml_ns_type = '/some/path');
+
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'xml_files_dir');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $xml_files_dir_value = $reflectionProperty->getValue($mysitemap);
+
+      $this->assertStringEndsWith('/', $xml_files_dir_value);
+   }
+
    public function testSetUseHttpsUrls()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
@@ -110,6 +136,35 @@ class GoogleXmlSitemapTest extends TestCase
 
       // use https was set to false, so url scheme should contain 'http://'
       $this->assertStringContainsString('http://', $value);
+   }
+
+   public function testSetUseGzip()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
+
+      $mysitemap->setUseGzip(true);
+
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'use_gzip');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $use_gzip_value = $reflectionProperty->getValue($mysitemap);
+
+      $this->assertTrue($use_gzip_value);
+
+
+      $mysitemap->setUseGzip(false);
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(false);
+
+      // Access the value of the private property
+      $use_gzip_value = $reflectionProperty->getValue($mysitemap);
+
+      $this->assertFalse($use_gzip_value);
    }
 
 
