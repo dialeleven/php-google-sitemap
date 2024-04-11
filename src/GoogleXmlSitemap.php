@@ -164,6 +164,16 @@ class GoogleXmlSitemap
    }
 
    /**
+     * @param 
+     * @access public
+     * @return string  $xml_mode
+     */
+   public function getXmlMode(): string
+   {
+      return $this->xml_mode;
+   }
+
+   /**
      * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
      * @access public
      * @return bool

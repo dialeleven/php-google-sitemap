@@ -141,43 +141,80 @@ class GoogleXmlSitemapTest extends TestCase
    public function testSetUseGzip()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
-
       $mysitemap->setUseGzip(true);
 
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'getUseGzip');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($mysitemap, $param = '');
+      
+      $this->assertTrue($result);
+
+      
+      $mysitemap->setUseGzip(false);
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'getUseGzip');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($mysitemap, $param = '');
+      
+      $this->assertFalse($result);
+   }
+
+
+   public function testSetUrlSchemeHost()
+   {
+      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'setUrlSchemeHost');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($mysitemap, $param = '');
+
+
       // Create a ReflectionProperty object for the private property
-      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'use_gzip');
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_scheme_host');
 
       // Make the private property accessible
       $reflectionProperty->setAccessible(true);
 
       // Access the value of the private property
-      $use_gzip_value = $reflectionProperty->getValue($mysitemap);
+      $url_scheme_host_val = $reflectionProperty->getValue($mysitemap);
 
-      $this->assertTrue($use_gzip_value);
-
-
-      $mysitemap->setUseGzip(false);
-
-      // Make the private property accessible
-      $reflectionProperty->setAccessible(false);
-
-      // Access the value of the private property
-      $use_gzip_value = $reflectionProperty->getValue($mysitemap);
-
-      $this->assertFalse($use_gzip_value);
+      // use https was set to false, so url scheme should contain 'http://'
+      $this->assertStringContainsString('https://', $url_scheme_host_val);
    }
 
 
-   /*
-   public function testSetUseMysqlDbModeFlag()
+   public function testSetXmlMode()
    {
-      // Instantiate the GoogleXmlSitemap class
-      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/');
+      $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
-      //$mysitemap->($use_db_mode = true, $pdo, $sql_total);
+      $mysitemap->setXmlMode($xml_mode = 'file');
+      $this->assertStringMatchesFormat('file', $mysitemap->getXmlMode());
 
+      $mysitemap->setXmlMode($xml_mode = 'memory');
+      $this->assertStringMatchesFormat('memory', $mysitemap->getXmlMode());
+
+      // error testing
+      /*
+      $mysitemap->setXmlMode($xml_mode = 'invalid');
+      $this->assertStringMatchesFormat('memory', $mysitemap->getXmlMode());
+      */
    }
-   */
+
 
 
    /*
