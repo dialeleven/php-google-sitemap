@@ -10,7 +10,7 @@ abstract class GoogleSitemap
 {
    protected function startXmlDoc(string $xml_ns_type = 'urlset'): bool
    {
-      
+      return true;
    }
 
    abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;

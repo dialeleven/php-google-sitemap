@@ -322,12 +322,51 @@ class GoogleXmlSitemapTest extends TestCase
       #$this->assertEquals('expectedValue', $value);
       $this->assertEquals(1, $value);
    }
-   /*
+   
    public function testStartNewUrlsetXmlFile()
    {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
+
+      // call addUrl() method
+      $mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0');
       
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'current_url_count');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+      $reflectionProperty->setValue($mysitemap, $mysitemap::MAX_SITEMAP_LINKS);
+
+      // Access the value of the private property
+      $current_url_count_val = $reflectionProperty->getValue($mysitemap);
+
+
+      
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startNewUrlsetXmlFile');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+  
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($mysitemap, $param = '');
+
+      $this->assertEquals($mysitemap::MAX_SITEMAP_LINKS, $current_url_count_val);
+
+      
+      // Create a ReflectionProperty object for the private property
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'num_sitemaps');
+
+      // Make the private property accessible
+      $reflectionProperty->setAccessible(true);
+
+      // Access the value of the private property
+      $num_sitemaps_val = $reflectionProperty->getValue($mysitemap);
+
+      $this->assertEquals(2, $num_sitemaps_val);
    }
 
+   /*
    public function testEndXmlDoc()
    {
 
