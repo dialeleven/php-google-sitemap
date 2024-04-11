@@ -3,8 +3,8 @@
 Filename:         GoogleXmlSitemap.php
 Author:           Francis Tsao
 Date Created:     08/01/2008
-Purpose:          Creates a gzipped google sitemap xml file with a list of URLs specified
-                  by the passed SQL.
+Purpose:          Creates a Google XML <urlset> files and a <sitemapindex> for the number of URLs
+                  added.
 History:          04/09/2024 - modernized from PHP 5.6 to PHP 8.2 and using XMLWriter interface [ft]
                   12/06/2011 - commented out <changefreq> tag as Google does not pay
                                attention to this according to N*** B* B*** [ft]
