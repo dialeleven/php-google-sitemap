@@ -35,7 +35,6 @@ class GoogleXmlSitemapTest extends TestCase
       self::$pdo = new PDO($dsn, $db_username, $db_password, $options);
    }
 
-
    public function testClassConstructor()
    {
       // Instantiate the GoogleXmlSitemap class
@@ -169,7 +168,6 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertFalse($result);
    }
 
-
    public function testSetUrlSchemeHost()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
@@ -196,7 +194,6 @@ class GoogleXmlSitemapTest extends TestCase
       // use https was set to false, so url scheme should contain 'http://'
       $this->assertStringContainsString('https://', $url_scheme_host_val);
    }
-
 
    public function testSetXmlMode()
    {
@@ -226,7 +223,6 @@ class GoogleXmlSitemapTest extends TestCase
 
       // Access the value of the private property
       $value = $reflectionProperty->getValue($mysitemap);
-
 
 
 
@@ -366,25 +362,98 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertEquals(2, $num_sitemaps_val);
    }
 
-   /*
    public function testEndXmlDoc()
    {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
 
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+      
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject = $mysitemap, $xml_ns_type = 'memory');
+      
+      $this->assertTrue($mysitemap->endXmlDoc());
    }
 
    public function testGzipXmlFiles()
    {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
 
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+      
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject = $mysitemap, $xml_ns_type = 'memory');
+      
+
+      
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'gzipXmlFiles');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+      
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject = $mysitemap, $param = '');
+      
+      $this->assertTrue($result);
    }
-
    public function testGenerateSitemapIndexFile()
    {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
 
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+      
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject = $mysitemap, $xml_ns_type = 'memory');
+      
+
+      
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'generateSitemapIndexFile');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+      
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject = $mysitemap, $param = '');
+      
+      $this->assertTrue($result);
    }
-
    public function testOutputXml()
    {
+      $mysitemap = new GoogleXmlSitemap($http_host = '');
 
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+      
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject = $mysitemap, $xml_ns_type = 'memory');
+
+
+
+      // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'outputXml');
+
+      // make protected method accessible for testing
+      $method->setAccessible(true);
+      
+      // invoke protected method and pass whatever param is needed
+      $result = $method->invoke($myObject = $mysitemap, $param = '');
+
+      $this->assertTrue($result);
    }
-   */
 }
