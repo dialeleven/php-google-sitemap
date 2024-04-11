@@ -214,10 +214,6 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertStringMatchesFormat('memory', $mysitemap->getXmlMode());
       */
    }
-
-
-
-   /*
    public function testStartXmlDoc()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
@@ -264,7 +260,6 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertNotNull($value);
 
 
-      
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
@@ -291,7 +286,6 @@ class GoogleXmlSitemapTest extends TestCase
       #$this->assertTrue($result);
    }
 
-
    public function testAddUrl()
    {
       $mysitemap = new GoogleXmlSitemap($http_host = '');
@@ -316,7 +310,7 @@ class GoogleXmlSitemapTest extends TestCase
 
       
       // Create a ReflectionProperty object for the private property
-      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count');
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'total_url_count');
 
       // Make the private property accessible
       $reflectionProperty->setAccessible(true);
@@ -327,6 +321,30 @@ class GoogleXmlSitemapTest extends TestCase
       // Assert the value or perform any necessary checks
       #$this->assertEquals('expectedValue', $value);
       $this->assertEquals(1, $value);
+   }
+   /*
+   public function testStartNewUrlsetXmlFile()
+   {
+      
+   }
+
+   public function testEndXmlDoc()
+   {
+
+   }
+
+   public function testGzipXmlFiles()
+   {
+
+   }
+
+   public function testGenerateSitemapIndexFile()
+   {
+
+   }
+
+   public function testOutputXml()
+   {
 
    }
    */
