@@ -318,7 +318,7 @@ class GoogleXmlSitemap
      * @access public
      * @return bool
      */   
-    public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = '')
+    public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool
     {
        // check if we need a new XML file
        $this->startNewUrlsetXmlFile();
