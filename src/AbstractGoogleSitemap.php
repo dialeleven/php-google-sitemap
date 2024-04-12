@@ -28,6 +28,9 @@ abstract class GoogleSitemap
    abstract protected function generateSitemapIndexFile(): bool;
    abstract protected function outputXml(): bool;
 
+
+   //---------------------- CONCRETE METHODS - START ----------------------//
+
    /**
      * Start the XML document. Use either 'memory' mode to send to browser or 'openURI()'
      * save as a file with the specified filename. Set our indentation and then of course
