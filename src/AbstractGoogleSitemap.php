@@ -2,10 +2,7 @@
 /*
 Abstracting the GoogleSitemap class for possible future support for various 
 Sitemap extensions including Image sitemaps, News sitemaps, Video sitemaps and
-alternatives. 
-
-See https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
-
+alternatives (ref: https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps).
 
 Currently it supports generating the required files for:
 - Google XML Sitemaps (using /src/GoogleXmlSitemap.php)
