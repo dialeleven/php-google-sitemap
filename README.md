@@ -47,6 +47,7 @@ As you can see the structure is quite similar with the differences being the 'si
 
 > [!IMPORTANT]
 > Files you'll need:
+> * /src/AbstractGoogleSitemap.php
 > * /src/GoogleXmlSitemap.php
 
 ### Sample Usage

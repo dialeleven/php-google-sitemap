@@ -5,6 +5,11 @@ Sitemap extensions including Image sitemaps, News sitemaps, Video sitemaps and
 alternatives. 
 
 See https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
+
+
+Currently it supports generating the required files for:
+- Google XML Sitemaps (using /src/GoogleXmlSitemap.php)
+
 */
 namespace Dialeleven\PhpGoogleXmlSitemap;
 
@@ -17,7 +22,7 @@ abstract class GoogleSitemap
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
 
-   
+
    abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    abstract protected function startNewUrlsetXmlFile(): void;
    abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
