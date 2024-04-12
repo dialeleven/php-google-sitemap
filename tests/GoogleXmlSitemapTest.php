@@ -306,7 +306,7 @@ class GoogleXmlSitemapTest extends TestCase
 
       
       // Create a ReflectionProperty object for the private property
-      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'total_url_count');
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count_total');
 
       // Make the private property accessible
       $reflectionProperty->setAccessible(true);
@@ -327,14 +327,14 @@ class GoogleXmlSitemapTest extends TestCase
       $mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0');
       
       // Create a ReflectionProperty object for the private property
-      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'current_url_count');
+      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count_current');
 
       // Make the private property accessible
       $reflectionProperty->setAccessible(true);
       $reflectionProperty->setValue($mysitemap, $mysitemap::MAX_SITEMAP_LINKS);
 
       // Access the value of the private property
-      $current_url_count_val = $reflectionProperty->getValue($mysitemap);
+      $url_count_current_val = $reflectionProperty->getValue($mysitemap);
 
 
       
@@ -347,7 +347,7 @@ class GoogleXmlSitemapTest extends TestCase
       // invoke protected method and pass whatever param is needed
       $result = $method->invoke($mysitemap, $param = '');
 
-      $this->assertEquals($mysitemap::MAX_SITEMAP_LINKS, $current_url_count_val);
+      $this->assertEquals($mysitemap::MAX_SITEMAP_LINKS, $url_count_current_val);
 
       
       // Create a ReflectionProperty object for the private property
