@@ -1,5 +1,4 @@
 /.phpunit.cache/
 /.vscode
-/src/backups/
 /vendor/
 .phpunit.result.cache
