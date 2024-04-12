@@ -456,4 +456,7 @@ class GoogleXmlSitemapTest extends TestCase
 
       $this->assertTrue($result);
    }
+
+   /*
+   */
 }

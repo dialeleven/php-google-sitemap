@@ -39,7 +39,11 @@ use InvalidArgumentException;
 use XMLWriter;
 
 
-class GoogleXmlSitemap
+require_once 'AbstractGoogleSitemap.php';
+
+
+
+class GoogleXmlSitemap extends GoogleSitemap
 {
    const MAX_SITEMAP_LINKS = 50000;
    #const MAX_SITEMAP_LINKS = 5;

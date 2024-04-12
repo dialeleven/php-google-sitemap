@@ -6,13 +6,12 @@ alternatives.
 
 See https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
 */
+namespace Dialeleven\PhpGoogleXmlSitemap;
+
+
+
 abstract class GoogleSitemap
 {
-   protected function startXmlDoc(string $xml_ns_type = 'urlset'): bool
-   {
-      return true;
-   }
-
    abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    abstract protected function startNewUrlsetXmlFile(): void;
    abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
