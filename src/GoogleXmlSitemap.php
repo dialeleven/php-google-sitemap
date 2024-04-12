@@ -47,10 +47,10 @@ class GoogleXmlSitemap extends GoogleSitemap
 {
    
    protected $xml_writer;
-   protected $current_url_count = 0; // total number of <loc> URL links for current <urlset> XML file
-   protected $total_url_count = 0; // grand total number of <loc> URL links
    protected $xml_mode = 'browser'; // send XML to 'browser' or 'file'
    protected $xml_files_dir; // directory where to save the XML files
+   protected $url_count_current = 0; // total number of <loc> URL links for current <urlset> XML file
+   protected $url_count_total = 0; // grand total number of <loc> URL links
    public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
    protected $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
    protected $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
@@ -234,19 +234,19 @@ class GoogleXmlSitemap extends GoogleSitemap
    protected function startNewUrlsetXmlFile(): void
    {
       // start new XML file if we reach maximum number of URLs per urlset file
-      if ($this->current_url_count >= self::MAX_SITEMAP_LINKS)
+      if ($this->url_count_current >= self::MAX_SITEMAP_LINKS)
       {
          // start new XML doc
          $this->startXmlDoc($xml_ns_type = 'urlset');
 
          // reset counter for current urlset XML file
-         $this->current_url_count = 0;
+         $this->url_count_current = 0;
 
          // increment number of sitemaps counter
          ++$this->num_sitemaps;
       }
       // first call to addURLNew2(), so open up the XML file
-      else if ($this->current_url_count == 0)
+      else if ($this->url_count_current == 0)
       {
          // start new XML doc
          $this->startXmlDoc($xml_ns_type = 'urlset');
@@ -299,8 +299,8 @@ class GoogleXmlSitemap extends GoogleSitemap
       $this->xml_writer->endElement();
 
       // increment URL count so we can start a new <urlset> XML file if needed
-      ++$this->current_url_count;
-      ++$this->total_url_count;
+      ++$this->url_count_current;
+      ++$this->url_count_total;
  
       return true;
    }
