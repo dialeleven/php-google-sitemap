@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://example.com/sample1.html</loc>
+      <image:image>
+         <image:loc>https://example.com/one_image_on_page_sample.jpg</image:loc>
+      </image:image>
+   </url>
+   <url>
+      <url>
+         <loc>https://example.com/anotherpage.html</loc>
+         <image:image>
+            <image:loc>https://example.com/multi_image_headline.jpg</image:loc>
+         </image:image>
+         <image:image>
+            <image:loc>https://example.com/multi_image_photo.jpg</image:loc>
+         </image:image>
+      </url>
+      <url/>
+   </url>
+</urlset>
