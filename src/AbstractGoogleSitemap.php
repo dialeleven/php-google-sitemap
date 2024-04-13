@@ -15,9 +15,24 @@ namespace Dialeleven\PhpGoogleXmlSitemap;
 abstract class GoogleSitemap
 {
    const MAX_SITEMAP_LINKS = 50000;
-   #const MAX_SITEMAP_LINKS = 5;
+   #const MAX_SITEMAP_LINKS = 5; // for development testing
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
+
+   
+   protected $xml_writer;
+   protected $xml_mode = 'browser'; // send XML to 'browser' or 'file'
+   protected $xml_files_dir; // directory where to save the XML files
+   protected $url_count_current = 0; // total number of <loc> URL links for current <urlset> XML file
+   protected $url_count_total = 0; // grand total number of <loc> URL links
+   public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
+   protected $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
+   protected $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
+   protected $use_gzip = false;
+   protected $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
+                                                          // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
+                                                          // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
+   protected $num_sitemaps = 0;              // total number of Sitemap files
 
    abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    abstract protected function startNewUrlsetXmlFile(): void;
