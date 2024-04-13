@@ -1,6 +1,6 @@
 # PHP Google XML Sitemap - Overview
 
-A PHP class to generate a [Google XML Sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview).
+A PHP class to generate a [Google XML Sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
 
 Briefly, a Google XML Sitemap contains two parts:
 
