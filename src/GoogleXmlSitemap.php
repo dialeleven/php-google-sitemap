@@ -234,7 +234,7 @@ class GoogleXmlSitemap extends GoogleSitemap
          // increment number of sitemaps counter
          ++$this->num_sitemaps;
       }
-      // first call to addURLNew2(), so open up the XML file
+      // first call to addURL(), so open up the XML file
       else if ($this->url_count_current == 0)
       {
          // start new XML doc
