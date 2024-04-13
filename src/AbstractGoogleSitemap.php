@@ -19,7 +19,6 @@ abstract class GoogleSitemap
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
 
-   
    protected $xml_writer;
    protected $xml_mode = 'browser'; // send XML to 'browser' or 'file'
    protected $xml_files_dir; // directory where to save the XML files
@@ -34,6 +33,7 @@ abstract class GoogleSitemap
                                                           // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
    protected $num_sitemaps = 0;              // total number of Sitemap files
 
+   
    abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    abstract protected function startNewUrlsetXmlFile(): void;
    abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
