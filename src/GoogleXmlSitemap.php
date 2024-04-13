@@ -86,6 +86,7 @@ class GoogleXmlSitemap extends GoogleSitemap
       $this->setUrlSchemeHost(); // assemble scheme+host (e.g. https://hostname.ext)
    }
 
+
    /**
      * Check if the specified sitemaps directory included a trailing slash.
      * Add one if not present to avoid "mysubdirsitemap.xml" vs "mysubdir/sitemap.xml"
@@ -99,6 +100,7 @@ class GoogleXmlSitemap extends GoogleSitemap
          $this->xml_files_dir = $xml_files_dir . '/';
    }
    
+
    /**
      * Set flag for "use HTTPS" in host name. Assemble full URL scheme+host propery string.
      * @access protected
@@ -124,10 +126,12 @@ class GoogleXmlSitemap extends GoogleSitemap
          $this->use_gzip = false;
    }
 
+
    protected function getUseGzip(): bool
    {
       return $this->use_gzip;
    }
+
 
    /**
      * Assemble the URL scheme+host string (e.g. 'https://' + 'www.domain.com')
@@ -138,6 +142,7 @@ class GoogleXmlSitemap extends GoogleSitemap
    {
       $this->url_scheme_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_hostname . '/';
    }
+
 
    /**
      * Set what mode to use for the XMLWriter interface. Either 'memory' (send to browser)
@@ -152,6 +157,8 @@ class GoogleXmlSitemap extends GoogleSitemap
      * @access public
      * @return void
      */
+
+   
    public function setXmlMode(string $xml_mode): void
    {
       $valid_modes = array('memory', 'file');
@@ -163,6 +170,7 @@ class GoogleXmlSitemap extends GoogleSitemap
       $this->xml_mode = $xml_mode;
    }
 
+
    /**
      * @param 
      * @access public
@@ -172,6 +180,7 @@ class GoogleXmlSitemap extends GoogleSitemap
    {
       return $this->xml_mode;
    }
+
 
    /**
      * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
@@ -189,11 +198,6 @@ class GoogleXmlSitemap extends GoogleSitemap
    {
       return $this->sitemap_filename_prefix;
    }
-
-
-   /////////////////////// NEW XMLwriter methods ///////////////////////////
-
-   
 
 
    /**
@@ -224,6 +228,7 @@ class GoogleXmlSitemap extends GoogleSitemap
 
       return true;
    }
+
 
    /**
      * Check if we need to start a new urlset XML file based on how many urls
@@ -360,6 +365,7 @@ class GoogleXmlSitemap extends GoogleSitemap
       return true;
    }
 
+   
    /**
      * Generate the sitemapindex XML file based on the number of urlset files
      * that were created.
