@@ -141,8 +141,6 @@ class GoogleXmlSitemap extends GoogleSitemap
      * @access public
      * @return void
      */
-
-   
    public function setXmlMode(string $xml_mode): void
    {
       $valid_modes = array('memory', 'file');
