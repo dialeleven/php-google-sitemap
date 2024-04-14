@@ -10,6 +10,9 @@ Currently it supports generating the required files for:
 */
 namespace Dialeleven\PhpGoogleXmlSitemap;
 
+use Exception;
+use InvalidArgumentException;
+use XMLWriter;
 
 
 abstract class GoogleSitemap
