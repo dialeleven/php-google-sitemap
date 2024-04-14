@@ -50,8 +50,21 @@ abstract class GoogleSitemap
 
    /**
      * Start the XML document. Use either 'memory' mode to send to browser or 'openURI()'
-     * save as a file with the specified filename. Set our indentation and then of course
-     * start with the <?xml version="1.0" encoding="UTF-8"?> tag.
+     * save as a file with the specified filename. Set indentation. Start XML file which includes:
+     *   <?xml version="1.0" encoding="UTF-8"?>
+     *   <!-- URLSET TAG HERE according to formats listed below -->
+     * 
+     *   e.g. XML sitemap
+     *      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     * 
+     *   e.g. image sitemap
+     *      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+     *   
+     *   e.g. video sitemap
+     *      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+     * 
+     *   e.g. news sitemap
+     *      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
      * @access protected
      * @param  string $xml_ns_type  values ('urlset' or 'sitemapindex') create either a <urlset xmlns> tag or <sitemapindex> tag
      * @return bool
