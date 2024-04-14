@@ -41,6 +41,7 @@ abstract class GoogleSitemap
    abstract protected function startNewUrlsetXmlFile(): void;
    abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
    abstract protected function generateSitemapIndexFile(): bool;
+   abstract protected function urlsetAdditionalAttributes(): bool; // TODO: unit test
 
    
    // TODO: move to concrete method(s)
@@ -110,6 +111,9 @@ abstract class GoogleSitemap
 
       // open our cotainting tag either 'sitemapindex' or 'urlset'
       $this->startXmlNsElement($xml_ns_type = 'urlset');
+
+      // add additional attribute(s) to the <urlset> tag (if needed)
+      $this->urlsetAdditionalAttributes();
 
       return true;
    }
