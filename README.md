@@ -59,6 +59,8 @@ Start off with the required namespace (e.g. "use _____;") and include the Google
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 ```
 
+**Create new instance of GoogleSitemap Class**
+
 By default, resulting XML files will be created in the same path as your script using the PHP Google XML Sitemap class if $xml_files_dir is blank or not passed as an argument.
 
 ```
@@ -79,7 +81,7 @@ To save the resulting XML files saved in a subdirectory, pass the full DOCUMENT_
 
 ```
    // create new instance of the PHP Google XML Sitemap class (using specified XML save directory)
-   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
 ```
 
