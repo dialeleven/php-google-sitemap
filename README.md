@@ -63,7 +63,14 @@ By default, resulting XML files will be created in the same path as your script 
 
 ```
    // create new instance of the PHP Google XML Sitemap class (using default save dir)
-   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
+   /*
+   SPECIFY YOUR SITEMAP TYPE:
+      - xml (for most people, you'll use this unless you need a speciality sitemap type like images, etc..)
+      - image
+      - video
+      - news
+   */
+   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
 ```
 
 **OR**

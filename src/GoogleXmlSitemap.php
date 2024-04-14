@@ -55,19 +55,37 @@ class GoogleXmlSitemap extends GoogleSitemap
      * @access public
      * @return void
      */
-   public function __construct(string $http_hostname, string $xml_files_dir = '')
+   public function __construct(string $sitemap_type, string $http_hostname, string $xml_files_dir = '')
    {  
+      $this->sitemap_type = $sitemap_type;
       $this->http_hostname = $http_hostname;
       $this->xml_files_dir = $xml_files_dir;
       
       // Create a new XMLWriter instance
       $this->xml_writer = new XMLWriter();
 
+      $this->checkSitemapType($sitemap_type); // check for valid sitemap type (xml, image, video, news)
       $this->checkDirectoryTrailingSlash($xml_files_dir); // ensure directory includes trailing slash
 
       $this->setXmlMode('file'); // should be 'file' mode unless debugging in 'memory' (browser)
 
       $this->setUrlSchemeHost(); // assemble scheme+host (e.g. https://hostname.ext)
+   }
+
+
+   protected function checkSitemapType($sitemap_type): bool
+   {
+      if (!array_key_exists($sitemap_type, $this->urlset_xmlns_types_arr))
+      {
+         throw new Exception("$sitemap_type not in allowed sitemap types. Valid values are " . print_r($this->urlset_xmlns_types_arr, true));
+         return false;
+      }
+      else
+      {
+         #echo "$sitemap_type key found in ";
+         #print_r($this->urlset_xmlns_types_arr, true);
+         return true;
+      }
    }
 
 
@@ -82,6 +100,21 @@ class GoogleXmlSitemap extends GoogleSitemap
    {
       if ($xml_files_dir AND !preg_match('#\/$#', $xml_files_dir))
          $this->xml_files_dir = $xml_files_dir . '/';
+   }
+
+
+   protected function urlsetAdditionalAttributes($sitemap_type = 'xml'): bool
+   {
+      // If the sitemap type array element contains a value (e.g. 'image' => 'URI'), then write the attribute.
+      // XML sitemaps do not require an additional xmlns:TYPE_NAME attribute, so the value for XML will be null
+      // as in 'xml' => ''.
+      if ($this->urlset_xmlns_types_arr[$sitemap_type])
+      {
+         $this->xml_writer->writeAttributeNS('xmlns', "$sitemap_type", null, $this->urlset_xmlns_types_arr[$sitemap_type]);
+         return true;
+      }
+      else
+         return false;
    }
    
 

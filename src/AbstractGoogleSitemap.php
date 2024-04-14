@@ -22,6 +22,7 @@ abstract class GoogleSitemap
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
 
+   protected $sitemap_type;
    protected $xml_writer;
    protected $xml_mode = 'browser'; // send XML to 'browser' or 'file'
    protected $xml_files_dir; // directory where to save the XML files
@@ -35,13 +36,17 @@ abstract class GoogleSitemap
                                                           // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                           // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
    protected $num_sitemaps = 0;              // total number of Sitemap files
+   protected $urlset_xmlns_types_arr = array('xml'   => '', // XML doesn't have an additional XMLNS attribute like image/video/news
+                                             'image' => 'http://www.google.com/schemas/sitemap-image/1.1',
+                                             'video' => 'http://www.google.com/schemas/sitemap-video/1.1',
+                                             'news'  => 'http://www.google.com/schemas/sitemap-news/0.9');
 
    
    abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    abstract protected function startNewUrlsetXmlFile(): void;
    abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
    abstract protected function generateSitemapIndexFile(): bool;
-   abstract protected function urlsetAdditionalAttributes(): bool; // TODO: unit test
+   abstract protected function urlsetAdditionalAttributes($sitemap_type): bool; // TODO: unit test
 
    
    // TODO: move to concrete method(s)
