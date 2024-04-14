@@ -76,6 +76,103 @@ abstract class GoogleSitemap
        $this->setUrlSchemeHost(); // assemble scheme+host (e.g. https://hostname.ext)
     }
 
+   
+   /**
+     * Set flag for "use HTTPS" in host name. Assemble full URL scheme+host propery string.
+     * @access protected
+     * @return void
+     */
+    public function setUseHttpsUrls(bool $use_https_urls): void
+    {
+       $this->http_host_use_https = $use_https_urls;
+ 
+       // update the URL scheme+host as we toggle http/https on or off
+       $this->setUrlSchemeHost();
+    }
+ 
+ 
+    public function setUseGzip(bool $use_gzip): void
+    {
+       if ($use_gzip)
+          if (function_exists('ob_gzhandler') && ini_get('zlib.output_compression'))
+             $this->use_gzip = $use_gzip;
+          else
+             throw new Exception('Gzip compression is not enabled on this server. Please enable "zlib.output_compression" in php.ini.');
+       else
+          $this->use_gzip = false;
+    }
+ 
+ 
+    protected function getUseGzip(): bool
+    {
+       return $this->use_gzip;
+    }
+ 
+ 
+    /**
+      * Assemble the URL scheme+host string (e.g. 'https://' + 'www.domain.com')
+      * @access protected
+      * @return void
+      */
+    protected function setUrlSchemeHost(): void
+    {
+       $this->url_scheme_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_hostname . '/';
+    }
+ 
+ 
+    /**
+      * Set what mode to use for the XMLWriter interface. Either 'memory' (send to browser)
+      * or 'file' (save to file). Memory mode should only be used for debugging/testing to
+      * review the <urlset> XML contents easier than opening up the written XML file.
+      * 
+      * Created for development purposes of viewing the urlset XML file in the browser
+      * immediately. This would just output one XML file of course.
+      *
+      * @param  string $xml_mode  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
+ 
+      * @access public
+      * @return void
+      */
+    public function setXmlMode(string $xml_mode): void
+    {
+       $valid_modes = array('memory', 'file');
+ 
+       // Validation for either 'memory' or 'file'
+       if ( !in_array($xml_mode, array('memory', 'file') ) )
+          throw new Exception("\$xml_mode: $xml_mode is not a valid option. Valid modes are " . print_r($valid_modes, true));
+ 
+       $this->xml_mode = $xml_mode;
+    }
+ 
+ 
+    /**
+      * @param 
+      * @access public
+      * @return string  $xml_mode
+      */
+    public function getXmlMode(): string
+    {
+       return $this->xml_mode;
+    }
+ 
+ 
+    /**
+      * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
+      * @access public
+      * @return bool
+      */
+    public function setSitemapFilenamePrefix(string $sitemap_filename_prefix): bool
+    {
+       $this->sitemap_filename_prefix = $sitemap_filename_prefix;
+ 
+       return true;
+    }
+ 
+    public function getSitemapFilenamePrefix(): string
+    {
+       return $this->sitemap_filename_prefix;
+    }
+
     
    // TODO: unit test
    protected function checkSitemapType($sitemap_type): bool
@@ -189,103 +286,6 @@ abstract class GoogleSitemap
       else
          return false;
    }
-
-   
-   /**
-     * Set flag for "use HTTPS" in host name. Assemble full URL scheme+host propery string.
-     * @access protected
-     * @return void
-     */
-    public function setUseHttpsUrls(bool $use_https_urls): void
-    {
-       $this->http_host_use_https = $use_https_urls;
- 
-       // update the URL scheme+host as we toggle http/https on or off
-       $this->setUrlSchemeHost();
-    }
- 
- 
-    public function setUseGzip(bool $use_gzip): void
-    {
-       if ($use_gzip)
-          if (function_exists('ob_gzhandler') && ini_get('zlib.output_compression'))
-             $this->use_gzip = $use_gzip;
-          else
-             throw new Exception('Gzip compression is not enabled on this server. Please enable "zlib.output_compression" in php.ini.');
-       else
-          $this->use_gzip = false;
-    }
- 
- 
-    protected function getUseGzip(): bool
-    {
-       return $this->use_gzip;
-    }
- 
- 
-    /**
-      * Assemble the URL scheme+host string (e.g. 'https://' + 'www.domain.com')
-      * @access protected
-      * @return void
-      */
-    protected function setUrlSchemeHost(): void
-    {
-       $this->url_scheme_host = (($this->http_host_use_https) ? 'https://' : 'http://') . $this->http_hostname . '/';
-    }
- 
- 
-    /**
-      * Set what mode to use for the XMLWriter interface. Either 'memory' (send to browser)
-      * or 'file' (save to file). Memory mode should only be used for debugging/testing to
-      * review the <urlset> XML contents easier than opening up the written XML file.
-      * 
-      * Created for development purposes of viewing the urlset XML file in the browser
-      * immediately. This would just output one XML file of course.
-      *
-      * @param  string $xml_mode  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
- 
-      * @access public
-      * @return void
-      */
-    public function setXmlMode(string $xml_mode): void
-    {
-       $valid_modes = array('memory', 'file');
- 
-       // Validation for either 'memory' or 'file'
-       if ( !in_array($xml_mode, array('memory', 'file') ) )
-          throw new Exception("\$xml_mode: $xml_mode is not a valid option. Valid modes are " . print_r($valid_modes, true));
- 
-       $this->xml_mode = $xml_mode;
-    }
- 
- 
-    /**
-      * @param 
-      * @access public
-      * @return string  $xml_mode
-      */
-    public function getXmlMode(): string
-    {
-       return $this->xml_mode;
-    }
- 
- 
-    /**
-      * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
-      * @access public
-      * @return bool
-      */
-    public function setSitemapFilenamePrefix(string $sitemap_filename_prefix): bool
-    {
-       $this->sitemap_filename_prefix = $sitemap_filename_prefix;
- 
-       return true;
-    }
- 
-    public function getSitemapFilenamePrefix(): string
-    {
-       return $this->sitemap_filename_prefix;
-    }
 
 
    /**
