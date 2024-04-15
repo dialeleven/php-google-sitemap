@@ -42,22 +42,6 @@ require_once 'AbstractGoogleSitemap.php';
 
 class GoogleImageSitemap extends GoogleSitemap
 {
-   protected function checkSitemapType($sitemap_type): bool
-   {
-      if (!array_key_exists($sitemap_type, $this->urlset_xmlns_types_arr))
-      {
-         throw new Exception("$sitemap_type not in allowed sitemap types. Valid values are " . print_r($this->urlset_xmlns_types_arr, true));
-         return false;
-      }
-      else
-      {
-         #echo "$sitemap_type key found in ";
-         #print_r($this->urlset_xmlns_types_arr, true);
-         return true;
-      }
-   }
-
-
    /**
      * Open the "xmlns" tag for either the 'sitemapindex' or 'urlset' list of
      * tags including the xmlns and xsi attributes needed. 
@@ -133,69 +117,6 @@ class GoogleImageSitemap extends GoogleSitemap
       ++$this->url_count_current;
       ++$this->url_count_total;
  
-      return true;
-   }
-
-
-   /**
-     * Generate the sitemapindex XML file based on the number of urlset files
-     * that were created.
-     * 
-     * @access protected
-     * @return bool
-     */  
-   protected function generateSitemapIndexFile(): bool
-   {
-      #echo "num_sitemaps: $this->num_sitemaps, \$i = $i<br>";
-      #die;
-
-      // start XML doc <?xml version="1.0" ? > and 'sitemapindex' tag
-      $this->startXmlDoc($xml_ns_type = 'sitemapindex');
-
-      // generate X number of <sitemap> entries for each of the urlset sitemaps
-      for ($i = 1; $i <= $this->num_sitemaps; ++$i)
-      {
-         // Start the 'sitemap' element
-         $this->xml_writer->startElement('sitemap');
-
-         // our "loc" URL to each urlset XML file
-         $loc = $this->url_scheme_host .  $this->sitemap_filename_prefix . $i . parent::SITEMAP_FILENAME_SUFFIX;
-         
-         // add ".gz" gzip extension to filename if compressing with gzip
-         if ($this->getUseGzip()) { $loc .= '.gz'; }
-
-         $this->xml_writer->writeElement('loc', $loc);
-         $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
-         $this->xml_writer->endElement();
-         
-         #echo "in for loop: \$this->num_sitemaps = $this->num_sitemaps, \$i = $i<br>";
-      }
-
-      // End the document (sitemapindex)
-      $this->xml_writer->endDocument();
-
-      // Output the XML content
-      //echo '<pre>'.htmlspecialchars($xmlWriter->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
-      $this->xml_writer->outputMemory();
-
-      return true;
-   }
-
-   
-   /**
-     * Done with the XML file, so output what's in memory to file/browser.
-     * 
-     * @access protected
-     * @return bool
-     */  
-   protected function outputXml(): bool
-   {
-      // Output the XML content nicely for 'memory' (browser output)
-      if ($this->xml_mode == 'memory')
-         echo '<pre>'.htmlspecialchars($this->xml_writer->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
-      else
-         $this->xml_writer->outputMemory();
-
       return true;
    }
 }

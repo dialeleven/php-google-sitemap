@@ -122,49 +122,4 @@ class GoogleXmlSitemap extends GoogleSitemap
  
       return true;
    }
-
-
-   /**
-     * Generate the sitemapindex XML file based on the number of urlset files
-     * that were created.
-     * 
-     * @access protected
-     * @return bool
-     */  
-   protected function generateSitemapIndexFile(): bool
-   {
-      #echo "num_sitemaps: $this->num_sitemaps, \$i = $i<br>";
-      #die;
-
-      // start XML doc <?xml version="1.0" ? > and 'sitemapindex' tag
-      $this->startXmlDoc($xml_ns_type = 'sitemapindex');
-
-      // generate X number of <sitemap> entries for each of the urlset sitemaps
-      for ($i = 1; $i <= $this->num_sitemaps; ++$i)
-      {
-         // Start the 'sitemap' element
-         $this->xml_writer->startElement('sitemap');
-
-         // our "loc" URL to each urlset XML file
-         $loc = $this->url_scheme_host .  $this->sitemap_filename_prefix . $i . parent::SITEMAP_FILENAME_SUFFIX;
-         
-         // add ".gz" gzip extension to filename if compressing with gzip
-         if ($this->getUseGzip()) { $loc .= '.gz'; }
-
-         $this->xml_writer->writeElement('loc', $loc);
-         $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
-         $this->xml_writer->endElement();
-         
-         #echo "in for loop: \$this->num_sitemaps = $this->num_sitemaps, \$i = $i<br>";
-      }
-
-      // End the document (sitemapindex)
-      $this->xml_writer->endDocument();
-
-      // Output the XML content
-      //echo '<pre>'.htmlspecialchars($xmlWriter->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
-      $this->xml_writer->outputMemory();
-
-      return true;
-   }
 }
