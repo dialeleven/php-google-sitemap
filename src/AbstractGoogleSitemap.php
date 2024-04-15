@@ -179,7 +179,6 @@ abstract class GoogleSitemap
       if (!array_key_exists($sitemap_type, $this->urlset_xmlns_types_arr))
       {
          throw new Exception("$sitemap_type not in allowed sitemap types. Valid values are " . print_r($this->urlset_xmlns_types_arr, true));
-         return false;
       }
       else
       {
