@@ -330,14 +330,14 @@ abstract class GoogleSitemap
 
 
    // TODO: unit test
-   protected function urlsetAdditionalAttributes($sitemap_type = 'xml'): bool
+   protected function urlsetAdditionalAttributes(): bool
    {
       // If the sitemap type array element contains a value (e.g. 'image' => 'URI'), then write the attribute.
       // XML sitemaps do not require an additional xmlns:TYPE_NAME attribute, so the value for XML will be null
       // as in 'xml' => ''.
-      if ($this->urlset_xmlns_types_arr[$sitemap_type])
+      if ($this->urlset_xmlns_types_arr[$this->sitemap_type])
       {
-         $this->xml_writer->writeAttributeNS('xmlns', "$sitemap_type", null, $this->urlset_xmlns_types_arr[$sitemap_type]);
+         $this->xml_writer->writeAttributeNS('xmlns', "$this->sitemap_type", null, $this->urlset_xmlns_types_arr[$this->sitemap_type]);
          return true;
       }
       else
