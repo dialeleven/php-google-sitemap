@@ -43,33 +43,6 @@ require_once 'AbstractGoogleSitemap.php';
 class GoogleImageSitemap extends GoogleSitemap
 {
    /**
-     * Open the "xmlns" tag for either the 'sitemapindex' or 'urlset' list of
-     * tags including the xmlns and xsi attributes needed. 
-     * 
-     * e.g. sitemap index follows per Google docs - https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps
-     * 
-     *   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     * 
-     * 'urlset' XML file container tag follows:
-     *   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     * @param $xml_ns_type ('sitemapindex' or 'urlset')
-     * @access protected
-     * @return bool
-     */      
-   protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool
-   {
-      // Start the XMLNS element according to what Google needs based on 'sitemapindex' vs. 'urlset'
-      if ($xml_ns_type == 'sitemapindex')
-         $this->xml_writer->startElementNS(null, 'sitemapindex', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-      // Start the 'urlset' element with namespace and attributes
-      else
-         $this->xml_writer->startElementNS(null, 'urlset', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-
-      return true;
-   }
-
-
-   /**
      * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
      * 
      * e.g.
