@@ -76,38 +76,6 @@ class GoogleXmlSitemap extends GoogleSitemap
 
 
    /**
-     * Check if we need to start a new urlset XML file based on how many urls
-     * have been added.
-     * @access protected
-     * @return void
-     */   
-   protected function startNewUrlsetXmlFile(): void
-   {
-      // start new XML file if we reach maximum number of URLs per urlset file
-      if ($this->url_count_current >= parent::MAX_SITEMAP_LINKS)
-      {
-         // start new XML doc
-         $this->startXmlDoc($xml_ns_type = 'urlset');
-
-         // reset counter for current urlset XML file
-         $this->url_count_current = 0;
-
-         // increment number of sitemaps counter
-         ++$this->num_sitemaps;
-      }
-      // first call to addURL(), so open up the XML file
-      else if ($this->url_count_current == 0)
-      {
-         // start new XML doc
-         $this->startXmlDoc($xml_ns_type = 'urlset');
-         
-         // increment number of sitemaps counter
-         ++$this->num_sitemaps;
-      }
-   }
-
-
-   /**
      * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
      * 
      * e.g.

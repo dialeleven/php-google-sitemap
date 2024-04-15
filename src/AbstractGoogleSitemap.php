@@ -43,7 +43,7 @@ abstract class GoogleSitemap
 
    
    abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
-   abstract protected function startNewUrlsetXmlFile(): void;
+   //abstract protected function startNewUrlsetXmlFile(): void;
    abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
    abstract protected function generateSitemapIndexFile(): bool;
 
@@ -270,6 +270,38 @@ abstract class GoogleSitemap
 
       return true;
    }
+
+   
+   /**
+     * Check if we need to start a new urlset XML file based on how many urls
+     * have been added.
+     * @access protected
+     * @return void
+     */   
+    protected function startNewUrlsetXmlFile(): void
+    {
+       // start new XML file if we reach maximum number of URLs per urlset file
+       if ($this->url_count_current >= self::MAX_SITEMAP_LINKS)
+       {
+          // start new XML doc
+          $this->startXmlDoc($xml_ns_type = 'urlset');
+ 
+          // reset counter for current urlset XML file
+          $this->url_count_current = 0;
+ 
+          // increment number of sitemaps counter
+          ++$this->num_sitemaps;
+       }
+       // first call to addURL(), so open up the XML file
+       else if ($this->url_count_current == 0)
+       {
+          // start new XML doc
+          $this->startXmlDoc($xml_ns_type = 'urlset');
+          
+          // increment number of sitemaps counter
+          ++$this->num_sitemaps;
+       }
+   } 
 
 
    // TODO: unit test
