@@ -74,13 +74,33 @@ class GoogleImageSitemap extends GoogleSitemap
 
       // <loc> is required among all sitemap types (xml, image, video, news)
       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $url);
-
-
- 
  
       return true;
    }
 
+
+   /**
+     * Add our image:image and image:loc tags
+     * 
+     * e.g.
+     *    <url>
+     *       <loc>https://example.com/sample1.html</loc>
+     *       <image:image>
+     *          <image:loc>https://example.com/image.jpg</image:loc>
+     *       </image:image>
+     *    </url>
+     * @param string $image_loc (e.g. https://example.com/image.jpg)
+     * @access public
+     * @return bool
+     */   
+   public function addImage(string $image_loc): bool
+   {
+      $this->xml_writer->startElement('image:image'); // Start '<image:image>'
+      $this->xml_writer->writeElement('image:loc', $image_loc);
+      $this->xml_writer->endElement(); // End the '</image:image>' element
+
+      return true;
+   }
 
 
    public function endUrl(): bool
