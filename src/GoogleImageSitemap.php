@@ -43,14 +43,18 @@ require_once 'AbstractGoogleSitemap.php';
 class GoogleImageSitemap extends GoogleSitemap
 {
    /**
-     * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
+     * Start our <url> element and child tag <loc> only as we don't know how 
+     * many image(s) are inside the url tag
      * 
      * e.g.
      *    <url>
-     *       <loc>http://www.mydomain.com/someurl/</loc>
-     *       <lastmod>2024-04-06</lastmod>
-     *       <changefreq>weekly</changefreq>
-     *       <priority>1.0</priority>
+     *       <loc>https://example.com/sample1.html</loc>
+     *       <image:image>
+     *          <image:loc>https://example.com/image.jpg</image:loc>
+     *       </image:image>
+     *       <image:image>
+     *          <image:loc>https://example.com/photo.jpg</image:loc>
+     *       </image:image>
      *    </url>
      * @access public
      * @return bool
@@ -71,22 +75,23 @@ class GoogleImageSitemap extends GoogleSitemap
       // <loc> is required among all sitemap types (xml, image, video, news)
       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $url);
 
-      if ($lastmod)
-         $this->xml_writer->writeElement('lastmod', $lastmod);
- 
-      if ($changefreq)
-         $this->xml_writer->writeElement('changefreq', $changefreq);
 
-      if ($priority)
-         $this->xml_writer->writeElement('priority', $priority);
  
+ 
+      return true;
+   }
+
+
+
+   public function endUrl(): bool
+   {
       // End the 'url' element
       $this->xml_writer->endElement();
 
       // increment URL count so we can start a new <urlset> XML file if needed
       ++$this->url_count_current;
       ++$this->url_count_total;
- 
+
       return true;
    }
 }
