@@ -67,10 +67,6 @@ class GoogleXmlSitemap extends GoogleSitemap
       else
          $this->xml_writer->startElementNS(null, 'urlset', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
-      // remaining 'xmlns' attributes for both sitemapindex and urlset files are the same
-      $this->xml_writer->writeAttributeNS('xmlns', 'xsi', null, 'http://www.w3.org/2001/XMLSchema-instance');
-      $this->xml_writer->writeAttributeNS('xsi', 'schemaLocation', null, 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd');
-
       return true;
    }
 

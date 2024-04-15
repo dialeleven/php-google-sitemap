@@ -46,11 +46,12 @@ class GoogleImageSitemap extends GoogleSitemap
      * Open the "xmlns" tag for either the 'sitemapindex' or 'urlset' list of
      * tags including the xmlns and xsi attributes needed. 
      * 
-     * e.g. sitemap index follows:
-     *   <sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     * e.g. sitemap index follows per Google docs - https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps
+     * 
+     *   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      * 
      * 'urlset' XML file container tag follows:
-     *   <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     *   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      * @param $xml_ns_type ('sitemapindex' or 'urlset')
      * @access protected
      * @return bool
@@ -63,10 +64,6 @@ class GoogleImageSitemap extends GoogleSitemap
       // Start the 'urlset' element with namespace and attributes
       else
          $this->xml_writer->startElementNS(null, 'urlset', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-
-      // remaining 'xmlns' attributes for both sitemapindex and urlset files are the same
-      $this->xml_writer->writeAttributeNS('xmlns', 'xsi', null, 'http://www.w3.org/2001/XMLSchema-instance');
-      $this->xml_writer->writeAttributeNS('xsi', 'schemaLocation', null, 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd');
 
       return true;
    }
