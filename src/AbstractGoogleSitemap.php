@@ -42,7 +42,7 @@ abstract class GoogleSitemap
                                              'news'  => 'http://www.google.com/schemas/sitemap-news/0.9');
 
    
-   abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
+   //abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    //abstract protected function startNewUrlsetXmlFile(): void;
    abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
 
