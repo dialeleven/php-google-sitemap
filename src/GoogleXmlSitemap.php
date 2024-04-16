@@ -45,51 +45,5 @@ require_once 'AbstractGoogleSitemap.php';
 
 class GoogleXmlSitemap extends GoogleSitemap
 {
-   /**
-     * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
-     * 
-     * e.g.
-     *    <url>
-     *       <loc>http://www.mydomain.com/someurl/</loc>
-     *       <lastmod>2024-04-06</lastmod>
-     *       <changefreq>weekly</changefreq>
-     *       <priority>1.0</priority>
-     *    </url>
-     * @access public
-     * @return bool
-     */   
-    public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool
-    {
-       // check if we need a new XML file
-       $this->startNewUrlsetXmlFile();
-
-       // Start the 'url' element
-       $this->xml_writer->startElement('url');
- 
-      if (empty($url))
-        throw new Exception("ERROR: url cannot be empty");
-
-      // TODO: strip/add leading trailing slash after http host like https://www.domain.com/
-
-
-      $this->xml_writer->writeElement('loc', $this->url_scheme_host . $url);
-
-      if ($lastmod)
-         $this->xml_writer->writeElement('lastmod', $lastmod);
- 
-      if ($changefreq)
-         $this->xml_writer->writeElement('changefreq', $changefreq);
-
-      if ($priority)
-         $this->xml_writer->writeElement('priority', $priority);
- 
-      // End the 'url' element
-      $this->xml_writer->endElement();
-
-      // increment URL count so we can start a new <urlset> XML file if needed
-      ++$this->url_count_current;
-      ++$this->url_count_total;
- 
-      return true;
-   }
+   
 }

@@ -43,43 +43,6 @@ require_once 'AbstractGoogleSitemap.php';
 class GoogleImageSitemap extends GoogleSitemap
 {
    /**
-     * Start our <url> element and child tag <loc> only as we don't know how 
-     * many image(s) are inside the url tag
-     * 
-     * e.g.
-     *    <url>
-     *       <loc>https://example.com/sample1.html</loc>
-     *       <image:image>
-     *          <image:loc>https://example.com/image.jpg</image:loc>
-     *       </image:image>
-     *       <image:image>
-     *          <image:loc>https://example.com/photo.jpg</image:loc>
-     *       </image:image>
-     *    </url>
-     * @access public
-     * @return bool
-     */   
-    public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool
-    {
-       // check if we need a new XML file
-       $this->startNewUrlsetXmlFile();
-
-       // Start the 'url' element
-       $this->xml_writer->startElement('url');
- 
-      if (empty($url))
-        throw new Exception("ERROR: url cannot be empty");
-
-      // TODO: strip/add leading trailing slash after http host like https://www.domain.com/
-
-      // <loc> is required among all sitemap types (xml, image, video, news)
-      $this->xml_writer->writeElement('loc', $this->url_scheme_host . $url);
- 
-      return true;
-   }
-
-
-   /**
      * Add our image:image and image:loc tags
      * 
      * e.g.
@@ -98,19 +61,6 @@ class GoogleImageSitemap extends GoogleSitemap
       $this->xml_writer->startElement('image:image'); // Start '<image:image>'
       $this->xml_writer->writeElement('image:loc', $image_loc);
       $this->xml_writer->endElement(); // End the '</image:image>' element
-
-      return true;
-   }
-
-
-   public function endUrl(): bool
-   {
-      // End the 'url' element
-      $this->xml_writer->endElement();
-
-      // increment URL count so we can start a new <urlset> XML file if needed
-      ++$this->url_count_current;
-      ++$this->url_count_total;
 
       return true;
    }

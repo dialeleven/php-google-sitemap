@@ -44,7 +44,7 @@ abstract class GoogleSitemap
    
    //abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    //abstract protected function startNewUrlsetXmlFile(): void;
-   abstract public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
+   // public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
 
 
    //---------------------- CONCRETE METHODS - START ----------------------//
@@ -268,6 +268,79 @@ abstract class GoogleSitemap
 
       return true;
    }
+
+   
+   /**
+     * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
+     * 
+     * e.g.
+     *    <url>
+     *       <loc>http://www.mydomain.com/someurl/</loc>
+     *       <lastmod>2024-04-06</lastmod>
+     *       <changefreq>weekly</changefreq>
+     *       <priority>1.0</priority>
+     *    </url>
+     * @access public
+     * @return bool
+     */
+    public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool
+    {
+       // Check lastmod/changefreq/priority is not being passed for non-XML sitemaps.
+       // We could make a addXmlUrl() for XML sitemaps, though we'd have almost duplicate
+       // code in both methods with the exception of the following conditional check.
+       if ($this->sitemap_type != 'xml' AND ($lastmod OR $changefreq OR $priority))
+          throw new Exception("The parameters 'lastmod,' 'changefreq,' and 'priority' are only for XML sitemaps");
+ 
+       // check if we need a new XML file
+       $this->startNewUrlsetXmlFile();
+ 
+       // Start the 'url' element
+       $this->xml_writer->startElement('url');
+  
+       if (empty($url))
+         throw new Exception("ERROR: url cannot be empty");
+ 
+       // TODO: strip/add leading trailing slash after http host like https://www.domain.com/?
+ 
+ 
+       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $url);
+ 
+       if ($lastmod)
+          $this->xml_writer->writeElement('lastmod', $lastmod);
+  
+       if ($changefreq)
+          $this->xml_writer->writeElement('changefreq', $changefreq);
+ 
+       if ($priority)
+          $this->xml_writer->writeElement('priority', $priority);
+  
+       // for XML sitemaps, we can end the </url> tag at this point since there
+       // is only one group of child elements vs image sitemaps which can have 
+       // one or more child elements (i.e. multiple images on a page)
+       if ($this->sitemap_type == 'xml')
+          $this->endUrl();
+  
+       return true;
+    }
+
+
+   /**
+     * End our </url> element 
+     * @access public
+     * @return bool
+     * TODO: Unit test
+     */
+    protected function endUrl(): bool
+    {
+       // End the 'url' element
+       $this->xml_writer->endElement();
+ 
+       // increment URL count so we can start a new <urlset> XML file if needed
+       ++$this->url_count_current;
+       ++$this->url_count_total;
+ 
+       return true;
+    }
 
    
    /**
