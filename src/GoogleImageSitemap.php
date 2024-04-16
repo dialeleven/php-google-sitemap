@@ -45,6 +45,8 @@ class GoogleImageSitemap extends GoogleSitemap
    /**
      * Add our image:image and image:loc tags
      * 
+     * TODO: IDEA - pass images as an array to "addUrl()" method or a addImageUrl($loc, $img_arr) method?
+     * 
      * e.g.
      *    <url>
      *       <loc>https://example.com/sample1.html</loc>
