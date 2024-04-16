@@ -220,8 +220,8 @@ abstract class GoogleSitemap
      * 
      *   e.g. news sitemap
      *      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
-     * @access protected
      * @param  string $xml_ns_type  values ('urlset' or 'sitemapindex') create either a <urlset xmlns> tag or <sitemapindex> tag
+     * @access protected
      * @return bool
      */      
    public function startXmlDoc(string $xml_ns_type = 'urlset'): bool
@@ -280,6 +280,9 @@ abstract class GoogleSitemap
      *       <changefreq>weekly</changefreq>
      *       <priority>1.0</priority>
      *    </url>
+     * @param string $lastmod
+     * @param string $changefreq
+     * @param string $priority
      * @access public
      * @return bool
      */
