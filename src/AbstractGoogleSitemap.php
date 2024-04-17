@@ -286,7 +286,7 @@ abstract class GoogleSitemap
      * @access public
      * @return bool
      */
-    public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool
+    public function addUrl(string $loc, string $lastmod = '', string $changefreq = '', string $priority = ''): bool
     {
        // Check lastmod/changefreq/priority is not being passed for non-XML sitemaps.
        // We could make a addXmlUrl() for XML sitemaps, though we'd have almost duplicate
@@ -300,13 +300,13 @@ abstract class GoogleSitemap
        // Start the 'url' element
        $this->xml_writer->startElement('url');
   
-       if (empty($url))
+       if (empty($loc))
          throw new Exception("ERROR: url cannot be empty");
  
        // TODO: strip/add leading trailing slash after http host like https://www.domain.com/?
  
  
-       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $url);
+       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc);
  
        if ($lastmod)
           $this->xml_writer->writeElement('lastmod', $lastmod);
