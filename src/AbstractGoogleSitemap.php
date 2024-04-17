@@ -317,10 +317,10 @@ abstract class GoogleSitemap
        if ($priority)
           $this->xml_writer->writeElement('priority', $priority);
   
-       // for XML sitemaps, we can end the </url> tag at this point since there
+       // for XML, news and video(?) sitemaps, we can end the </url> tag at this point since there
        // is only one group of child elements vs image sitemaps which can have 
        // one or more child elements (i.e. multiple images on a page)
-       if ($this->sitemap_type == 'xml')
+       if (in_array($this->sitemap_type, in_array('xml', 'news', 'video'))
           $this->endUrl();
   
        return true;
