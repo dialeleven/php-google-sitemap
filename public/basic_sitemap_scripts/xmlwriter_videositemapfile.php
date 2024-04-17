@@ -30,12 +30,18 @@ $xmlWriter->startElement('url');
    $xmlWriter->writeElement('loc', 'https://www.example.com/videos/some_video_landing_page.html');
 
       $xmlWriter->startElement('video:video'); // Start '<video:video>'
+
+         // REQUIRED VIDEO ELEMENTS (5) - thumbnail_loc/title/description/content_loc/player_loc
          $xmlWriter->writeElement('video:thumbnail_loc', 'https://www.example.com/thumbs/345.jpg');
          $xmlWriter->writeElement('video:title', 'Grilling steaks for winter');
          $xmlWriter->writeElement('video:description', 'In the freezing cold, Roman shows you how to get perfectly done steaks every time.');
          $xmlWriter->writeElement('video:content_loc', 'http://streamserver.example.com/video345.mp4');
          $xmlWriter->writeElement('video:player_loc', 'https://www.example.com/videoplayer.php?video=345');
          
+
+         ##########################
+         # OPTIONAL VIDEO ELEMENTS
+         ##########################
          // NOTICE - video:[price|restriction|uploader] follows a different, but same format for all three
          $xmlWriter->startElementNs('video', 'restriction', null);
             $xmlWriter->writeAttribute('relationship', 'allow');
@@ -58,6 +64,16 @@ $xmlWriter->startElement('url');
             // Write the text content of the video:uploader element
             $xmlWriter->text('GrillyMcGrillerson');
          // Close the video:uploader element
+
+
+         // additional optional video elements
+         $xmlWriter->writeElement('video:duration', '600');
+         $xmlWriter->writeElement('video:expiration_date', '2021-11-05T19:20:30+08:00');
+         $xmlWriter->writeElement('video:rating', '4.2');
+         $xmlWriter->writeElement('video:view_count', '12345');
+         $xmlWriter->writeElement('video:publication_date', '2007-11-05T19:20:30+08:00');
+         $xmlWriter->writeElement('video:duration', '600');
+
          $xmlWriter->endElement();
 
 
