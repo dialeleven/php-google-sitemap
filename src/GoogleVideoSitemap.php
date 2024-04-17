@@ -43,9 +43,8 @@ require_once 'AbstractGoogleSitemap.php';
 class GoogleNewsSitemap extends GoogleSitemap
 {
    /**
-     * Add our <news:news> and child news tags. The following are REQUIRED
-     * (at the moment, all tags available are required).
-     * https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap
+     * Add our <video:video> and child news tags
+     * https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
      * 
      * e.g.
      *    <url>
