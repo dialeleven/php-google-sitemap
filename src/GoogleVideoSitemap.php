@@ -101,6 +101,37 @@ class GoogleNewsSitemap extends GoogleSitemap
    public function addVideo(string $thumbnail_loc, string $title, string $description, string $content_loc, string $player_loc, 
                             array $optional_vid_regular_attr_arr = array(), array $optional_vid_special_attr_arr = array()): bool
    {
-       return true;
+      // ensure required video elements are not blank
+      if ( empty($thumbnail_loc) OR empty($title) OR empty($description) OR empty($content_loc) OR empty($player_loc) )
+         throw new Exception("Required video element(s) are missing: thumbnail_loc ($thumbnail_loc), 
+                              title ($title), description ($description), content_loc ($content_loc), 
+                              player_loc ($player_loc)");
+      
+      $this->xml_writer->writeElement('video:thumbnail_loc', $thumbnail_loc);
+      $this->xml_writer->writeElement('video:title', $title);
+      $this->xml_writer->writeElement('video:description', $description);
+      $this->xml_writer->writeElement('video:content_loc', $content_loc);
+      $this->xml_writer->writeElement('video:player_loc', $player_loc);
+      
+      if (is_array($optional_vid_regular_attr_arr))
+      {
+         foreach ($optional_vid_regular_attr_arr AS $arr)
+         {
+            // we are expecting two (2) elements for each array
+            if (count($arr) != 2)
+               throw new Exception("\$optional_vid_regular_attr_arr expects each array to contain 2 elements. Passed array contains " . 
+                                  count($arr) . " element(s) and contains " . print_r($arr, true));
+            
+            $this->xml_writer->writeElement('video:' . $arr[0], $arr[1]);
+         }
+         // do something
+      }
+
+      if (is_array($optional_vid_special_attr_arr))
+      {
+         // do something
+      }
+      
+      return true;
    }
 }
