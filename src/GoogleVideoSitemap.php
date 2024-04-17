@@ -66,17 +66,6 @@ class GoogleNewsSitemap extends GoogleSitemap
      * 
      *       <!-- optional video tags -->
      *       <video:video>
-     *          <video:thumbnail_loc>https://www.example.com/thumbs/123.jpg</video:thumbnail_loc>
-     *          <video:title>Grilling steaks for summer</video:title>
-     *          <video:description>
-     *             Alkis shows you how to get perfectly done steaks every time
-     *          </video:description>
-     *          <video:content_loc>
-     *             http://streamserver.example.com/video123.mp4
-     *          </video:content_loc>
-     *          <video:player_loc>
-     *             https://www.example.com/videoplayer.php?video=123
-     *          </video:player_loc>
      *          <video:duration>600</video:duration>
      *          <video:expiration_date>2021-11-05T19:20:30+08:00</video:expiration_date>
      *          <video:rating>4.2</video:rating>
@@ -96,9 +85,23 @@ class GoogleNewsSitemap extends GoogleSitemap
      * @param string $
      * @access public
      * @return bool
-     */   
-   public function addVideo(array $vid_attr_arr): bool
+     */
+   /*
+   $optional_vid_regular_attr_arr = [
+                                       array('duration', '600'),
+                                       array('expiration_date', '2021-11-05T19:20:30+08:00')
+   ];
+
+   $optional_vid_special_attr_arr = [
+                                       array('restriction', 'relationship', 'allow', 'IE GB US CA'),
+                                       array('price', 'currency', 'EUR', '1.99'),
+                                       array('uploader', 'info', 'https://www.example.com/users/grillymcgrillerson', 'GrillyMcGrillerson')
+                                    ];
+   */
+
+   public function addVideo(string $thumbnail_loc, string $title, string $description, string $content_loc, string $player_loc, 
+                            array $optional_vid_regular_attr_arr = array(), array $optional_vid_special_attr_arr = array()): bool
    {
        return true;
-    }
+   }
 }
