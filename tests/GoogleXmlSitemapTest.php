@@ -298,7 +298,7 @@ class GoogleXmlSitemapTest extends TestCase
       $this->assertTrue($result);
 
       // call addUrl() method
-      $this->assertTrue($mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0'));
+      $this->assertTrue($mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $tags_arr = array('lastmod' => '2024-01-01', 'changefreq' => 'weekly', 'priority' => '1.0')));
       
       // invalid test
       #$this->assertTrue($mysitemap->addUrl($url, $lastmod, $changefreq, $priority));
@@ -324,7 +324,10 @@ class GoogleXmlSitemapTest extends TestCase
       $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
 
       // call addUrl() method
-      $mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0');
+      //$mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0');
+      $mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $tags_arr = array('lastmod' => '2024-01-01', 
+                                                                                     'changefreq' => 'weekly', 
+                                                                                     'priority' => '1.0'));
       
       // Create a ReflectionProperty object for the private property
       $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count_current');

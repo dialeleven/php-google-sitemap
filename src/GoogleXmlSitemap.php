@@ -45,5 +45,59 @@ require_once 'AbstractGoogleSitemap.php';
 
 class GoogleXmlSitemap extends GoogleSitemap
 {
-   
+   /**
+     * Start our <url> element and child tags 'loc,' 'lastmod,' 'changefreq,' and 'priority' as needed
+     * 
+     * e.g.
+     *    <url>
+     *       <loc>http://www.mydomain.com/someurl/</loc>
+     *       <lastmod>2024-04-06</lastmod>
+     *       <changefreq>weekly</changefreq>
+     *       <priority>1.0</priority>
+     *    </url>
+     * @param string $loc
+     * @param array $tags_arr
+     * @param array $special_tags_arr
+     * @access public
+     * @return bool
+     */
+    //public function addUrl(string $loc, string $lastmod = '', string $changefreq = '', string $priority = ''): bool
+    public function addUrl(string $loc, array $tags_arr = array(), array $special_tags_arr = array()): bool
+    {
+      // safety check for extra param not needed for XML
+      if (is_array($special_tags_arr) AND count($special_tags_arr) > 0)
+         throw new Exception("\$special_tags_arr is unsupported for sitemap type '$this->sitemap_type' and should not be passed as an argument");
+
+      
+      // check if we need a new XML file
+      $this->startNewUrlsetXmlFile();
+
+      // Start the 'url' element
+      $this->xml_writer->startElement('url');
+
+      if (empty($loc))
+      throw new Exception("ERROR: url cannot be empty");
+
+      // TODO: strip/add leading trailing slash after http host like https://www.domain.com/?
+
+
+      $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc);
+
+      if (array_key_exists('lastmod', $tags_arr))
+         $this->xml_writer->writeElement('lastmod', $tags_arr['lastmod']);
+
+      if (array_key_exists('changefreq', $tags_arr))
+         $this->xml_writer->writeElement('changefreq', $tags_arr['changefreq']);
+
+      if (array_key_exists('priority', $tags_arr))
+         $this->xml_writer->writeElement('priority', $tags_arr['priority']);
+
+      // for XML, news and video(?) sitemaps, we can end the </url> tag at this point since there
+      // is only one group of child elements vs image sitemaps which can have 
+      // one or more child elements (i.e. multiple images on a page)
+      if ( in_array($this->sitemap_type, array('xml', 'news', 'video')) )
+         $this->endUrl();
+  
+       return true;
+   }
 }

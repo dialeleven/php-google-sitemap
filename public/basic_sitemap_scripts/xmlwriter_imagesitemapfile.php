@@ -36,9 +36,6 @@ $xmlWriter->endElement(); // End the '</image:image>' element
 // End the '</loc>' element
 $xmlWriter->endElement();
 
-// Start the 'url' element
-$xmlWriter->startElement('url');
-
 
 
 // Start another '<url>' element
@@ -57,9 +54,6 @@ $xmlWriter->endElement(); // End the '</image:image>' element
 
 // End the '</loc>' element
 $xmlWriter->endElement();
-
-// Start the 'url' element
-$xmlWriter->startElement('url');
 
 
 // End the document (urlset)
