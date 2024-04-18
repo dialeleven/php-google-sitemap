@@ -43,6 +43,88 @@ require_once 'AbstractGoogleSitemap.php';
 class GoogleNewsSitemap extends GoogleSitemap
 {
    /**
+     * Start our <url> element and child tags for a news sitemap
+     * 
+     * e.g.
+     *    <url>
+     *       <loc>http://www.example.org/business/article55.html</loc>
+     *       <news:news>
+     *          <news:publication>
+     *             <news:name>The Example Times</news:name>
+     *             <news:language>en</news:language>
+     *          </news:publication>
+     *          <news:publication_date>2008-12-23</news:publication_date>
+     *          <news:title>Companies A, B in Merger Talks</news:title>
+     *       </news:news>
+     *    </url>
+     * @param string $loc
+     * @param array $tags_arr
+     * @param array $special_tags_arr
+     * @access public
+     * @return bool
+     */
+   public function addUrl(string $loc, array $tags_arr = array(), array $special_tags_arr = array()): bool
+   {
+      // safety check for special_tags_arr which is for video sitemaps with special child tag handling
+      if (is_array($special_tags_arr) AND count($special_tags_arr) > 0)
+         throw new Exception("\$special_tags_arr is unsupported for sitemap type '$this->sitemap_type' and should not be passed as an argument");
+
+      if (empty($loc))
+         throw new Exception("ERROR: loc cannot be empty");
+      
+      
+      $required_tags_arr = array('name', 'language', 'publication_date', 'title');
+
+      // verify each of our required child tags for news exists in the passed tags array
+      foreach ($required_tags_arr AS $required_key)
+      {
+         if (!array_key_exists($required_key, $tags_arr))
+            throw new Exception("A required child tag '$required_key' was not found in the passed array for '\$tags_arr' - " . print_r($tags_arr, true));
+      }
+      
+      // check if we need a new XML file
+      $this->startNewUrlsetXmlFile();
+
+      // Start the 'url' element
+      $this->xml_writer->startElement('url');
+
+      // TODO: strip/add leading trailing slash after http host like https://www.domain.com/?
+
+
+      $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc); // Start <loc>
+      $this->xml_writer->startElement('news:news'); // Start '<news:news>'
+      $this->xml_writer->startElement('news:publication'); // Start '<news:publication>'
+
+
+      if (array_key_exists('name', $tags_arr))
+         $this->xml_writer->writeElement('news:name', $tags_arr['name']);
+
+      if (array_key_exists('language', $tags_arr))
+         $this->xml_writer->writeElement('news:language', $tags_arr['language']);
+
+      $this->xml_writer->endElement(); // end </news:publication>
+      
+      if (array_key_exists('publication_date', $tags_arr))
+         $this->xml_writer->writeElement('news:publication_date', $tags_arr['publication_date']);
+
+      if (array_key_exists('title', $tags_arr))
+         $this->xml_writer->writeElement('news:title', $tags_arr['title']);
+
+
+      $this->xml_writer->endElement(); // End the '</news:news>' element
+
+      // for XML, news and video(?) sitemaps, we can end the </url> tag at this point since there
+      // is only one group of child elements vs image sitemaps which can have 
+      // one or more child elements (i.e. multiple images on a page)
+      if ( in_array($this->sitemap_type, array('xml', 'news', 'video')) )
+         $this->endUrl();
+  
+       return true;
+   }
+
+
+
+   /**
      * Add our <news:news> and child news tags. ALL of the following are REQUIRED
      * (at the moment).
      * https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap

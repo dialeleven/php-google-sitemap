@@ -47,7 +47,12 @@ abstract class GoogleSitemap
    //abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
    //abstract protected function startNewUrlsetXmlFile(): void;
    //public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
-   abstract function addUrl(string $url, array $tags_arr = array(), array $special_tags_arr = array()): bool;
+
+   /*
+   $tags_arr - additional child tags inside of <url>
+   $special_tags_arr - for video sitemaps only
+   */
+   abstract function addUrl(string $loc, array $tags_arr = array(), array $special_tags_arr = array()): bool;
 
 
    //---------------------- CONCRETE METHODS - START ----------------------//
