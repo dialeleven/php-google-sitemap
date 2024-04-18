@@ -11,9 +11,15 @@ class GoogleXmlSitemapTest extends TestCase
 {
    // tests go here
    private static $pdo; // MySQL PDO object if doing a query
+   protected $xml_files_dir;
    
    public function setUp(): void
    {
+      // Using $_SERVER['DOCUMENT_ROOT'] is not possible within PHPUnit because 
+      // PHPUnit doesn't run within the context of a web server. 
+      // Instead, you we have to use an alternative method to get the base path.
+      $this->xml_files_dir = dirname(__DIR__) . '/public/sitemaps';
+      
       // set up MySQL PDO object for use with DB mode
       $db_host = 'localhost';
       $db_name = 'test';
@@ -38,7 +44,7 @@ class GoogleXmlSitemapTest extends TestCase
    public function testClassConstructor()
    {
       // Instantiate the GoogleXmlSitemap class
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // Assert that the instantiated object is an instance of GoogleXmlSitemap
       $this->assertInstanceOf(GoogleXmlSitemap::class, $mysitemap);
@@ -46,7 +52,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testSetSitemapFilenamePrefix()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       $this->assertTrue($mysitemap->setSitemapFilenamePrefix('my_sitemap_filename'));
       $this->assertIsString($mysitemap->getSitemapFilenamePrefix());
@@ -55,7 +61,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testCheckDirectoryTrailingSlash()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'checkDirectoryTrailingSlash');
@@ -81,7 +87,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testSetUseHttpsUrls()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
       $mysitemap->setUseHttpsUrls(true);
 
       // Create a ReflectionProperty object for the private property
@@ -139,7 +145,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testSetUseGzip()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
       $mysitemap->setUseGzip(true);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
@@ -170,7 +176,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testSetUrlSchemeHost()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'setUrlSchemeHost');
@@ -197,7 +203,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testSetXmlMode()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $xml_files_dir = $this->xml_files_dir);
 
       $mysitemap->setXmlMode($xml_mode = 'file');
       $this->assertStringMatchesFormat('file', $mysitemap->getXmlMode());
@@ -213,7 +219,7 @@ class GoogleXmlSitemapTest extends TestCase
    }
    public function testStartXmlDoc()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
 
       // Create a ReflectionProperty object for the private property
       $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'xml_writer');
@@ -240,7 +246,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testStartXmlNsElement()
    {
-      $myObject = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $myObject = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
 
       // Create a ReflectionProperty object for the private property
       $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'xml_writer');
@@ -284,7 +290,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testAddUrl()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
@@ -321,7 +327,7 @@ class GoogleXmlSitemapTest extends TestCase
    
    public function testStartNewUrlsetXmlFile()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
 
       // call addUrl() method
       //$mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $lastmod = '2024-01-01', $changefreq = 'weekly', $priority = '1.0');
@@ -367,7 +373,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testEndXmlDoc()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
@@ -383,7 +389,7 @@ class GoogleXmlSitemapTest extends TestCase
 
    public function testGzipXmlFiles()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
@@ -409,7 +415,7 @@ class GoogleXmlSitemapTest extends TestCase
    }
    public function testGenerateSitemapIndexFile()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
@@ -433,9 +439,10 @@ class GoogleXmlSitemapTest extends TestCase
       
       $this->assertTrue($result);
    }
+
    public function testOutputXml()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = '', $xml_files_dir = $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');

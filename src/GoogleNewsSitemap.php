@@ -65,21 +65,51 @@ class GoogleNewsSitemap extends GoogleSitemap
      */
    public function addUrl(string $loc, array $tags_arr = array(), array $special_tags_arr = array()): bool
    {
-      // safety check for special_tags_arr which is for video sitemaps with special child tag handling
+      if (empty($loc))
+         throw new Exception("ERROR: loc cannot be empty");
+
+      // safety check for special_tags_arr which is FOR VIDEO SITEMAPS ONLY with special child tag handling
       if (is_array($special_tags_arr) AND count($special_tags_arr) > 0)
          throw new Exception("\$special_tags_arr is unsupported for sitemap type '$this->sitemap_type' and should not be passed as an argument");
 
-      if (empty($loc))
-         throw new Exception("ERROR: loc cannot be empty");
       
+      // date formats - regular exp matches for allowed formats per Google documentation
+      $formats = array(
+                        '/^\d{4}-\d{2}-\d{2}$/',                                      // YYYY-MM-DD
+                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}[+-]\d{2}:\d{2}$/',           // YYYY-MM-DDThh:mmTZD
+                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/',     // YYYY-MM-DDThh:mm:ssTZD
+                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[+-]\d{2}:\d{2}$/' // YYYY-MM-DDThh:mm:ss.sTZD
+                      );      
       
+      // list of required child tags within <url>
       $required_tags_arr = array('name', 'language', 'publication_date', 'title');
 
       // verify each of our required child tags for news exists in the passed tags array
-      foreach ($required_tags_arr AS $required_key)
+      foreach ($required_tags_arr AS $required_key => $value)
       {
+         $value = trim($value);
+
+         // child tag name does not exist in our required list of elements
          if (!array_key_exists($required_key, $tags_arr))
             throw new Exception("A required child tag '$required_key' was not found in the passed array for '\$tags_arr' - " . print_r($tags_arr, true));
+         // disallow empty strings
+         else if (empty($value))
+            throw new Exception("A value is required for '$required_key' - value passed was '$value'");
+         // check for valid publication_date
+         else if ($required_key == 'publication_date')
+         {
+            // Check if the input string matches any of the specified formats
+            foreach ($formats AS $format) {
+               if (preg_match($format, $value)) {
+                  $valid_date_string_found = true;
+               }
+            }
+
+            if (!$valid_date_string_found)
+               throw new Exception("Invalid publication_date passed '$value' - publication_date should 
+                                    follow 'YYYY-MM-DD,' 'YYYY-MM-DDThh:mmTZD,' 'YYYY-MM-DDThh:mm:ssTZD,' 
+                                    or 'YYYY-MM-DDThh:mm:ss.sTZD' format.");
+         }
       }
       
       // check if we need a new XML file
@@ -121,71 +151,4 @@ class GoogleNewsSitemap extends GoogleSitemap
   
        return true;
    }
-
-
-
-   /**
-     * Add our <news:news> and child news tags. ALL of the following are REQUIRED
-     * (at the moment).
-     * https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap
-     * 
-     * e.g.
-     *    <url>
-     *       <loc>http://www.example.org/business/article55.html</loc>
-     *       <news:news>
-     *          <news:publication>
-     *             <news:name>The Example Times</news:name>
-     *             <news:language>en</news:language>
-     *          </news:publication>
-     *          <news:publication_date>2008-12-23</news:publication_date>
-     *          <news:title>Companies A, B in Merger Talks</news:title>
-     *       </news:news>
-     *    </url>
-     * @param string $news_name (e.g. The Example Times)
-     * @param string $news_pubdate YYYY-MM-DD, YYYY-MM-DDThh:mmTZD, YYYY-MM-DDThh:mm:ssTZD, YYY-MM-DDThh:mm:ss.sTZD
-     * @param string $news_title The title of the news article
-     * @param string $news_lang 2 or 3 letter ISO 639 language code (e.g. 'en')
-     * @access public
-     * @return bool
-     */   
-   public function addNews(string $news_name, string $news_pubdate, string $news_title, string $news_lang = 'en'): bool
-   {
-      // check for empty news elements
-      if (empty($news_name) OR empty($news_lang) OR empty($news_pubdate) OR empty($news_title))
-         throw new Exception("News name ($news_name), news language ($news_lang), news pubdate ($news_pubdate), and news title ($news_title) are required");
-      
-      // Regular expressions for each date format
-      $formats = array(
-                        '/^\d{4}-\d{2}-\d{2}$/',                                      // YYYY-MM-DD
-                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}[+-]\d{2}:\d{2}$/',           // YYYY-MM-DDThh:mmTZD
-                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/',     // YYYY-MM-DDThh:mm:ssTZD
-                        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[+-]\d{2}:\d{2}$/' // YYYY-MM-DDThh:mm:ss.sTZD
-                      );
-      
-      // Check if the input string matches any of the specified formats
-      foreach ($formats as $format) {
-         if (preg_match($format, $news_pubdate)) {
-            $valid_date_string_found = true;
-         }
-      }
-
-      // a valid date format was not found
-      if (!$valid_date_string_found)
-         throw new Exception("Invalid news pubdate passed '$news_pubdate' - pubdate should 
-                              follow 'YYYY-MM-DD,' 'YYYY-MM-DDThh:mmTZD,' 'YYYY-MM-DDThh:mm:ssTZD,' 
-                              or 'YYYY-MM-DDThh:mm:ss.sTZD' format.");
-
-      $this->xml_writer->startElement('news:news'); // Start '<news:news>'
-
-         $this->xml_writer->startElement('news:publication');
-            $this->xml_writer->writeElement('news:name', $news_name);
-            $this->xml_writer->writeElement('news:language', $news_lang);
-         $this->xml_writer->endElement();
-
-         $this->xml_writer->writeElement('news:publication_date', $news_pubdate);
-         $this->xml_writer->writeElement('news:title', $news_title);
-      $this->xml_writer->endElement(); // End the '</news:news>' element
- 
-       return true;
-    }
 }

@@ -66,22 +66,22 @@ abstract class GoogleSitemap
      * @access public
      * @return void
      */
-    public function __construct(string $sitemap_type, string $http_hostname, string $xml_files_dir = '')
-    {  
-       $this->sitemap_type = $sitemap_type;
-       $this->http_hostname = $http_hostname;
-       $this->xml_files_dir = $xml_files_dir;
-       
-       // Create a new XMLWriter instance
-       $this->xml_writer = new XMLWriter();
- 
-       $this->checkSitemapType($sitemap_type); // check for valid sitemap type (xml, image, video, news)
-       $this->checkDirectoryTrailingSlash($xml_files_dir); // ensure directory includes trailing slash
- 
-       $this->setXmlMode('file'); // should be 'file' mode unless debugging in 'memory' (browser)
- 
-       $this->setUrlSchemeHost(); // assemble scheme+host (e.g. https://hostname.ext)
-    }
+   public function __construct(string $sitemap_type, string $http_hostname, string $xml_files_dir = '')
+   {  
+      $this->sitemap_type = $sitemap_type;
+      $this->http_hostname = $http_hostname;
+      $this->xml_files_dir = $xml_files_dir;
+      
+      // Create a new XMLWriter instance
+      $this->xml_writer = new XMLWriter();
+
+      $this->checkSitemapType($sitemap_type); // check for valid sitemap type (xml, image, video, news)
+      $this->checkDirectoryTrailingSlash($xml_files_dir); // ensure directory includes trailing slash
+
+      $this->setXmlMode('file'); // should be 'file' mode unless debugging in 'memory' (browser)
+
+      $this->setUrlSchemeHost(); // assemble scheme+host (e.g. https://hostname.ext)
+   }
 
    
    /**
@@ -89,13 +89,13 @@ abstract class GoogleSitemap
      * @access protected
      * @return void
      */
-    public function setUseHttpsUrls(bool $use_https_urls): void
-    {
-       $this->http_host_use_https = $use_https_urls;
- 
-       // update the URL scheme+host as we toggle http/https on or off
-       $this->setUrlSchemeHost();
-    }
+   public function setUseHttpsUrls(bool $use_https_urls): void
+   {
+      $this->http_host_use_https = $use_https_urls;
+
+      // update the URL scheme+host as we toggle http/https on or off
+      $this->setUrlSchemeHost();
+   }
  
  
     public function setUseGzip(bool $use_gzip): void
@@ -127,58 +127,62 @@ abstract class GoogleSitemap
     }
  
  
-    /**
-      * Set what mode to use for the XMLWriter interface. Either 'memory' (send to browser)
-      * or 'file' (save to file). Memory mode should only be used for debugging/testing to
-      * review the <urlset> XML contents easier than opening up the written XML file.
-      * 
-      * Created for development purposes of viewing the urlset XML file in the browser
-      * immediately. This would just output one XML file of course.
-      *
-      * @param  string $xml_mode  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
- 
-      * @access public
-      * @return void
-      */
-    public function setXmlMode(string $xml_mode): void
-    {
-       $valid_modes = array('memory', 'file');
- 
-       // Validation for either 'memory' or 'file'
-       if ( !in_array($xml_mode, array('memory', 'file') ) )
-          throw new Exception("\$xml_mode: $xml_mode is not a valid option. Valid modes are " . print_r($valid_modes, true));
- 
-       $this->xml_mode = $xml_mode;
-    }
- 
- 
-    /**
-      * @param 
-      * @access public
-      * @return string  $xml_mode
-      */
-    public function getXmlMode(): string
-    {
-       return $this->xml_mode;
-    }
+   /**
+     * Set what mode to use for the XMLWriter interface. Either 'memory' (send to browser)
+     * or 'file' (save to file). Memory mode should only be used for debugging/testing to
+     * review the <urlset> XML contents easier than opening up the written XML file.
+     * 
+     * Created for development purposes of viewing the urlset XML file in the browser
+     * immediately. This would just output one XML file of course.
+     *
+     * @param  string $xml_mode  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
+     * @access public
+     * @return void
+     */
+   public function setXmlMode(string $xml_mode): void
+   {
+      $valid_modes = array('memory', 'file');
+
+      // Validation for either 'memory' or 'file'
+      if ( !in_array($xml_mode, array('memory', 'file') ) )
+         throw new Exception("\$xml_mode: $xml_mode is not a valid option. Valid modes are " . print_r($valid_modes, true));
+
+      $this->xml_mode = $xml_mode;
+   }
  
  
-    /**
-      * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
-      * @access public
-      * @return bool
-      */
-    public function setSitemapFilenamePrefix(string $sitemap_filename_prefix): bool
-    {
-       $this->sitemap_filename_prefix = $sitemap_filename_prefix;
+   /**
+     * @param 
+     * @access public
+     * @return string  $xml_mode
+     */
+   public function getXmlMode(): string
+   {
+      return $this->xml_mode;
+   }
+
+   public function getXmlFilesDir(): string
+   {
+      return $this->xml_files_dir;
+   }
  
-       return true;
-    }
  
-    public function getSitemapFilenamePrefix(): string
-    {
-       return $this->sitemap_filename_prefix;
-    }
+   /**
+     * @param string $sitemap_filename_prefix  name of the sitemap minus the file extension (e.g. [MYSITEMAP].xml)
+     * @access public
+     * @return bool
+     */
+   public function setSitemapFilenamePrefix(string $sitemap_filename_prefix): bool
+   {
+      $this->sitemap_filename_prefix = $sitemap_filename_prefix;
+
+      return true;
+   }
+ 
+   public function getSitemapFilenamePrefix(): string
+   {
+      return $this->sitemap_filename_prefix;
+   }
 
     
    // TODO: unit test
@@ -284,17 +288,17 @@ abstract class GoogleSitemap
      * @return bool
      * TODO: Unit test
      */
-    protected function endUrl(): bool
-    {
-       // End the 'url' element
-       $this->xml_writer->endElement();
- 
-       // increment URL count so we can start a new <urlset> XML file if needed
-       ++$this->url_count_current;
-       ++$this->url_count_total;
- 
-       return true;
-    }
+   protected function endUrl(): bool
+   {
+      // End the 'url' element
+      $this->xml_writer->endElement();
+
+      // increment URL count so we can start a new <urlset> XML file if needed
+      ++$this->url_count_current;
+      ++$this->url_count_total;
+
+      return true;
+   }
 
    
    /**
@@ -303,29 +307,29 @@ abstract class GoogleSitemap
      * @access protected
      * @return void
      */   
-    protected function startNewUrlsetXmlFile(): void
-    {
-       // start new XML file if we reach maximum number of URLs per urlset file
-       if ($this->url_count_current >= self::MAX_SITEMAP_LINKS)
-       {
-          // start new XML doc
-          $this->startXmlDoc($xml_ns_type = 'urlset');
- 
-          // reset counter for current urlset XML file
-          $this->url_count_current = 0;
- 
-          // increment number of sitemaps counter
-          ++$this->num_sitemaps;
-       }
-       // first call to addURL(), so open up the XML file
-       else if ($this->url_count_current == 0)
-       {
-          // start new XML doc
-          $this->startXmlDoc($xml_ns_type = 'urlset');
-          
-          // increment number of sitemaps counter
-          ++$this->num_sitemaps;
-       }
+   protected function startNewUrlsetXmlFile(): void
+   {
+      // start new XML file if we reach maximum number of URLs per urlset file
+      if ($this->url_count_current >= self::MAX_SITEMAP_LINKS)
+      {
+         // start new XML doc
+         $this->startXmlDoc($xml_ns_type = 'urlset');
+
+         // reset counter for current urlset XML file
+         $this->url_count_current = 0;
+
+         // increment number of sitemaps counter
+         ++$this->num_sitemaps;
+      }
+      // first call to addURL(), so open up the XML file
+      else if ($this->url_count_current == 0)
+      {
+         // start new XML doc
+         $this->startXmlDoc($xml_ns_type = 'urlset');
+         
+         // increment number of sitemaps counter
+         ++$this->num_sitemaps;
+      }
    } 
 
    
@@ -342,16 +346,16 @@ abstract class GoogleSitemap
      * @access protected
      * @return bool
      */      
-    protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool
-    {
-       // Start the XMLNS element according to what Google needs based on 'sitemapindex' vs. 'urlset'
-       if ($xml_ns_type == 'sitemapindex')
-          $this->xml_writer->startElementNS(null, 'sitemapindex', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-       // Start the 'urlset' element with namespace and attributes
-       else
-          $this->xml_writer->startElementNS(null, 'urlset', 'http://www.sitemaps.org/schemas/sitemap/0.9');
- 
-       return true;
+   protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool
+   {
+      // Start the XMLNS element according to what Google needs based on 'sitemapindex' vs. 'urlset'
+      if ($xml_ns_type == 'sitemapindex')
+         $this->xml_writer->startElementNS(null, 'sitemapindex', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+      // Start the 'urlset' element with namespace and attributes
+      else
+         $this->xml_writer->startElementNS(null, 'urlset', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+
+      return true;
    }
 
 
@@ -378,41 +382,41 @@ abstract class GoogleSitemap
      * @access protected
      * @return bool
      */  
-    protected function generateSitemapIndexFile(): bool
-    {
-       #echo "num_sitemaps: $this->num_sitemaps, \$i = $i<br>";
-       #die;
- 
-       // start XML doc <?xml version="1.0" ? > and 'sitemapindex' tag
-       $this->startXmlDoc($xml_ns_type = 'sitemapindex');
- 
-       // generate X number of <sitemap> entries for each of the urlset sitemaps
-       for ($i = 1; $i <= $this->num_sitemaps; ++$i)
-       {
-          // Start the 'sitemap' element
-          $this->xml_writer->startElement('sitemap');
- 
-          // our "loc" URL to each urlset XML file
-          $loc = $this->url_scheme_host .  $this->sitemap_filename_prefix . $i . self::SITEMAP_FILENAME_SUFFIX;
-          
-          // add ".gz" gzip extension to filename if compressing with gzip
-          if ($this->getUseGzip()) { $loc .= '.gz'; }
- 
-          $this->xml_writer->writeElement('loc', $loc);
-          $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
-          $this->xml_writer->endElement();
-          
-          #echo "in for loop: \$this->num_sitemaps = $this->num_sitemaps, \$i = $i<br>";
-       }
- 
-       // End the document (sitemapindex)
-       $this->xml_writer->endDocument();
- 
-       // Output the XML content
-       //echo '<pre>'.htmlspecialchars($xmlWriter->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
-       $this->xml_writer->outputMemory();
- 
-       return true;
+   protected function generateSitemapIndexFile(): bool
+   {
+      #echo "num_sitemaps: $this->num_sitemaps, \$i = $i<br>";
+      #die;
+
+      // start XML doc <?xml version="1.0" ? > and 'sitemapindex' tag
+      $this->startXmlDoc($xml_ns_type = 'sitemapindex');
+
+      // generate X number of <sitemap> entries for each of the urlset sitemaps
+      for ($i = 1; $i <= $this->num_sitemaps; ++$i)
+      {
+         // Start the 'sitemap' element
+         $this->xml_writer->startElement('sitemap');
+
+         // our "loc" URL to each urlset XML file
+         $loc = $this->url_scheme_host .  $this->sitemap_filename_prefix . $i . self::SITEMAP_FILENAME_SUFFIX;
+         
+         // add ".gz" gzip extension to filename if compressing with gzip
+         if ($this->getUseGzip()) { $loc .= '.gz'; }
+
+         $this->xml_writer->writeElement('loc', $loc);
+         $this->xml_writer->writeElement('lastmod', date('Y-m-d\TH:i:s+00:00'));
+         $this->xml_writer->endElement();
+         
+         #echo "in for loop: \$this->num_sitemaps = $this->num_sitemaps, \$i = $i<br>";
+      }
+
+      // End the document (sitemapindex)
+      $this->xml_writer->endDocument();
+
+      // Output the XML content
+      //echo '<pre>'.htmlspecialchars($xmlWriter->outputMemory(), ENT_XML1 | ENT_COMPAT, 'UTF-8', true);
+      $this->xml_writer->outputMemory();
+
+      return true;
     }
 
 
@@ -425,22 +429,22 @@ abstract class GoogleSitemap
      * @access public
      * @return bool
      */  
-    public function endXmlDoc(): bool
-    {
-       // End the 'sitemapindex/urlset' element
-       $this->xml_writer->endDocument();
- 
-       // output XML from memory using outputMemory() and format for browser if needed
-       $this->outputXml();
- 
-       // gzip files if needed
-       if ($this->getUseGzip()) { $this->gzipXmlFiles(); }
- 
-       // create our sitemap index file
-       $this->generateSitemapIndexFile();
- 
-       return true;
-    }
+   public function endXmlDoc(): bool
+   {
+      // End the 'sitemapindex/urlset' element
+      $this->xml_writer->endDocument();
+
+      // output XML from memory using outputMemory() and format for browser if needed
+      $this->outputXml();
+
+      // gzip files if needed
+      if ($this->getUseGzip()) { $this->gzipXmlFiles(); }
+
+      // create our sitemap index file
+      $this->generateSitemapIndexFile();
+
+      return true;
+   }
  
  
     /**
@@ -451,21 +455,21 @@ abstract class GoogleSitemap
       */  
     protected function gzipXmlFiles(): bool
     {
-       for ($i = 1; $i <= $this->num_sitemaps; ++$i)
-       {
-          $gz = gzopen($this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml.gz', 'w9');
-          
-          // uncompressed gzip filename
-          $filename = $this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml';
-          $handle = fopen($filename, "r");
-          $contents = fread($handle, filesize($filename));
- 
-          if ($bytes_written = gzwrite($gz, $contents))
-          {
-             gzclose($gz);
-             unlink($filename); // remove original urlset XML file to avoid dir clutter
-          }
-       }
+      for ($i = 1; $i <= $this->num_sitemaps; ++$i)
+      {
+         $gz = gzopen($this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml.gz', 'w9');
+         
+         // uncompressed gzip filename
+         $filename = $this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml';
+         $handle = fopen($filename, "r");
+         $contents = fread($handle, filesize($filename));
+
+         if ($bytes_written = gzwrite($gz, $contents))
+         {
+            gzclose($gz);
+            unlink($filename); // remove original urlset XML file to avoid dir clutter
+         }
+      }
  
        return true;
    }
