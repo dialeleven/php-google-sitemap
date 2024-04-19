@@ -39,20 +39,24 @@ use XMLWriter;
 require_once 'AbstractGoogleSitemap.php';
 
 /*
+// sample usage - single image on a page
+$mysitemap->addUrl($loc = 'http://example.com/page.html');
+$mysitemap->addImage($loc = 'http://example.com/single_image.jpg');
+
+
 // sample usage - multiple images on a page
 $mysitemap->addUrl($loc = 'http://example.com/page.html');
 $mysitemap->addImage($loc = 'http://example.com/multiple_images.jpg');
 $mysitemap->addImage($loc = 'http://example.com/another_image.jpg');
-$mysitemap->addEndUrl();
-
-// sample usage - single image on a page
-$mysitemap->addUrl($loc = 'http://example.com/page.html');
-$mysitemap->addImage($loc = 'http://example.com/single_image.jpg');
-$mysitemap->addEndUrl();
 */
 
 class GoogleImageSitemap extends GoogleSitemap
 {
+   // Separate counter to track how many <url>s we have. Usual 'url_count_current' property
+   // won't work since the image sitemaps can have multiple images causing endURL() to be
+   // called later on and not incrementing the counter until later on.
+   protected $image_sitemap_url_count = 0;
+
    /**
      * Start our <url> element and child tags for image sitemap
      * 
@@ -78,9 +82,14 @@ class GoogleImageSitemap extends GoogleSitemap
       else if (is_array($tags_arr) AND count($tags_arr) > 0)
          throw new Exception("\$tags_arr is unsupported for sitemap type '$this->sitemap_type' and should not be passed as an argument");
       
+      // loc is empty
       if (empty($loc))
          throw new Exception("ERROR: loc cannot be empty");
       
+         
+      // auto close </url> element for subsequent <url>s being added to simplify using the class
+      if ($this->image_sitemap_url_count > 0)
+         $this->endUrl();
 
       // check if we need a new XML file
       $this->startNewUrlsetXmlFile();
@@ -93,8 +102,8 @@ class GoogleImageSitemap extends GoogleSitemap
 
       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc);
 
-      // close </url> element
-      $this->endUrl();
+      // keep track of how many <url> elements we have to auto close the </url> on subsequent call
+      ++$this->image_sitemap_url_count;
   
        return true;
    }
