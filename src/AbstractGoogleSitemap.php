@@ -32,7 +32,7 @@ abstract class GoogleSitemap
    protected $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
    protected $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
    protected $use_gzip = false;
-   protected $sitemap_filename_prefix = 'sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
+   protected $sitemap_filename_prefix = 'default_sitemap_filename'; // YOUR_FILENAME_PREFIX1.xml.gz, YOUR_FILENAME_PREFIX2.xml.gz, etc
                                                           // (e.g. if prefix is "sitemap_clients" then you will get a sitemap index
                                                           // file "sitemap_clients_index.xml, and sitemap files "sitemap_clients1.xml.gz")
    protected $num_sitemaps = 0;              // total number of Sitemap files
