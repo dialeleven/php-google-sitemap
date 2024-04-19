@@ -11,10 +11,14 @@ class GoogleImageSitemapTest extends TestCase
 {
    // tests go here
    private static $pdo; // MySQL PDO object if doing a query
+   protected $xml_files_dir;
    
    public function setUp(): void
    {
-      
+      // Using $_SERVER['DOCUMENT_ROOT'] is not possible within PHPUnit because 
+      // PHPUnit doesn't run within the context of a web server. 
+      // Instead, you we have to use an alternative method to get the base path.
+      $this->xml_files_dir = dirname(__DIR__) . '/public/sitemaps';
    }
 
    public function testClassConstructor()
