@@ -42,6 +42,11 @@ Briefly, a Google XML Sitemap contains two parts:
 
 As you can see the structure is quite similar with the differences being the 'sitemapindex' vs 'urlset' as our opening tag (attributes are identical). The tags contained in our sitemapindex/urlset will contain either a 'sitemap' container tag or 'url' container tag.
 
+## Prerequisties
+
+This project uses [composer](https://getcomposer.org/) to autoload class files, but have been manually **include**d to be on the safe side. 
+One should be able to use this class without composer, but just a forewarning if you have any issues.
+
 
 ## How to use the PHP Google XML Sitemap Class
 
@@ -64,7 +69,7 @@ Start off with the required namespace (e.g. "use _____;") and include the Google
 By default, resulting XML files will be created in the same path as your script using the PHP Google XML Sitemap class if $xml_files_dir is blank or not passed as an argument.
 
 ```
-   // create new instance of the PHP Google XML Sitemap class (using default save dir)
+   // create new instance of the PHP Google XML Sitemap class (using default save dir - whatever script your path is in)
    /*
    SPECIFY YOUR SITEMAP TYPE:
       - xml (for most people, you'll use this unless you need a speciality sitemap type like images, etc..)
@@ -72,7 +77,7 @@ By default, resulting XML files will be created in the same path as your script 
       - video
       - news
    */
-   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
+   $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = '');
 ```
 
 **OR**
@@ -108,8 +113,8 @@ Remaining logic for usage:
    // loop through your URLs from your array or preferred database (array example for simplicity)
    foreach ($url_md_arr as $url_arr)
    {
-      // the important part - adding each URL
-      $my_sitemap->addUrl($url = $url_arr[0], $lastmod = $url_arr[1]', $changefreq = $url_arr[2', $priority = $url_arr[3]);
+      // the important part - adding each URL (replace sample values from your DB/array)
+      $my_sitemap->addUrl($loc = $url_arr[0], $tags_arr = array('lastmod' => '2024-04-19', 'changefreq' => 'weekly', 'priority' => '0.5'));
    }
 
 
@@ -120,18 +125,18 @@ Remaining logic for usage:
 
 ## About addURL() Method
 > [!NOTE]
-> The **addURL()** method only requires **$url** to be passed as an argument. 
+> The **addURL()** method only requires **$loc** to be passed as an argument. 
 > The other arguments lastmod, changefreq, and priority are optional and can
 > be omitted.
 
 Instead of calling the method like:
 ```
-$my_sitemap->addUrl($url = $url_arr[0], $lastmod = $url_arr[1]', $changefreq = $url_arr[2', $priority = $url_arr[3]);
+$my_sitemap->addUrl($loc = $url_arr[0], array('lastmod' = $url_arr[1], 'changefreq' = $url_arr[2], 'priority' = $url_arr[3]));
 ```
 
-You can just use the following to simplify your code:
+You can just use the following if you don't need lastmod/changefreq/priority:
 ```
-$my_sitemap->addUrl($url = $url_arr[0]);
+$my_sitemap->addUrl($loc = $url_arr[0]);
 ```
 
 ## Summary
@@ -178,3 +183,12 @@ How frequently the page is likely to change. This value provides general informa
 The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0. This value does not affect how your pages are compared to pages on other sites—it only lets the search engines know which pages you deem most important for the crawlers.
 
 The default priority of a page is 0.5.
+
+## Sample Scripts
+
+Sample scripts instantiating each type of class can be found under /public to help get you started
+- 1google_image_sitemap_test.php
+- 1google_news_sitemap_test.php
+- 1google_video_sitemap_test.php
+- 1google_xml_sitemap_test.php
+
