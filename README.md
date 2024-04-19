@@ -53,6 +53,9 @@ One should be able to use this class without composer, but just a forewarning if
 > [!IMPORTANT]
 > Files you'll need:
 > * /src/AbstractGoogleSitemap.php
+> * /src/GoogleImageSitemap.php
+> * /src/GoogleNewsSitemap.php
+> * /src/GoogleVideoSitemap.php
 > * /src/GoogleXmlSitemap.php
 
 ### Sample Usage
