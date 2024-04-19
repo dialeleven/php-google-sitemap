@@ -23,19 +23,19 @@ class GoogleImageSitemapTest extends TestCase
 
    public function testClassConstructor()
    {
-      // Instantiate the GoogleXmlSitemap class
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
+      // Instantiate the GoogleImageSitemap class
+      $mysitemap = new GoogleImageSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
-      // Assert that the instantiated object is an instance of GoogleXmlSitemap
-      $this->assertInstanceOf(GoogleXmlSitemap::class, $mysitemap);
+      // Assert that the instantiated object is an instance of GoogleImageSitemap
+      $this->assertInstanceOf(GoogleImageSitemap::class, $mysitemap);
    }
 
    public function testAddUrl()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
+      $mysitemap = new GoogleImageSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
-      $method = new ReflectionMethod('Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap', 'startXmlDoc');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleSitemap\GoogleImageSitemap', 'startXmlDoc');
 
       // make protected method accessible for testing
       $method->setAccessible(true);
@@ -46,15 +46,15 @@ class GoogleImageSitemapTest extends TestCase
       $this->assertTrue($result);
       
       // call addUrl() method
-      $this->assertTrue($mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $tags_arr = array('name' => 'The Example Times', 'language' => 'en', 'publication_date' => '2024-04-01', 'title' => 'Sample Article Title')));
+      $this->assertTrue($mysitemap->addUrl($loc = 'http://www.domain.com/yourpath/'));
       
       // invalid test
-      #$this->assertTrue($mysitemap->addUrl($url, $lastmod, $changefreq, $priority));
+      #$this->assertTrue($mysitemap->addUrl($loc, $tags_arr = array('not' => 'allowed')));
 
 
       
       // Create a ReflectionProperty object for the private property
-      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count_total');
+      $reflectionProperty = new ReflectionProperty(GoogleImageSitemap::class, 'image_sitemap_url_count');
 
       // Make the private property accessible
       $reflectionProperty->setAccessible(true);
