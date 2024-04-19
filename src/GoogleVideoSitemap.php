@@ -45,6 +45,14 @@ class GoogleVideoSitemap extends GoogleSitemap
    // required video element tags
    protected $required_tags_arr = array('thumbnail_loc', 'title', 'description', 'content_loc', 'player_loc');
 
+   // allowed regular element/tags
+   protected $allowed_tags_arr = array('thumbnail_loc', 'title', 'description', 'content_loc', 'player_loc',
+                                       'duration', 'rating', 'view_count', 'publication_date', 'family_friendly',
+                                       'requires_subscription', 'live');
+   
+   // allowed special element/tags
+   protected $allowed_special_tags_arr = array('restriction', 'price', 'uploader');
+
    /**
      * Add our <video:video> and child news tags
      * https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
