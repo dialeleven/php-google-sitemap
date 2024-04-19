@@ -42,6 +42,8 @@ require_once 'AbstractGoogleSitemap.php';
 
 class GoogleNewsSitemap extends GoogleSitemap
 {
+   // list of required child tags within <url>
+   protected $required_tags_arr = array('name', 'language', 'publication_date', 'title');
    /**
      * Start our <url> element and child tags for a news sitemap
      * 
@@ -79,13 +81,10 @@ class GoogleNewsSitemap extends GoogleSitemap
                         '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}[+-]\d{2}:\d{2}$/',           // YYYY-MM-DDThh:mmTZD
                         '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/',     // YYYY-MM-DDThh:mm:ssTZD
                         '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[+-]\d{2}:\d{2}$/' // YYYY-MM-DDThh:mm:ss.sTZD
-                      );      
-      
-      // list of required child tags within <url>
-      $required_tags_arr = array('name', 'language', 'publication_date', 'title');
+                      );
 
       // verify each of our required child tags for news exists in the passed tags array
-      foreach ($required_tags_arr AS $required_key => $value)
+      foreach ($this->required_tags_arr AS $required_key => $value)
       {
          $value = trim($value);
 
