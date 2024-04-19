@@ -1,5 +1,5 @@
  <?php
-use Dialeleven\PhpGoogleXmlSitemap;
+use Dialeleven\PhpGoogleSitemap;
 
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleNewsSitemap.php';
@@ -13,9 +13,9 @@ such as 'https://www.yourdomain.com' for example.
 
 *** DO NOT INCLUDE A TRAILING SLASH AT THE END OF YOUR HOSTNAME! ***
 */
-$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($sitemap_type = 'news', 
-                                                                  $http_hostname = 'www.testdomain.com', 
-                                                                  $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+$my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleNewsSitemap($sitemap_type = 'news', 
+                                                                $http_hostname = 'www.testdomain.com', 
+                                                                $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
 
 

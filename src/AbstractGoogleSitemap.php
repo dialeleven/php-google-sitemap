@@ -8,7 +8,7 @@ Currently it supports generating the required files for:
 - Google XML Sitemaps (using /src/GoogleXmlSitemap.php)
 
 */
-namespace Dialeleven\PhpGoogleXmlSitemap;
+namespace Dialeleven\PhpGoogleSitemap;
 
 use Exception;
 use InvalidArgumentException;

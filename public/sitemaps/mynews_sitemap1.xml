@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://www.testdomain.com/aaa/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/bbb/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/ccc/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/eee/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/fff/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/ppp/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/somepath/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/subdirectory/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/xxx/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/xyz/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/yyy/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+   <url>
+      <loc>https://www.testdomain.com/zzz/</loc>
+      <news:news>
+         <news:publication>
+            <news:name>The Example Times</news:name>
+            <news:language>en</news:language>
+         </news:publication>
+         <news:publication_date>2024-04-19</news:publication_date>
+         <news:title>Example Article Title</news:title>
+      </news:news>
+   </url>
+</urlset>

@@ -32,7 +32,7 @@ TODO: support/checking for MAX_FILESIZE
  *
  * @author Francis Tsao
  */
-namespace Dialeleven\PhpGoogleXmlSitemap;
+namespace Dialeleven\PhpGoogleSitemap;
 
 use Exception;
 use InvalidArgumentException;

@@ -29,7 +29,7 @@ TODO: support/checking for MAX_FILESIZE
  *
  * @author Francis Tsao
  */
-namespace Dialeleven\PhpGoogleXmlSitemap;
+namespace Dialeleven\PhpGoogleSitemap;
 
 use Exception;
 use InvalidArgumentException;
@@ -86,28 +86,27 @@ class GoogleNewsSitemap extends GoogleSitemap
                       );
 
       // verify each of our required child tags for news exists in the passed tags array
-      foreach ($this->required_tags_arr AS $required_key => $value)
+      foreach ($this->required_tags_arr AS $required_key)
       {
-         $value = trim($value);
 
          // child tag name does not exist in our required list of elements
          if (!array_key_exists($required_key, $tags_arr))
             throw new Exception("A required child tag '$required_key' was not found in the passed array for '\$tags_arr' - " . print_r($tags_arr, true));
          // disallow empty strings
-         else if (empty($value))
+         else if (empty( trim($tags_arr[$required_key] ?? '') ))
             throw new Exception("A value is required for '$required_key' - value passed was '$value'");
          // check for valid publication_date
          else if ($required_key == 'publication_date')
          {
             // Check if the input string matches any of the specified formats
             foreach ($formats AS $format) {
-               if (preg_match($format, $value)) {
+               if ( preg_match ( $format, trim($tags_arr[$required_key] ?? '') ) ) {
                   $valid_date_string_found = true;
                }
             }
 
             if (!$valid_date_string_found)
-               throw new Exception("Invalid publication_date passed '$value' - publication_date should 
+               throw new Exception("Invalid publication_date passed '{$tags_arr[$required_key]}' - publication_date should 
                                     follow 'YYYY-MM-DD,' 'YYYY-MM-DDThh:mmTZD,' 'YYYY-MM-DDThh:mm:ssTZD,' 
                                     or 'YYYY-MM-DDThh:mm:ss.sTZD' format.");
          }
