@@ -151,8 +151,7 @@ class GoogleVideoSitemap extends GoogleSitemap
          {
             // we are expecting two (2) elements for each array
             if (empty(trim($key)) OR empty(trim($val)))
-               throw new Exception("\$tags_arr expects each array to contain 2 elements. Passed array contains " . 
-                                  count($arr) . " element(s) and contains " . print_r($arr, true));
+               throw new Exception("\$tags_arr expects each array to contain 2 elements. Passed values are key ($key) => value ($val)");
             
             // video element name does not exist in our allowed list
             if (!in_array($key, $this->allowed_tags_arr))
@@ -173,17 +172,17 @@ class GoogleVideoSitemap extends GoogleSitemap
                                    count($arr) . " element(s) and contains " . print_r($arr, true));
             
             // video element name does not exist in our allowed list
-            if (!array_key_exists($arr[0], $allowed_special_tags_arr))
-               throw new Exception("'{$arr[0]}' is not an allowed video element. Allowed values include: " . print_r($allowed_special_tags_arr, true));
+            if (!array_key_exists($arr[0], $this->allowed_special_tags_arr))
+               throw new Exception("'{$arr[0]}' is not an allowed video element. Allowed values include: " . print_r($this->allowed_special_tags_arr, true));
             else
             {
                
-               $xmlWriter->startElementNs('video', $arr[0], null);
-                  $xmlWriter->writeAttribute($arr[1], $arr[2]);
+               $this->xml_writer->startElementNs('video', $arr[0], null);
+                  $this->xml_writer->writeAttribute($arr[1], $arr[2]);
                   // Write the text content of the video:ELEMENT_NAME element
-                  $xmlWriter->text($arr[3]);
+                  $this->xml_writer->text($arr[3]);
                // Close the video:ELEMENT_NAME element
-               $xmlWriter->endElement();
+               $this->xml_writer->endElement();
             }
          }
       }
