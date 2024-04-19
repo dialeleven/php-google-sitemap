@@ -38,10 +38,65 @@ use XMLWriter;
 
 require_once 'AbstractGoogleSitemap.php';
 
+/*
+// sample usage - multiple images on a page
+$mysitemap->addUrl($loc = 'http://example.com/page.html');
+$mysitemap->addImage($loc = 'http://example.com/multiple_images.jpg');
+$mysitemap->addImage($loc = 'http://example.com/another_image.jpg');
+$mysitemap->addEndUrl();
 
+// sample usage - single image on a page
+$mysitemap->addUrl($loc = 'http://example.com/page.html');
+$mysitemap->addImage($loc = 'http://example.com/single_image.jpg');
+$mysitemap->addEndUrl();
+*/
 
 class GoogleImageSitemap extends GoogleSitemap
 {
+   /**
+     * Start our <url> element and child tags for image sitemap
+     * 
+     * e.g.
+     *    <url>
+     *       <loc>https://example.com/sample1.html</loc>
+     *       <image:image>
+     *          <image:loc>https://example.com/image.jpg</image:loc>
+     *       </image:image>
+     *    </url>
+     * @param string $loc
+     * @param array $tags_arr
+     * @param array $special_tags_arr
+     * @access public
+     * @return bool
+     */
+    public function addUrl(string $loc, array $tags_arr = array(), array $special_tags_arr = array()): bool
+    {
+      // check for special_tags_arr which is FOR VIDEO SITEMAPS ONLY with special child tag handling
+      if (is_array($special_tags_arr) AND count($special_tags_arr) > 0)
+         throw new Exception("\$special_tags_arr is unsupported for sitemap type '$this->sitemap_type' and should not be passed as an argument");
+      // image sitemap doesn't have to pass tags_arr
+      else if (is_array($tags_arr) AND count($tags_arr) > 0)
+         throw new Exception("\$tags_arr is unsupported for sitemap type '$this->sitemap_type' and should not be passed as an argument");
+      
+      if (empty($loc))
+         throw new Exception("ERROR: loc cannot be empty");
+      
+
+      // check if we need a new XML file
+      $this->startNewUrlsetXmlFile();
+
+      // Start the 'url' element
+      $this->xml_writer->startElement('url');
+
+      // TODO: strip/add leading trailing slash after http host like https://www.domain.com/?
+
+
+      $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc);
+  
+       return true;
+   }
+
+
    /**
      * Add our image:image and image:loc tags
      * 
