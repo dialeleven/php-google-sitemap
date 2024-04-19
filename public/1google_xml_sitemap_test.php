@@ -1,5 +1,5 @@
  <?php
-use Dialeleven\PhpGoogleXmlSitemap;
+use Dialeleven\PhpGoogleSitemap;
 
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
