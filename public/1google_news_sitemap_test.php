@@ -3,7 +3,6 @@ use Dialeleven\PhpGoogleSitemap;
 
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleNewsSitemap.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/public/db_connect.inc.php';
 
 
 /*
@@ -23,7 +22,6 @@ $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleNewsSitemap($sitemap_type = 
 Some configuratation methods for your sitemap file(s) to be generated.
 */
 #$my_sitemap->setXmlMode($mode = 'file'); // mode = memory (browser), mode = file (save to XML file)
-
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
 $my_sitemap->setSitemapFilenamePrefix('mynews_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
 $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false)
@@ -33,13 +31,10 @@ $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce f
 /*
 Start adding your URLs and news items
 */
-$sql = 'SELECT url FROM sample ORDER BY url';
-// mysql PDO query non-prepared statement
-$stmt = $pdo->query($sql);
 
-while ($query_data = $stmt->fetch())
+for ($i = 1; $i <= 110; ++$i)
 {
-   echo $query_data->url . '<br>';
+   echo $i . ' - ';
 
    /*
    Add URLs from your database or array (if preferred)
@@ -56,12 +51,12 @@ while ($query_data = $stmt->fetch())
    the 'sitemapindex' file listing each urlset file that was generated.
    */
    $my_sitemap->addUrl(
-                          $loc = "$query_data->url/",
+                          $loc = "url-$i/",
                           $tags_arr = array(
-                                               'name' => 'The Example Times', 
+                                               'name' => "The Example Times", 
                                                'language' => 'en', 
                                                'publication_date' => '2024-04-19',
-                                               'title' => 'Example Article Title'
+                                               'title' => "Example Article Title #$i"
                                            )
                       );
 }

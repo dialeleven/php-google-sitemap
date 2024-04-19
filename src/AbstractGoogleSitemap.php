@@ -17,8 +17,8 @@ use XMLWriter;
 
 abstract class GoogleSitemap
 {
-   const MAX_SITEMAP_LINKS = 50000;
-   #const MAX_SITEMAP_LINKS = 5; // for development testing
+   //const MAX_SITEMAP_LINKS = 50000;
+   const MAX_SITEMAP_LINKS = 100; // for development testing
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
 
@@ -314,6 +314,9 @@ abstract class GoogleSitemap
       // start new XML file if we reach maximum number of URLs per urlset file
       if ($this->url_count_current >= self::MAX_SITEMAP_LINKS)
       {
+         // close the </urlset> element in the current XML doc
+         $this->xml_writer->endElement();
+
          // start new XML doc
          $this->startXmlDoc($xml_ns_type = 'urlset');
 
