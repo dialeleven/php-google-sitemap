@@ -88,8 +88,8 @@ By default, resulting XML files will be created in the same path as your script 
 To save the resulting XML files saved in a subdirectory, pass the full DOCUMENT_ROOT and directory path(s)
 
 ```
-   // create new instance of the PHP Google XML Sitemap class (using specified XML save directory)
-   $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+   // create new instance of the PHP Google Sitemap class (using specified XML save directory)
+   $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = $_SERVER['HTTP_HOST'], $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
 ```
 
@@ -189,7 +189,7 @@ The default priority of a page is 0.5.
 
 ## Sample Scripts
 
-Sample scripts instantiating each type of class can be found under /public to help get you started
+The following sample scripts instantiating each type of class and basic logic can be found under /public to help get you started:
 - 1google_image_sitemap_test.php
 - 1google_news_sitemap_test.php
 - 1google_video_sitemap_test.php
