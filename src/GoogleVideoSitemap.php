@@ -172,11 +172,11 @@ class GoogleVideoSitemap extends GoogleSitemap
                                    count($arr) . " element(s) and contains " . print_r($arr, true));
             
             // video element name does not exist in our allowed list
-            if (!array_key_exists($arr[0], $this->allowed_special_tags_arr))
+            if (!in_array($arr[0], $this->allowed_special_tags_arr))
                throw new Exception("'{$arr[0]}' is not an allowed video element. Allowed values include: " . print_r($this->allowed_special_tags_arr, true));
+            // write special video element tags
             else
             {
-               
                $this->xml_writer->startElementNs('video', $arr[0], null);
                   $this->xml_writer->writeAttribute($arr[1], $arr[2]);
                   // Write the text content of the video:ELEMENT_NAME element
