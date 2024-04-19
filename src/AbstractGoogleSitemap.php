@@ -452,20 +452,21 @@ abstract class GoogleSitemap
    }
  
  
-    /**
-      * Gzip the <urlset> XML files and discard the original urlset file after
-      * 
-      * @access protected
-      * @return bool
-      */  
-    protected function gzipXmlFiles(): bool
-    {
+   /**
+     * Gzip the <urlset> XML files and discard the original urlset file after
+     * 
+     * @access protected
+     * @return bool
+     */  
+   protected function gzipXmlFiles(): bool
+   {
       for ($i = 1; $i <= $this->num_sitemaps; ++$i)
       {
-         $gz = gzopen($this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml.gz', 'w9');
-         
          // uncompressed gzip filename
-         $filename = $this->xml_files_dir . $this->sitemap_filename_prefix . $this->num_sitemaps . '.xml';
+         $filename = $this->xml_files_dir . $this->sitemap_filename_prefix . $i . '.xml';
+
+         $gz = gzopen($filename . '.gz', 'w9');
+         
          $handle = fopen($filename, "r");
          $contents = fread($handle, filesize($filename));
 

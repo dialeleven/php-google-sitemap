@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <sitemap>
-      <loc>https://www.testdomain.com/mynews_sitemap1.xml</loc>
-      <lastmod>2024-04-19T15:55:18+00:00</lastmod>
+      <loc>https://www.testdomain.com/mynews_sitemap1.xml.gz</loc>
+      <lastmod>2024-04-19T16:04:47+00:00</lastmod>
    </sitemap>
    <sitemap>
-      <loc>https://www.testdomain.com/mynews_sitemap2.xml</loc>
-      <lastmod>2024-04-19T15:55:18+00:00</lastmod>
+      <loc>https://www.testdomain.com/mynews_sitemap2.xml.gz</loc>
+      <lastmod>2024-04-19T16:04:47+00:00</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://www.testdomain.com/mynews_sitemap3.xml.gz</loc>
+      <lastmod>2024-04-19T16:04:47+00:00</lastmod>
    </sitemap>
 </urlset>
