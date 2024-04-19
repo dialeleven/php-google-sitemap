@@ -52,7 +52,7 @@ $xmlWriter->startElement('image:image'); // Start '<image:image>'
 $xmlWriter->writeElement('image:loc', 'https://example.com/multi_image_photo.jpg');
 $xmlWriter->endElement(); // End the '</image:image>' element
 
-// End the '</loc>' element
+// End the '</url>' element
 $xmlWriter->endElement();
 
 
