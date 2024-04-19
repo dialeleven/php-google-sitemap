@@ -17,8 +17,8 @@ use XMLWriter;
 
 abstract class GoogleSitemap
 {
-   //const MAX_SITEMAP_LINKS = 50000;
-   const MAX_SITEMAP_LINKS = 100; // for development testing
+   const MAX_SITEMAP_LINKS = 50000;
+   //const MAX_SITEMAP_LINKS = 100; // for development testing
    const SITEMAP_FILENAME_SUFFIX = '.xml';
    //const MAX_FILESIZE = 10485760;       // 10MB maximum (unsupported feature currently)
 
