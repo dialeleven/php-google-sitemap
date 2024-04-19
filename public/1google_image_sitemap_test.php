@@ -21,7 +21,7 @@ $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleImageSitemap($sitemap_type =
 /*
 Some configuratation methods for your sitemap file(s) to be generated.
 */
-#$my_sitemap->setXmlMode($mode = 'file'); // mode = memory (browser), mode = file (save to XML file)
+#$my_sitemap->setXmlMode($mode = 'file'); // for development purposes only. mode = memory (browser), mode = file (save to XML file)
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
 $my_sitemap->setSitemapFilenamePrefix('myimage_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
 $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false)
