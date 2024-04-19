@@ -25,7 +25,7 @@ Some configuratation methods for your sitemap file(s) to be generated.
 #$my_sitemap->setXmlMode($mode = 'file'); // mode = memory (browser), mode = file (save to XML file)
 
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
-$my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+$my_sitemap->setSitemapFilenamePrefix('mynews_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
 $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false)
 
 
