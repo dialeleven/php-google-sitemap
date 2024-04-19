@@ -61,7 +61,7 @@ One should be able to use this class without composer, but just a forewarning if
 ### Sample Usage
 Start off with the required namespace (e.g. "use _____;") and include the GoogleXmlSitemap.php PHP class.
 ```
-   use Dialeleven\PhpGoogleXmlSitemap;
+   use Dialeleven\PhpGoogleSitemap;
 
    // adjust the path to the PHP class depending on your site architecture
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
