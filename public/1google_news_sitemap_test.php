@@ -2,7 +2,7 @@
 use Dialeleven\PhpGoogleXmlSitemap;
 
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleNewsSitemap.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/public/db_connect.inc.php';
 
 
@@ -15,7 +15,7 @@ such as 'https://www.yourdomain.com' for example.
 */
 
 #$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
-$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($sitemap_type = 'xml', $http_hostname = 'www.testdomain.com', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
+$my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($sitemap_type = 'news', $http_hostname = 'www.testdomain.com', $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
 
 
@@ -42,24 +42,24 @@ while ($query_data = $stmt->fetch())
    echo $query_data->url . '<br>';
 
    /*
-   Add URLs from your database or array (if preferred)
-   1. $loc - Should not include the hostname. For example if the URL is https://www.yourdomain.com/somepath/, then
-             the $loc should be "somepath/" if you want the trailing slash. Trailing slash is not enforced for
-             flexibility as some sites may not use a trailing slash.
-   2. $tags_arr - here pass an array of optional URL tags including the following (which can be left out in my experience):
-                     - lastmod (W3C Datetime format - can omit time and use YYYY-MM-DD)
-                     - changefreq
-                        always
-                        hourly
-                        daily
-                        weekly
-                        monthly
-                        yearly
-                        never
-                  - priority (valid values 0.0 to 1.0 - default priority of a page is 0.5)
+   // Add URLs from your database or array (if preferred)
+   // 1. $loc - Should not include the hostname. For example if the URL is https://www.yourdomain.com/somepath/, then
+   //           the $loc should be "somepath/" if you want the trailing slash. Trailing slash is not enforced for
+   //           flexibility as some sites may not use a trailing slash.
+   // 2. $tags_arr - here pass an array of optional URL tags including the following (which can be left out in my experience):
+   //                   - lastmod (W3C Datetime format - can omit time and use YYYY-MM-DD)
+                        - changefreq
+                              always
+                              hourly
+                              daily
+                              weekly
+                              monthly
+                              yearly
+                              never
+                        - priority (valid values 0.0 to 1.0 - default priority of a page is 0.5)
 
-   The class will create a new 'urlset' file if you reach the 50,000 URL limit and create
-   the 'sitemapindex' file listing each urlset file that was generated.
+   // The class will create a new 'urlset' file if you reach the 50,000 URL limit and create
+   // the 'sitemapindex' file listing each urlset file that was generated.
    */
    $my_sitemap->addUrl(
                           $loc = "$query_data->url/",
