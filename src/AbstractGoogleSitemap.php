@@ -290,8 +290,9 @@ abstract class GoogleSitemap
      */
    protected function endUrl(): bool
    {
-      // End the 'url' element
-      $this->xml_writer->endElement();
+      if ( in_array($this->sitemap_type, array('xml', 'news', 'video')) )
+         // End the 'url' element
+         $this->xml_writer->endElement();
 
       // increment URL count so we can start a new <urlset> XML file if needed
       ++$this->url_count_current;

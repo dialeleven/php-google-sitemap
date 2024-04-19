@@ -92,11 +92,12 @@ class GoogleXmlSitemap extends GoogleSitemap
       if (array_key_exists('priority', $tags_arr))
          $this->xml_writer->writeElement('priority', $tags_arr['priority']);
 
-      // for XML, news and video(?) sitemaps, we can end the </url> tag at this point since there
-      // is only one group of child elements vs image sitemaps which can have 
-      // one or more child elements (i.e. multiple images on a page)
-      if ( in_array($this->sitemap_type, array('xml', 'news', 'video')) )
-         $this->endUrl();
+         
+      $this->endUrl();
+      
+      // increment URL count so we can start a new <urlset> XML file if needed
+      ++$this->url_count_current;
+      ++$this->url_count_total;
   
        return true;
    }

@@ -92,6 +92,13 @@ class GoogleImageSitemap extends GoogleSitemap
 
 
       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc);
+
+      // close </url> element
+      $this->endUrl();
+      
+      // increment URL count so we can start a new <urlset> XML file if needed
+      ++$this->url_count_current;
+      ++$this->url_count_total;
   
        return true;
    }

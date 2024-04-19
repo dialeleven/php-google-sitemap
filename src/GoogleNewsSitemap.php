@@ -143,11 +143,12 @@ class GoogleNewsSitemap extends GoogleSitemap
 
       $this->xml_writer->endElement(); // End the '</news:news>' element
 
-      // for XML, news and video(?) sitemaps, we can end the </url> tag at this point since there
-      // is only one group of child elements vs image sitemaps which can have 
-      // one or more child elements (i.e. multiple images on a page)
-      if ( in_array($this->sitemap_type, array('xml', 'news', 'video')) )
-         $this->endUrl();
+      // close </url> element
+      $this->endUrl();
+      
+      // increment URL count so we can start a new <urlset> XML file if needed
+      ++$this->url_count_current;
+      ++$this->url_count_total;
   
        return true;
    }
