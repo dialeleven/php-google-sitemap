@@ -127,18 +127,18 @@ class GoogleNewsSitemap extends GoogleSitemap
       $this->xml_writer->startElement('news:publication'); // Start '<news:publication>'
 
 
-      if (array_key_exists('name', $tags_arr))
+      if (array_key_exists('name', $tags_arr) AND $tags_arr['name'])
          $this->xml_writer->writeElement('news:name', $tags_arr['name']);
 
-      if (array_key_exists('language', $tags_arr))
+      if (array_key_exists('language', $tags_arr) AND $tags_arr['language'])
          $this->xml_writer->writeElement('news:language', $tags_arr['language']);
 
       $this->xml_writer->endElement(); // end </news:publication>
       
-      if (array_key_exists('publication_date', $tags_arr))
+      if (array_key_exists('publication_date', $tags_arr) AND $tags_arr['publication_date'])
          $this->xml_writer->writeElement('news:publication_date', $tags_arr['publication_date']);
 
-      if (array_key_exists('title', $tags_arr))
+      if (array_key_exists('title', $tags_arr) AND $tags_arr['title'])
          $this->xml_writer->writeElement('news:title', $tags_arr['title']);
 
 
