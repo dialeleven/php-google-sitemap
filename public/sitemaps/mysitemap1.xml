@@ -1,39 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://www.testdomain.com/aaa/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/bbb/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/ccc/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/eee/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/fff/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/ppp/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/somepath/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/subdirectory/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/xxx/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/xyz/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/yyy/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
    <url>
       <loc>https://www.testdomain.com/zzz/</loc>
+      <lastmod>2024-04-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
    </url>
 </urlset>

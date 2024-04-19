@@ -41,15 +41,27 @@ while ($query_data = $stmt->fetch())
 {
    echo $query_data->url . '<br>';
 
+   /*
    // Add URLs from your database or array (if preferred)
-   // 1. $url - Should not include the hostname. For example if the URL is https://www.yourdomain.com/somepath/, then
-   //           the $url should be "somepath/" if you want the trailing slash. Trailing slash is not enforced for
+   // 1. $loc - Should not include the hostname. For example if the URL is https://www.yourdomain.com/somepath/, then
+   //           the $loc should be "somepath/" if you want the trailing slash. Trailing slash is not enforced for
    //           flexibility as some sites may not use a trailing slash.
-   // 2. $lastmod, $changefreq, $priority can generally be left out from my experience, but you can include it if you like.
+   // 2. $tags_arr - here pass an array of optional URL tags including the following (which can be left out in my experience):
+   //                   - lastmod (W3C Datetime format - can omit time and use YYYY-MM-DD)
+                        - changefreq
+                              always
+                              hourly
+                              daily
+                              weekly
+                              monthly
+                              yearly
+                              never
+                        - priority (valid values 0.0 to 1.0 - default priority of a page is 0.5)
 
    // The class will create a new 'urlset' file if you reach the 50,000 URL limit and create
    // the 'sitemapindex' file listing each urlset file that was generated.
-   $my_sitemap->addUrl($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+   */
+   $my_sitemap->addUrl($loc = "$query_data->url/", $tags_arr = array('lastmod' => '2024-04-19', 'changefreq' => 'weekly', 'priority' => '0.5'));
 }
 
 // signal when done adding URLs, so we can generate the sitemap index file (table of contents)

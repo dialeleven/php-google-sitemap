@@ -83,13 +83,13 @@ class GoogleXmlSitemap extends GoogleSitemap
 
       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc);
 
-      if (array_key_exists('lastmod', $tags_arr))
+      if (array_key_exists('lastmod', $tags_arr) AND $tags_arr['lastmod'])
          $this->xml_writer->writeElement('lastmod', $tags_arr['lastmod']);
 
-      if (array_key_exists('changefreq', $tags_arr))
+      if (array_key_exists('changefreq', $tags_arr) AND $tags_arr['changefreq'])
          $this->xml_writer->writeElement('changefreq', $tags_arr['changefreq']);
 
-      if (array_key_exists('priority', $tags_arr))
+      if (array_key_exists('priority', $tags_arr) AND $tags_arr['priority'])
          $this->xml_writer->writeElement('priority', $tags_arr['priority']);
 
       // end </url> element
