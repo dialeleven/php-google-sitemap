@@ -1,5 +1,5 @@
 <?php
-namespace Dialeleven\PhpGoogleXmlSitemap;
+namespace Dialeleven\PhpGoogleSitemap;
 
 use PHPUnit\Framework\TestCase;
 use PDO;
