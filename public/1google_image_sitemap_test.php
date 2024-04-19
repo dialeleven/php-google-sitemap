@@ -41,49 +41,26 @@ for ($i = 1; $i <= 1000; ++$i)
    1. $loc - Should not include the hostname. For example if the URL is https://www.yourdomain.com/somepath/, then
              the $loc should be "somepath/" if you want the trailing slash. Trailing slash is not enforced for
              flexibility as some sites may not use a trailing slash.
-   2. $tags_arr - Here pass an array of the video URL tags including the following:
-                     - thumbnail_loc (required)
-                     - title (required)
-                     - description (required)
-                     - content_loc (required)
-                     - player_loc (required)
-                     - thumbnail_loc
-                     - title
-                     - description
-                     - content_loc
-                     - player_loc
-                     - duration
-                     - rating
-                     - view_count
-                     - publication_date
-                     - family_friendly
-                     - requires_subscription
-                     - live
-
-   3. $special_tags_arr - Additional optional video tags which require passing 4 values instead of the usual 2 (name => value).
-                          Allowed tags include:
-                           - restriction
-                           - price
-                           - uploader
+   2. $tags_arr - not used for image sitemap
+   3. $special_tags_arr - not used for image sitemap
                      
    The class will create a new 'urlset' file if you reach the 50,000 URL limit and create
    the 'sitemapindex' file listing each urlset file that was generated.
    */
    $my_sitemap->addUrl(
                            $loc = "url-$i/",
-                           $tags_arr = array(
-                                                'thumbnail_loc' => "https://example.com/thumbs/$i.jpg", 
-                                                'title' => "Video Title #$i", 
-                                                'description' => "Video description #$i",
-                                                'content_loc' => "http://streamserver.example.com/video$1.mp4",
-                                                'player_loc' => "https://example.com/videoplayer.php?video=$i"
-                                             ),
-                           $special_tags_arr = array(
-                                                      array('restriction', 'relationship', 'allow', 'IE GB US CA'),
-                                                      array('price', 'currency', 'EUR', '1.99'), 
-                                                      array('uploader', 'info', "https://example.com/users/user$i", "Username$i")
-                                                    )
+                           $tags_arr = array(),
+                           $special_tags_arr = array()
                       );
+   
+   // get random number of image tags to output (1-5)
+   $num_images = random_int($min = 1, $max = 5);
+
+   // output some image tags
+   for ($j = 1; $j <= $num_images; ++$j)
+   {
+      $my_sitemap->addImage($loc = "http://example.com/images/loc{$i}_image$j.jpg");
+   }
 }
 
 // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
