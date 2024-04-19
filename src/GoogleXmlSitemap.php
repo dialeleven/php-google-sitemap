@@ -92,7 +92,7 @@ class GoogleXmlSitemap extends GoogleSitemap
       if (array_key_exists('priority', $tags_arr))
          $this->xml_writer->writeElement('priority', $tags_arr['priority']);
 
-         
+      // end </url> element
       $this->endUrl();
       
   
