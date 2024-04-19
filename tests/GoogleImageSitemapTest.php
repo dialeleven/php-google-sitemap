@@ -24,7 +24,7 @@ class GoogleImageSitemapTest extends TestCase
    public function testClassConstructor()
    {
       // Instantiate the GoogleXmlSitemap class
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // Assert that the instantiated object is an instance of GoogleXmlSitemap
       $this->assertInstanceOf(GoogleXmlSitemap::class, $mysitemap);
@@ -32,7 +32,7 @@ class GoogleImageSitemapTest extends TestCase
 
    public function testAddUrl()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'image', $http_hostname = '');
+      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
       $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
