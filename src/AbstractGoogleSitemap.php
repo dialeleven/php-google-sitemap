@@ -145,7 +145,7 @@ abstract class GoogleSitemap
 
       // Validation for either 'memory' or 'file'
       if ( !in_array($xml_mode, array('memory', 'file') ) )
-         throw new Exception("\$xml_mode: $xml_mode is not a valid option. Valid modes are " . print_r($valid_modes, true));
+         throw new Exception("\$xml_mode: '$xml_mode' is not a valid option. Valid modes are " . print_r($valid_modes, true));
 
       $this->xml_mode = $xml_mode;
    }
@@ -190,7 +190,7 @@ abstract class GoogleSitemap
    {
       if (!array_key_exists($sitemap_type, $this->urlset_xmlns_types_arr))
       {
-         throw new Exception("$sitemap_type not in allowed sitemap types. Valid values are " . print_r($this->urlset_xmlns_types_arr, true));
+         throw new Exception("'$sitemap_type' not in allowed sitemap types. Valid values are " . print_r($this->urlset_xmlns_types_arr, true));
       }
       else
       {
