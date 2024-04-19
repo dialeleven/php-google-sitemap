@@ -15,7 +15,9 @@ TODO: support/checking for MAX_FILESIZE
 
 /**
  * GoogleXmlSitemap - create Google XML Sitemap (sitemapindex and urlset file(s))
- *
+ * 
+ * TODO: Update example below
+ * 
  * Sample usage
  * <code>
  * $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');

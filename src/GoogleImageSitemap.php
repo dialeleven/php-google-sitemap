@@ -11,11 +11,13 @@ TODO: support/checking for MAX_FILESIZE
 
 
 /**
- * GoogleImageSitemap - create Google XML Sitemap (sitemapindex and urlset file(s))
+ * GoogleImageSitemap - create Google Image Sitemap (sitemapindex and urlset file(s))
  *
+ * TODO: Update example below
+ * 
  * Sample usage
  * <code>
- * $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');
+ * $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleImageSitemap($http_hostname = 'www.testdomain.com');
  * $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
  * $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
  * foreach ($url_array as $url)

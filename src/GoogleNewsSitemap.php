@@ -1,9 +1,9 @@
 <?php
 /*
-Filename:         GoogleImageSitemap.php
+Filename:         GoogleNewsSitemap.php
 Author:           Francis Tsao
 Date Created:     04/14/2024
-Purpose:          Creates a Google image sitemap <urlset> files and a <sitemapindex> for the number of URLs
+Purpose:          Creates a Google news sitemap <urlset> files and a <sitemapindex> for the number of URLs
                   added.
 
 TODO: support/checking for MAX_FILESIZE
@@ -11,11 +11,13 @@ TODO: support/checking for MAX_FILESIZE
 
 
 /**
- * GoogleImageSitemap - create Google XML Sitemap (sitemapindex and urlset file(s))
+ * GoogleNewsSitemap - create Google News Sitemap (sitemapindex and urlset file(s))
  *
+ * TODO: Update example below
+ * 
  * Sample usage
  * <code>
- * $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');
+ * $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleNewsSitemap($http_hostname = 'www.testdomain.com');
  * $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
  * $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
  * foreach ($url_array as $url)
