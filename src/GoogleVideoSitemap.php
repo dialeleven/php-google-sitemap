@@ -12,17 +12,32 @@ TODO: support/checking for MAX_FILESIZE
 
 /**
  * GoogleVideoSitemap - create Google Video Sitemap (sitemapindex and urlset file(s))
- *
-TODO: Update example below
  * 
  * Sample usage
  * <code>
- * $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleVideoSitemap($http_hostname = 'www.testdomain.com');
+ * $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleVideoSitemap($sitemap_type = 'video', 
+ *                                                                  $http_hostname = 'www.testdomain.com', 
+ *                                                                  $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps'
  * $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
- * $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+ * $my_sitemap->setSitemapFilenamePrefix('myvideo_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+ * $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false)
+ * 
  * foreach ($url_array as $url)
  * {
- *    $my_sitemap->addUrl($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+ *    $my_sitemap->addUrl($url = "$query_data->url/", 
+ *                        $tags_arr = array(
+ *                                            // these 5 are required (check class properties for required vs. optional tags)
+ *                                            'thumbnail_loc' => "https://example.com/thumbs/$i.jpg", 
+ *                                            'title' => "Video Title #$i", 
+ *                                            'description' => "Video description #$i",
+ *                                            'content_loc' => "http://streamserver.example.com/video$1.mp4",
+ *                                            'player_loc' => "https://example.com/videoplayer.php?video=$i"
+ *                                            ),
+ *                       $special_tags_arr = array(
+ *                                                  array('restriction', 'relationship', 'allow', 'IE GB US CA'),
+ *                                                  array('price', 'currency', 'EUR', '1.99'), 
+ *                                                  array('uploader', 'info', "https://example.com/users/user$i", "Username$i")
+ *                                                  ));
  * }
  * 
  * // signal when done adding URLs, so we can generate the sitemap index file (table of contents)

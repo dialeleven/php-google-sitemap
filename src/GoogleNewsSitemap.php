@@ -12,17 +12,25 @@ TODO: support/checking for MAX_FILESIZE
 
 /**
  * GoogleNewsSitemap - create Google News Sitemap (sitemapindex and urlset file(s))
- *
-TODO: Update example below
  * 
  * Sample usage
  * <code>
- * $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleNewsSitemap($http_hostname = 'www.testdomain.com');
+ * $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleNewsSitemap($sitemap_type = 'video', 
+ *                                                                 $http_hostname = 'www.testdomain.com', 
+ *                                                                 $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
  * $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
- * $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+ * $my_sitemap->setSitemapFilenamePrefix('mynews_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+ * $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false)
+ * 
  * foreach ($url_array as $url)
  * {
- *    $my_sitemap->addUrl($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+ *    $my_sitemap->addUrl($url = "url-to-your-page-minus-hostname/", 
+ *                        $tags_arr = array(
+ *                                              'name' => "The Example Times", 
+ *                                              'language' => 'en', 
+ *                                              'publication_date' => '2024-04-19',
+ *                                              'title' => "Example Article Title #$i"
+ *                                          ));
  * }
  * 
  * // signal when done adding URLs, so we can generate the sitemap index file (table of contents)

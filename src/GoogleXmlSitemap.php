@@ -16,16 +16,19 @@ TODO: support/checking for MAX_FILESIZE
 /**
  * GoogleXmlSitemap - create Google XML Sitemap (sitemapindex and urlset file(s))
  * 
-TODO: Update example below
  * 
  * Sample usage
  * <code>
- * $my_sitemap = new Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap($http_hostname = 'www.testdomain.com');
+ * $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap($sitemap_type = 'xml', 
+ *                                                                $http_hostname = 'www.testdomain.com', 
+ *                                                                $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
  * $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
- * $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+ * $my_sitemap->setSitemapFilenamePrefix('myxml_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+ * $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false)
+ *
  * foreach ($url_array as $url)
  * {
- *    $my_sitemap->addUrl($url = "$query_data->url/", $lastmod = '', $changefreq = '', $priority = '');
+ *    $my_sitemap->addUrl($url = "your-url-path-minus-hostname/", $tags_arr = array('lastmod' => '2024-04-19', 'changefreq' => 'weekly', 'priority' => '0.5'));
  * }
  * 
  * // signal when done adding URLs, so we can generate the sitemap index file (table of contents)
