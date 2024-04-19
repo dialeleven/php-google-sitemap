@@ -135,16 +135,7 @@ class GoogleVideoSitemap extends GoogleSitemap
 
 
       $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc); // Start <loc>
-      
       $this->xml_writer->startElement('video:video'); // Start '<video:video>'
-
-      // required video elements
-      $this->xml_writer->writeElement('video:thumbnail_loc', $tags_arr['thumbnail_loc']);
-      $this->xml_writer->writeElement('video:title', $tags_arr['title']);
-      $this->xml_writer->writeElement('video:description', $tags_arr['description']);
-      $this->xml_writer->writeElement('video:content_loc', $tags_arr['content_loc']);
-      $this->xml_writer->writeElement('video:player_loc', $tags_arr['player_loc']);
- 
 
       // process the regular elements/tags array
       if (is_array($tags_arr))
