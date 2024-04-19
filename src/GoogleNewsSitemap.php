@@ -44,6 +44,8 @@ class GoogleNewsSitemap extends GoogleSitemap
 {
    // list of required child tags within <url>
    protected $required_tags_arr = array('name', 'language', 'publication_date', 'title');
+
+   
    /**
      * Start our <url> element and child tags for a news sitemap
      * 
