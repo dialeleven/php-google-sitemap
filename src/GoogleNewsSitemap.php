@@ -146,6 +146,6 @@ class GoogleNewsSitemap extends GoogleSitemap
       // end </url> element
       $this->endUrl();
   
-       return true;
+      return true;
    }
 }

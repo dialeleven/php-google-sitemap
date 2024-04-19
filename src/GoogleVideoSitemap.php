@@ -40,7 +40,7 @@ require_once 'AbstractGoogleSitemap.php';
 
 
 
-class GoogleNewsSitemap extends GoogleSitemap
+class GoogleVideoSitemap extends GoogleSitemap
 {
    /**
      * Add our <video:video> and child news tags
