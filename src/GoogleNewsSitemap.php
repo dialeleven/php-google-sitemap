@@ -69,7 +69,7 @@ class GoogleNewsSitemap extends GoogleSitemap
      */
    public function addUrl(string $loc, array $tags_arr = array(), array $special_tags_arr = array()): bool
    {
-      if (empty($loc))
+      if ( empty ( trim($loc) ) )
          throw new Exception("ERROR: loc cannot be empty");
 
       // safety check for special_tags_arr which is FOR VIDEO SITEMAPS ONLY with special child tag handling
@@ -115,30 +115,31 @@ class GoogleNewsSitemap extends GoogleSitemap
       // check if we need a new XML file
       $this->startNewUrlsetXmlFile();
 
-      // Start the 'url' element
+      // Start the '<url>' element
       $this->xml_writer->startElement('url');
 
-      // TODO: strip/add leading trailing slash after http host like https://www.domain.com/?
-
-
-      $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc); // Start <loc>
-      $this->xml_writer->startElement('news:news'); // Start '<news:news>'
-      $this->xml_writer->startElement('news:publication'); // Start '<news:publication>'
-
-
-      if (array_key_exists('name', $tags_arr) AND $tags_arr['name'])
-         $this->xml_writer->writeElement('news:name', $tags_arr['name']);
-
-      if (array_key_exists('language', $tags_arr) AND $tags_arr['language'])
-         $this->xml_writer->writeElement('news:language', $tags_arr['language']);
-
-      $this->xml_writer->endElement(); // end </news:publication>
+         $this->xml_writer->writeElement('loc', $this->url_scheme_host . $loc); // Start <loc>
+         $this->xml_writer->startElement('news:news'); // Start '<news:news>'
       
-      if (array_key_exists('publication_date', $tags_arr) AND $tags_arr['publication_date'])
-         $this->xml_writer->writeElement('news:publication_date', $tags_arr['publication_date']);
+            $this->xml_writer->startElement('news:publication'); // Start '<news:publication>'
 
-      if (array_key_exists('title', $tags_arr) AND $tags_arr['title'])
-         $this->xml_writer->writeElement('news:title', $tags_arr['title']);
+               // 'news:name' passed with value, write xml tag/elm
+               if (array_key_exists('name', $tags_arr) AND $tags_arr['name'])
+                  $this->xml_writer->writeElement('news:name', $tags_arr['name']);
+
+               // 'news:name' passed with value, write xml tag/elm
+               if (array_key_exists('language', $tags_arr) AND $tags_arr['language'])
+                  $this->xml_writer->writeElement('news:language', $tags_arr['language']);
+
+            $this->xml_writer->endElement(); // end </news:publication>
+      
+         // 'news:publication_date' passed with value, write xml tag/elm
+         if (array_key_exists('publication_date', $tags_arr) AND $tags_arr['publication_date'])
+            $this->xml_writer->writeElement('news:publication_date', $tags_arr['publication_date']);
+
+         // 'news:title' passed with value, write xml tag/elm
+         if (array_key_exists('title', $tags_arr) AND $tags_arr['title'])
+            $this->xml_writer->writeElement('news:title', $tags_arr['title']);
 
 
       $this->xml_writer->endElement(); // End the '</news:news>' element
