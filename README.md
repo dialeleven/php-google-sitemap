@@ -1,14 +1,14 @@
-# PHP Google XML Sitemap - Overview
+# PHP Google Sitemap - Overview
 
-A PHP class to generate a [Google XML Sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
+A PHP class to generate a multiple types of sitemaps. This supports creating a [Google XML Sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap), [image sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps), [news sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap), and [video sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps). Most likely you're after creating an XML sitemap, so we'll go over that here.
 
-Briefly, a Google XML Sitemap contains two parts:
+Briefly, a Google Sitemap (XML/image/news/video) contains two parts:
 
-1. A Sitemap Index XML file - a table of contents listing each 'urlset' file. Note that we're gzipping the resulting XML file in the example below (future version) to reduce file sizes. We could also leave the XML file uncompressed. For example:
+1. A [Sitemap Index](https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps) XML file - a table of contents listing each 'urlset' file. Note that we're gzipping the resulting XML file in the example below to reduce file sizes. The XML file can be left uncompressed, but will get rather large with 50,000 URLs in one file which is the maximum per sitemap file (~20MB uncompressed for an XML sitemap). For example:
 
 ```
    <?xml version="1.0" encoding="UTF-8"?>
-   <sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <sitemap>
          <loc>http://www.mydomain.com/someurl/sitemap1.xml.gz</loc>
          <lastmod>2024-04-06T21:23:02+00:00</lastmod>
@@ -20,11 +20,11 @@ Briefly, a Google XML Sitemap contains two parts:
    </sitemapindex>
 ```
 
-2. 'urlset' XML file(s) - a list of each of your website's URLs. For example sitemap1.xml may contain something like:
+2. 'urlset' XML file(s) - a list of each of your website's URLs. For example sitemap1.xml may contain something like this for an XML sitemap listing your website's pages/URLs:
 
 ```
    <?xml version="1.0" encoding="UTF-8"?>
-   <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
          <loc>http://www.mydomain.com/someurl/</loc>
          <lastmod>2024-04-06</lastmod>
