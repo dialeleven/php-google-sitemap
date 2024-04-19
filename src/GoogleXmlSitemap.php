@@ -95,9 +95,6 @@ class GoogleXmlSitemap extends GoogleSitemap
          
       $this->endUrl();
       
-      // increment URL count so we can start a new <urlset> XML file if needed
-      ++$this->url_count_current;
-      ++$this->url_count_total;
   
        return true;
    }
