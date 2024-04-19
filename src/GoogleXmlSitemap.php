@@ -16,7 +16,7 @@ TODO: support/checking for MAX_FILESIZE
 /**
  * GoogleXmlSitemap - create Google XML Sitemap (sitemapindex and urlset file(s))
  * 
- * TODO: Update example below
+TODO: Update example below
  * 
  * Sample usage
  * <code>
