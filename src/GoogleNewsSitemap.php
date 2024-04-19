@@ -94,7 +94,7 @@ class GoogleNewsSitemap extends GoogleSitemap
             throw new Exception("A required child tag '$required_key' was not found in the passed array for '\$tags_arr' - " . print_r($tags_arr, true));
          // disallow empty strings
          else if (empty( trim($tags_arr[$required_key] ?? '') ))
-            throw new Exception("A value is required for '$required_key' - value passed was '$value'");
+            throw new Exception("A value is required for '$required_key' - value passed was '{$tags_arr[$required_key]}'");
          // check for valid publication_date
          else if ($required_key == 'publication_date')
          {
