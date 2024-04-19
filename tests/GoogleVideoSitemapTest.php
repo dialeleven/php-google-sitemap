@@ -46,15 +46,16 @@ class GoogleVideoSitemapTest extends TestCase
       $this->assertTrue($result);
       
       // call addUrl() method
-      $this->assertTrue($mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', 
-                                           $tags_arr = array('name' => 'The Example Times', 
-                                                             'language' => 'en', 
-                                                             'publication_date' => '2024-04-01', 
-                                                             'title' => 'Sample Article Title')
+      $this->assertTrue($mysitemap->addUrl($loc = 'http://www.domain.com/yourpath/', 
+                                           $tags_arr = array('thumbnail_loc' => 'https://example.com/thumbs/thumbnail.jpg', 
+                                                             'title' => 'My Video Title', 
+                                                             'description' => '2024-04-01', 
+                                                             'content_loc' => 'http://streamserver.example.com/video123.mp4',
+                                                             'player_loc' => 'https://www.example.com/videoplayer.php?video=123')
                                           ));
       
       // invalid test
-      #$this->assertTrue($mysitemap->addUrl($url, $lastmod, $changefreq, $priority));
+      #$this->assertTrue($mysitemap->addUrl($loc, $tags_arr));
 
 
       

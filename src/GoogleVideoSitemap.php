@@ -111,9 +111,9 @@ class GoogleVideoSitemap extends GoogleSitemap
                      );      
  
       // verify each of our required child tags for news exists in the passed tags array
-      foreach ($this->required_tags_arr AS $required_key => $value)
+      foreach ($this->required_tags_arr AS $required_key)
       {
-         $value = trim($value);
+         $value = trim($tags_arr[$required_key] ?? '');
 
          // child tag name does not exist in our required list of elements
          if (!array_key_exists($required_key, $tags_arr))
@@ -147,18 +147,18 @@ class GoogleVideoSitemap extends GoogleSitemap
       // process the regular elements/tags array
       if (is_array($tags_arr))
       {
-         foreach ($tags_arr AS $arr)
+         foreach ($tags_arr AS $key => $val)
          {
             // we are expecting two (2) elements for each array
-            if (count($arr) != 2)
+            if (empty(trim($key)) OR empty(trim($val)))
                throw new Exception("\$tags_arr expects each array to contain 2 elements. Passed array contains " . 
                                   count($arr) . " element(s) and contains " . print_r($arr, true));
             
             // video element name does not exist in our allowed list
-            if (!array_key_exists($arr[0], $allowed_tags_arr))
-               throw new Exception("'{$arr[0]}' is not an allowed video element. Allowed values include: " . print_r($allowed_tags_arr, true));
+            if (!in_array($key, $this->allowed_tags_arr))
+               throw new Exception("'$key' $val is not an allowed video element. Allowed values include: " . print_r($this->allowed_tags_arr, true));
             else
-               $this->xml_writer->writeElement('video:' . $arr[0], $arr[1]);
+               $this->xml_writer->writeElement('video:' . $key, $val);
          }
       }
 
