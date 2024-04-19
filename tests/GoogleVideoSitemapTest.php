@@ -1,5 +1,5 @@
 <?php
-namespace Dialeleven\PhpGoogleXmlSitemap;
+namespace Dialeleven\PhpGoogleSitemap;
 
 use PHPUnit\Framework\TestCase;
 use PDO;
@@ -24,18 +24,18 @@ class GoogleVideoSitemapTest extends TestCase
    public function testClassConstructor()
    {
       // Instantiate the GoogleXmlSitemap class
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'video', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
+      $mysitemap = new GoogleVideoSitemap($sitemap_type = 'video', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // Assert that the instantiated object is an instance of GoogleXmlSitemap
-      $this->assertInstanceOf(GoogleXmlSitemap::class, $mysitemap);
+      $this->assertInstanceOf(GoogleVideoSitemap::class, $mysitemap);
    }
 
    public function testAddUrl()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'video', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
+      $mysitemap = new GoogleVideoSitemap($sitemap_type = 'video', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
-      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleSitemap\GoogleVideoSitemap', 'startXmlDoc');
 
       // make protected method accessible for testing
       $method->setAccessible(true);
@@ -46,7 +46,12 @@ class GoogleVideoSitemapTest extends TestCase
       $this->assertTrue($result);
       
       // call addUrl() method
-      $this->assertTrue($mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', $tags_arr = array('name' => 'The Example Times', 'language' => 'en', 'publication_date' => '2024-04-01', 'title' => 'Sample Article Title')));
+      $this->assertTrue($mysitemap->addUrl($url = 'http://www.domain.com/yourpath/', 
+                                           $tags_arr = array('name' => 'The Example Times', 
+                                                             'language' => 'en', 
+                                                             'publication_date' => '2024-04-01', 
+                                                             'title' => 'Sample Article Title')
+                                          ));
       
       // invalid test
       #$this->assertTrue($mysitemap->addUrl($url, $lastmod, $changefreq, $priority));
@@ -54,7 +59,7 @@ class GoogleVideoSitemapTest extends TestCase
 
       
       // Create a ReflectionProperty object for the private property
-      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count_total');
+      $reflectionProperty = new ReflectionProperty(GoogleVideoSitemap::class, 'url_count_total');
 
       // Make the private property accessible
       $reflectionProperty->setAccessible(true);

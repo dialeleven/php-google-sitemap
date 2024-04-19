@@ -35,7 +35,7 @@ class GoogleImageSitemapTest extends TestCase
       $mysitemap = new GoogleXmlSitemap($sitemap_type = 'image', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
-      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap', 'startXmlDoc');
 
       // make protected method accessible for testing
       $method->setAccessible(true);

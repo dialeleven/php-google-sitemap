@@ -23,19 +23,19 @@ class GoogleNewsSitemapTest extends TestCase
 
    public function testClassConstructor()
    {
-      // Instantiate the GoogleXmlSitemap class
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'news', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
+      // Instantiate the GoogleSitemap class
+      $mysitemap = new GoogleNewsSitemap($sitemap_type = 'news', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
-      // Assert that the instantiated object is an instance of GoogleXmlSitemap
-      $this->assertInstanceOf(GoogleXmlSitemap::class, $mysitemap);
+      // Assert that the instantiated object is an instance of GoogleSitemap
+      $this->assertInstanceOf(GoogleSitemap::class, $mysitemap);
    }
 
    public function testAddUrl()
    {
-      $mysitemap = new GoogleXmlSitemap($sitemap_type = 'news', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
+      $mysitemap = new GoogleNewsSitemap($sitemap_type = 'news', $http_hostname = 'https://phpgoogle-xml-sitemap.localhost/', $this->xml_files_dir);
 
       // allow access to protected method for testing using ReflectionMethod - need "use ReflectionMethod;" at top
-      $method = new ReflectionMethod('Dialeleven\PhpGoogleXmlSitemap\GoogleXmlSitemap', 'startXmlDoc');
+      $method = new ReflectionMethod('Dialeleven\PhpGoogleSitemap\GoogleSitemap', 'startXmlDoc');
 
       // make protected method accessible for testing
       $method->setAccessible(true);
@@ -54,7 +54,7 @@ class GoogleNewsSitemapTest extends TestCase
 
       
       // Create a ReflectionProperty object for the private property
-      $reflectionProperty = new ReflectionProperty(GoogleXmlSitemap::class, 'url_count_total');
+      $reflectionProperty = new ReflectionProperty(GoogleSitemap::class, 'url_count_total');
 
       // Make the private property accessible
       $reflectionProperty->setAccessible(true);
