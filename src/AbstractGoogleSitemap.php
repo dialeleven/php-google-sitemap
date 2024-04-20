@@ -1,12 +1,18 @@
 <?php
 /*
-Abstracting the GoogleSitemap class for possible future support for various 
-Sitemap extensions including Image sitemaps, News sitemaps, Video sitemaps and
-alternatives (ref: https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps).
+Abstracting the GoogleSitemap class to support various sitemap types including:
 
-Currently it supports generating the required files for:
-- Google XML Sitemaps (using /src/GoogleXmlSitemap.php)
+- XML sitemaps (/src/GoogleXmlSitemap.php)
+   - https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap#xml
 
+- Image sitemaps (/src/GoogleImageSitemap.php)
+   - https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
+
+- News sitemaps (/src/GoogleNewsSitemap.php)
+   - https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap
+
+- Video sitemaps (/src/GoogleVideoSitemap.php)
+   - https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps
 */
 namespace Dialeleven\PhpGoogleSitemap;
 
