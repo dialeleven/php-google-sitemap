@@ -287,10 +287,10 @@ $my_sitemap->addUrl(
 ## Sample Scripts
 
 The following sample scripts instantiating each type of sitemap class and basic logic can be found under /public to help get you started with each sitemap type supported (XML/image/video/news):
-- 1google_image_sitemap_test.php
-- 1google_news_sitemap_test.php
-- 1google_video_sitemap_test.php
-- 1google_xml_sitemap_test.php
+- [1google_image_sitemap_test.php](https://github.com/dialeleven/php-google-sitemap/blob/main/public/1google_image_sitemap_test.php)
+- [1google_news_sitemap_test.php](https://github.com/dialeleven/php-google-sitemap/blob/main/public/1google_news_sitemap_test.php)
+- [1google_video_sitemap_test.php](https://github.com/dialeleven/php-google-sitemap/blob/main/public/1google_video_sitemap_test.php)
+- [1google_xml_sitemap_test.php](https://github.com/dialeleven/php-google-sitemap/blob/main/public/1google_xml_sitemap_test.php)
 
 ## Conclusion
 
