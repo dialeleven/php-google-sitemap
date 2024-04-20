@@ -1,7 +1,6 @@
  <?php
 use Dialeleven\PhpGoogleSitemap;
 
-
 include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleNewsSitemap.php';
 
 
@@ -17,21 +16,16 @@ $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleNewsSitemap($sitemap_type = 
                                                                 $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
 
 
-
 /*
 Some configuratation methods for your sitemap file(s) to be generated.
 */
-#$my_sitemap->setXmlMode($mode = 'file'); // mode = memory (browser), mode = file (save to XML file)
+#$my_sitemap->setXmlMode($mode = 'file'); // For development purposes. mode = memory (browser), mode = file (save to XML file)
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
 $my_sitemap->setSitemapFilenamePrefix('mynews_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
 $my_sitemap->setUseGzip($use_gzip = true); // gzip the urlset files to reduce file sizes (true/false)
 
 
-
-/*
-Start adding your URLs and news items
-*/
-
+// Start adding your URLs and news items
 for ($i = 1; $i <= 110000; ++$i)
 {
    echo $i . ' - ';
