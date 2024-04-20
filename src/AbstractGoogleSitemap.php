@@ -42,12 +42,6 @@ abstract class GoogleSitemap
                                              'video' => 'http://www.google.com/schemas/sitemap-video/1.1',
                                              'news'  => 'http://www.google.com/schemas/sitemap-news/0.9');
 
-   
-   // TODO: perhaps abstract the core methods and leave out setters/getters
-
-   //abstract protected function startXmlNsElement(string $xml_ns_type = 'sitemapindex'): bool;
-   //abstract protected function startNewUrlsetXmlFile(): void;
-   //public function addUrl(string $url, string $lastmod = '', string $changefreq = '', string $priority = ''): bool;
 
    /*
    $tags_arr - additional child tags inside of <url>
