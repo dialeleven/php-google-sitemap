@@ -44,8 +44,7 @@ As you can see the structure is quite similar with the differences being the 'si
 
 ## Prerequisties
 
-This project uses [composer](https://getcomposer.org/) to autoload class files, but class files have been manually **include**d to be on the safe side. 
-One should be able to use this class without composer, but just a forewarning if you have any issues.
+There should be no preq's needed. This project uses [composer](https://getcomposer.org/) to autoload class files, but the class files have been manually **include**d to avoid requiring the use of composer to simplify using the class for everyone. The /src and /public folders were copied to a separate Apache vhost that doesn't have composer.json in the root or any of the related composer files/dirs (e.g. /vendor) and they were able to generate sitemaps for xml/image/news/video properly using the sample scripts (e.g. /public/1google_xml_sitemap_test.php).
 
 
 ## How to use the PHP Google XML Sitemap Class
