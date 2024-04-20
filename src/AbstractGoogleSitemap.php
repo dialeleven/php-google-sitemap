@@ -61,6 +61,7 @@ abstract class GoogleSitemap
      * Constructor gets HTTP host to use in <loc> and where to save the XML files (optional).
      * By default, it will save to the script path that calls the GoogleXMLSitemap class.
      *
+     * @param  string $sitemap_type   type of sitemap being created - xml, image, news, video
      * @param  string $http_hostname  http hostname to use for URLs - e.g. www.yourdomain.com or pass the $_SERVER['HTTP_HOST']
      * @param  string $xml_files_dir  full document root path and subdirectory path to save files
 
