@@ -26,8 +26,8 @@ Some configuratation methods for your sitemap file(s) to be generated.
 */
 #$my_sitemap->setXmlMode($mode = 'file'); // For development purposes. mode = memory (browser), mode = file (save to XML file)
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"
-$my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
-$my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false)
+$my_sitemap->setSitemapFilenamePrefix('myxml_sitemap'); // set name of sitemap file minus ".xml" (e.g. mysitemap.xml)
+$my_sitemap->setUseGzip($use_gzip = true); // gzip the urlset files to reduce file sizes (true/false)
 
 
 
@@ -38,9 +38,12 @@ $sql = 'SELECT url FROM sample ORDER BY url';
 // mysql PDO query non-prepared statement
 $stmt = $pdo->query($sql);
 
-while ($query_data = $stmt->fetch())
+//while ($query_data = $stmt->fetch())
+
+for ($i = 1; $i <= 100001; ++$i)
 {
-   echo $query_data->url . '<br>';
+   //echo $query_data->url . '<br>';
+   echo "url$i/" . ' - ';
 
    /*
    Add URLs from your database or array (if preferred)
@@ -63,7 +66,7 @@ while ($query_data = $stmt->fetch())
    the 'sitemapindex' file listing each urlset file that was generated.
    */
    $my_sitemap->addUrl(
-                          $loc = "$query_data->url/",
+                          $loc = "url$i/",
                           $tags_arr = array('lastmod' => '2024-04-19', 'changefreq' => 'weekly', 'priority' => '0.5')
                       );
 }

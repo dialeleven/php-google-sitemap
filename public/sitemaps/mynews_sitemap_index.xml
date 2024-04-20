@@ -2,14 +2,14 @@
 <urlset xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <sitemap>
       <loc>https://www.testdomain.com/mynews_sitemap1.xml.gz</loc>
-      <lastmod>2024-04-19T16:06:23+00:00</lastmod>
+      <lastmod>2024-04-20T12:23:44+00:00</lastmod>
    </sitemap>
    <sitemap>
       <loc>https://www.testdomain.com/mynews_sitemap2.xml.gz</loc>
-      <lastmod>2024-04-19T16:06:23+00:00</lastmod>
+      <lastmod>2024-04-20T12:23:44+00:00</lastmod>
    </sitemap>
    <sitemap>
       <loc>https://www.testdomain.com/mynews_sitemap3.xml.gz</loc>
-      <lastmod>2024-04-19T16:06:23+00:00</lastmod>
+      <lastmod>2024-04-20T12:23:44+00:00</lastmod>
    </sitemap>
 </urlset>

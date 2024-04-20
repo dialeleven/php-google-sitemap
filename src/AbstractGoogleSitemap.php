@@ -34,7 +34,7 @@ abstract class GoogleSitemap
    protected $xml_files_dir; // directory where to save the XML files
    protected $url_count_current = 0; // total number of <loc> URL links for current <urlset> XML file
    protected $url_count_total = 0; // grand total number of <loc> URL links
-   public $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
+   protected $http_hostname; // http hostname (minus the "http://" part - e.g. www.yourdomain.com)
    protected $http_host_use_https = true; // flag to use either "https" or "http" as the URL scheme
    protected $url_scheme_host; // the combined scheme and host (e.g. 'https://' + 'www.domain.com')
    protected $use_gzip = false;

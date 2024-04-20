@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <sitemap>
+      <loc>https://www.testdomain.com/myxml_sitemap1.xml.gz</loc>
+      <lastmod>2024-04-20T12:27:54+00:00</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://www.testdomain.com/myxml_sitemap2.xml.gz</loc>
+      <lastmod>2024-04-20T12:27:54+00:00</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://www.testdomain.com/myxml_sitemap3.xml.gz</loc>
+      <lastmod>2024-04-20T12:27:54+00:00</lastmod>
+   </sitemap>
+</urlset>
