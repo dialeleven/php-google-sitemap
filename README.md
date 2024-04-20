@@ -136,7 +136,7 @@ Remaining logic for usage (please adjust the sample code depending on if you're 
 
 ## About addURL() Method
 > [!NOTE]
-> The **addURL()** method only requires **$loc** to be passed as an argument for the XML sitemap type. 
+> **For XML sitemap types ONLY**, the **addURL()** method only requires **$loc** to be passed as an argument. 
 > The other tags in the $tags_arr for lastmod, changefreq, and priority are optional and can be omitted.
 > 
 
