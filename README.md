@@ -4,7 +4,7 @@ A PHP class to generate a multiple types of sitemaps. This supports creating a [
 
 Briefly, a Google Sitemap (XML/image/news/video) contains two parts:
 
-1. A [Sitemap Index](https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps) XML file - a table of contents listing each 'urlset' file. Note that we're gzipping the resulting XML file in the example below to reduce file sizes. The XML file can be left uncompressed, but will get rather large with 50,000 URLs in one file which is the maximum per sitemap file (~20MB uncompressed for an XML sitemap). For example:
+1. A [Sitemap Index](https://developers.google.com/search/docs/crawling-indexing/sitemaps/large-sitemaps) XML file - a table of contents listing each *urlset* file (this example is in the next bullet point). Note that we're gzipping the resulting XML file in the example below to reduce file sizes. The XML file can be left uncompressed, but will get rather large with 50,000 URLs in one file which is the maximum per sitemap file (~20MB uncompressed for an XML sitemap). For example:
 
 ```
    <?xml version="1.0" encoding="UTF-8"?>
