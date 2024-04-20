@@ -59,13 +59,21 @@ One should be able to use this class without composer, but just a forewarning if
 > * /src/GoogleXmlSitemap.php
 
 ### Sample Usage
-Start off with the required namespace (e.g. "use _____;") and include the GoogleXmlSitemap.php PHP class.
+Start off with the required namespace (e.g. "use _____;") and include the appropriate class src for the sitemap type you are using. For an XML sitemap, use the GoogleXmlSitemap.php PHP class as shown below.
 ```
    use Dialeleven\PhpGoogleSitemap;
 
    // adjust the path to the PHP class depending on your site architecture
    include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleXmlSitemap.php';
 ```
+For a news sitemap you'll change the *include_once* src to use '/src/GoogleNewsSitemap.php' instead. For example:
+```
+   use Dialeleven\PhpGoogleSitemap;
+
+   // adjust the path to the PHP class depending on your site architecture
+   include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleNewsSitemap.php';
+```
+
 
 **Create new instance of GoogleSitemap Class**
 
@@ -93,18 +101,18 @@ To save the resulting XML files saved in a subdirectory, pass the full DOCUMENT_
 
 ```
 
-Remaining logic for usage:
+Remaining logic for usage (please adjust the sample code depending on if you're retrieving the URLs from a database or you have it stored as an array):
 ```
    // Some configuratation methods for your sitemap file(s) to be generated.
    $my_sitemap->setUseHttpsUrls(true); // use "https" scheme (true) for your URLs or plain "http" (false)
    $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file(s) minus ".xml" (e.g. mysitemap.xml)
    $my_sitemap->setUseGzip($use_gzip = false); // compress the urlset files to save space (true/false)
 
-   // you might store your arrays like this
+   // you might store your url arrays like this
    $url_md_arr = array(
-      array('http://www.domain.com/url1/', '2024-01-01', 'weekly', '1.0'),
-      array('http://www.domain.com/url2/', '2024-01-01', 'weekly', '1.0'),
-      array('http://www.domain.com/url3/', '2024-01-01', 'weekly', '1.0')
+      array('http://www.domain.com/url1/', '2024-01-01', 'weekly', '0.5'),
+      array('http://www.domain.com/url2/', '2024-01-01', 'weekly', '0.5'),
+      array('http://www.domain.com/url3/', '2024-01-01', 'weekly', '0.5')
    );
 
    // you probably want to pull your URLs from your database though (e.g. MySQL, Postgres, Mongo, etc...)
@@ -117,7 +125,7 @@ Remaining logic for usage:
    foreach ($url_md_arr as $url_arr)
    {
       // the important part - adding each URL (replace sample values from your DB/array)
-      $my_sitemap->addUrl($loc = $url_arr[0], $tags_arr = array('lastmod' => '2024-04-19', 'changefreq' => 'weekly', 'priority' => '0.5'));
+      $my_sitemap->addUrl($loc = $url_arr[0], $tags_arr = array('lastmod' => $url_arr[1], 'changefreq' => $url_arr[2], 'priority' => $url_arr[3]));
    }
 
 
@@ -142,22 +150,7 @@ You can just use the following if you don't need lastmod/changefreq/priority:
 $my_sitemap->addUrl($loc = $url_arr[0]);
 ```
 
-## Summary
-
-As you can see, the usage is pretty simple. 
-
-1. Instantiate the class.
-2. A couple configuration methods.
-3. Set up your loop and iterate through your array or database records.
-4. Call addUrl() method until you're out of URLs to add.
-5. Wrap up by calling endXmlDoc() which will generate your sitemapindex TOC.
-6. Submit your sitemapindex XML file to Google. Done!
-
-This was rewritten from PHP 5.6 to 8 and greatly simplified from a class that
-did too much and was rather confusing to read and maintain even though it worked.
-It cut down the lines of code by about 200-300. Hope you find this class useful.
-
-## Additional XML Attributes for <urlset> Files
+## XML Tag Definitions for XML Sitemaps (e.g. lastmod)
 
 > [!NOTE]
 > If you choose to pass other arguments to addURL() like **lastmod**, **changefreq**, or **priority**, please refer to the following for valid values.
@@ -186,6 +179,23 @@ How frequently the page is likely to change. This value provides general informa
 The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0. This value does not affect how your pages are compared to pages on other sites—it only lets the search engines know which pages you deem most important for the crawlers.
 
 The default priority of a page is 0.5.
+
+
+## Summary
+
+As you can see, the usage is pretty simple. 
+
+1. Instantiate the class.
+2. A couple configuration methods.
+3. Set up your loop and iterate through your array or database records.
+4. Call addUrl() method until you're out of URLs to add.
+5. Wrap up by calling endXmlDoc() which will generate your sitemapindex TOC.
+6. Submit your sitemapindex XML file to Google. Done!
+
+This was rewritten from PHP 5.6 to 8 and greatly simplified from a class that
+did too much and was rather confusing to read and maintain even though it worked.
+It cut down the lines of code by about 200-300. Hope you find this class useful.
+
 
 ## Sample Scripts
 
