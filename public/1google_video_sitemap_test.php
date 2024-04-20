@@ -67,12 +67,21 @@ for ($i = 1; $i <= 1000; ++$i)
    $my_sitemap->addUrl(
                            $loc = "url-$i/",
                            $tags_arr = array(
+                                                // required tags
                                                 'thumbnail_loc' => "https://example.com/thumbs/$i.jpg", 
                                                 'title' => "Video Title #$i", 
                                                 'description' => "Video description #$i",
                                                 'content_loc' => "http://streamserver.example.com/video$1.mp4",
                                                 'player_loc' => "https://example.com/videoplayer.php?video=$i"
+
+                                                // optional tags
+                                                /*
+                                                'duration', 'rating', 'view_count', 'publication_date', 'family_friendly',
+                                                'requires_subscription', 'live'
+                                                */
+                                                
                                              ),
+                           // optional tags - each must be an array with four values to pass
                            $special_tags_arr = array(
                                                       array('restriction', 'relationship', 'allow', 'IE GB US CA'),
                                                       array('price', 'currency', 'EUR', '1.99'), 

@@ -47,6 +47,7 @@ for ($i = 1; $i <= 110000; ++$i)
    $my_sitemap->addUrl(
                           $loc = "url-$i/",
                           $tags_arr = array(
+                                               // name/language/publication_date/title are required
                                                'name' => "The Example Times", 
                                                'language' => 'en', 
                                                'publication_date' => '2024-04-19',

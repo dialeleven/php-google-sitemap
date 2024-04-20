@@ -197,6 +197,94 @@ did too much and was rather confusing to read and maintain even though it worked
 It cut down the lines of code by about 200-300. Hope you find this class useful.
 
 
+## Sample Code for Image/News/Video Sitemaps
+
+The addURL() method is what changes from one sitemap type to another and will be the focus on the code examples below.
+
+
+### 1. Image Sitemaps
+
+An [image sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps) is similar to the XML sitemap addUrl() method. The differences are:
+
+- $tags_arr and $special_tags_arr are not used in the image sitemap (they can be omitted completely, but listed for reference)
+- After calling **addURL()**, you will call **addImage()** N times.
+
+```
+// adjust this loop and logic depending if your URL/image loc's are from a database/text file/array/etc
+for ($i = 0; $i <= $however_many_urls_you_have; ++$i)
+{
+   // addURL() example for an Image sitemap
+   $my_sitemap->addUrl(
+                           $loc = "url-$i/",
+                           $tags_arr = array(),
+                           $special_tags_arr = array()
+                        );
+
+   // Output image tag(s) - keep calling addImage() method as many times as needed (one or more times).
+   // Add loop logic as needed.
+   $my_sitemap->addImage($loc = "http://example.com/images/image1.jpg");
+   $my_sitemap->addImage($loc = "http://example.com/images/image2.jpg");
+   $my_sitemap->addImage($loc = "http://example.com/images/image3.jpg");
+}
+```
+
+
+### 2. News Sitemaps
+
+A [news sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap) is the most similar to an XML sitemap with a news sitemap having different **$tags_arr** key/values being passed. All values listed in the $tags_arr (name, language, publication_date, and title) are required for a news sitemap.
+
+```
+// add news sitemap url
+$my_sitemap->addUrl(
+                        $loc = "example-article-title/",
+                        $tags_arr = array(
+                                             // name/language/publication_date/title are required
+                                             'name' => "The Example Times", 
+                                             'language' => 'en', 
+                                             'publication_date' => '2024-04-19',
+                                             'title' => "Example Article Title"
+                                          )
+                  );
+```
+
+
+### 3. Video Sitemaps
+
+A [video sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps) has some required and optional tags in the **$tags_arr** as well as some optional tags in the **$special_tags_arr** (these don't conform to the usual $key => $value that $tags_arr accepts since there are four (4) tag names/values to be passed).
+
+```
+// add video sitemap URL
+$my_sitemap->addUrl(
+                        $loc = "url-$i/",
+                        $tags_arr = array(
+                                             // these 5 tags are required
+                                             'thumbnail_loc' => "https://example.com/thumbs/$i.jpg", 
+                                             'title' => "Video Title #$i", 
+                                             'description' => "Video description #$i",
+                                             'content_loc' => "http://streamserver.example.com/video$1.mp4",
+                                             'player_loc' => "https://example.com/videoplayer.php?video=$i"
+
+                                             // optional tags
+                                             /*
+                                             'duration' => '600', 
+                                             'rating' => '4.2', 
+                                             'view_count' => '12345', 
+                                             'publication_date' => '2007-11-05T19:20:30+08:00', 
+                                             'family_friendly' => 'yes',
+                                             'requires_subscription' => 'no', 
+                                             'live' => 'no'
+                                             */
+                                          ),
+                        // optional special tags
+                        $special_tags_arr = array(
+                                                   array('restriction', 'relationship', 'allow', 'IE GB US CA'),
+                                                   array('price', 'currency', 'EUR', '1.99'), 
+                                                   array('uploader', 'info', "https://example.com/users/user$i", "Username$i")
+                                                   )
+                     );
+```
+
+
 ## Sample Scripts
 
 The following sample scripts instantiating each type of sitemap class and basic logic can be found under /public to help get you started with each sitemap type supported (XML/image/video/news):
@@ -205,3 +293,6 @@ The following sample scripts instantiating each type of sitemap class and basic 
 - 1google_video_sitemap_test.php
 - 1google_xml_sitemap_test.php
 
+## Conclusion
+
+If you've gotten this far, I hope you find the class useful! If you have any questions about using the class (XML/image/news/video) or constructive feedback, please feel free to reach out!
