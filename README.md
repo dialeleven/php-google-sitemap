@@ -125,7 +125,7 @@ Remaining logic for usage (please adjust the sample code depending on if you're 
    foreach ($url_md_arr as $url_arr)
    {
       // the important part - adding each URL (replace sample values from your DB/array)
-      $my_sitemap->addUrl($loc = $url_arr[0], $tags_arr = array('lastmod' => $url_arr[1], 'changefreq' => $url_arr[2], 'priority' => $url_arr[3]));
+      $my_sitemap->addUrl( $loc = $url_arr[0], $tags_arr = array('lastmod' => $url_arr[1], 'changefreq' => $url_arr[2], 'priority' => $url_arr[3]) );
    }
 
 
@@ -136,13 +136,13 @@ Remaining logic for usage (please adjust the sample code depending on if you're 
 
 ## About addURL() Method
 > [!NOTE]
-> The **addURL()** method only requires **$loc** to be passed as an argument. 
-> The other arguments lastmod, changefreq, and priority are optional and can
-> be omitted.
+> The **addURL()** method only requires **$loc** to be passed as an argument for the XML sitemap type. 
+> The other tags in the $tags_arr for lastmod, changefreq, and priority are optional and can be omitted.
+> 
 
 Instead of calling the method like:
 ```
-$my_sitemap->addUrl($loc = $url_arr[0], array('lastmod' = $url_arr[1], 'changefreq' = $url_arr[2], 'priority' = $url_arr[3]));
+$my_sitemap->addUrl( $loc = $url_arr[0], $tags_arr = array('lastmod' = $url_arr[1], 'changefreq' = $url_arr[2], 'priority' = $url_arr[3]) );
 ```
 
 You can just use the following if you don't need lastmod/changefreq/priority:
