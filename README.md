@@ -105,7 +105,7 @@ Remaining logic for usage (please adjust the sample code depending on if you're 
    // Some configuratation methods for your sitemap file(s) to be generated.
    $my_sitemap->setUseHttpsUrls(true); // use "https" scheme (true) for your URLs or plain "http" (false)
    $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file(s) minus ".xml" (e.g. mysitemap.xml)
-   $my_sitemap->setUseGzip($use_gzip = false); // compress the urlset files to save space (true/false) - NOTE: this will unlink() or delete the original XML file(s) after
+   $my_sitemap->setUseGzip($use_gzip = false); // compress the urlset files to save space (true/false) - NOTE: using gzip=true will unlink() or delete the original XML file(s) after
 
    // you might store your url arrays like this
    $url_md_arr = array(
