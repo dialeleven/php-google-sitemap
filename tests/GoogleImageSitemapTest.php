@@ -17,7 +17,7 @@ class GoogleImageSitemapTest extends TestCase
    {
       // Using $_SERVER['DOCUMENT_ROOT'] is not possible within PHPUnit because 
       // PHPUnit doesn't run within the context of a web server. 
-      // Instead, you we have to use an alternative method to get the base path.
+      // Instead, we have to use an alternative method to get the base path.
       $this->xml_files_dir = dirname(__DIR__) . '/public/sitemaps';
    }
 
