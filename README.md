@@ -44,7 +44,7 @@ As you can see the structure is quite similar with the differences being the 'si
 
 ## Prerequisties
 
-This project uses [composer](https://getcomposer.org/) to autoload class files, but have been manually **include**d to be on the safe side. 
+This project uses [composer](https://getcomposer.org/) to autoload class files, but class files have been manually **include**d to be on the safe side. 
 One should be able to use this class without composer, but just a forewarning if you have any issues.
 
 
