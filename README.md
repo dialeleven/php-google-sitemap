@@ -189,7 +189,7 @@ The default priority of a page is 0.5.
 
 ## Sample Scripts
 
-The following sample scripts instantiating each type of sitemap class and basic logic can be found under /public to help get you started:
+The following sample scripts instantiating each type of sitemap class and basic logic can be found under /public to help get you started with each sitemap type supported (XML/image/video/news):
 - 1google_image_sitemap_test.php
 - 1google_news_sitemap_test.php
 - 1google_video_sitemap_test.php
