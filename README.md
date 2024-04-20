@@ -294,4 +294,4 @@ The following sample scripts instantiating each type of sitemap class and basic 
 
 ## Conclusion
 
-If you've gotten this far, I hope you find the class useful! If you have any questions about using the class (XML/image/news/video) or constructive feedback, please feel free to reach out!
+If you've gotten this far, I hope you find the class useful! If you have any questions about using the class (XML/image/news/video), bug reports, or constructive feedback, please feel free to reach out!
