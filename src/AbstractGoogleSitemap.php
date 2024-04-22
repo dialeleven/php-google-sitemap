@@ -344,10 +344,10 @@ abstract class GoogleSitemap
      * tags including the xmlns and xsi attributes needed. 
      * 
      * e.g. sitemap index follows:
-     *   <sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     *   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      * 
      * 'urlset' XML file container tag follows:
-     *   <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     *   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      * @param $xml_ns_type ('sitemapindex' or 'urlset')
      * @access protected
      * @return bool
