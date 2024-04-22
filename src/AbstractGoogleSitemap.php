@@ -465,7 +465,7 @@ abstract class GoogleSitemap
 
          $gz = gzopen($filename . '.gz', 'w9');
          
-         $handle = fopen($filename, "r");
+         $handle = fopen($filename, 'r');
          $contents = fread($handle, filesize($filename));
 
          if ($bytes_written = gzwrite($gz, $contents))
