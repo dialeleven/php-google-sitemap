@@ -390,9 +390,6 @@ abstract class GoogleSitemap
      */  
    protected function generateSitemapIndexFile(): bool
    {
-      #echo "num_sitemaps: $this->num_sitemaps, \$i = $i<br>";
-      #die;
-
       // start XML doc <?xml version="1.0" ? > and 'sitemapindex' tag
       $this->startXmlDoc($xml_ns_type = 'sitemapindex');
 
