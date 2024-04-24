@@ -286,7 +286,7 @@ $my_sitemap->addUrl(
 
 ## Sample Scripts
 
-TL;DR Too much reading above? Just want a sample script to get going quickly? Pick your sitemap type (XML/image/video/news) below and customize the sample script to your needs.
+TL;DR too much reading above? Just want a sample script to get going quickly? Pick your sitemap type (XML/image/video/news) below and customize the sample script to your needs.
 
 - [1google_image_sitemap_test.php](https://github.com/dialeleven/php-google-sitemap/blob/main/public/1google_image_sitemap_test.php)
 - [1google_news_sitemap_test.php](https://github.com/dialeleven/php-google-sitemap/blob/main/public/1google_news_sitemap_test.php)
