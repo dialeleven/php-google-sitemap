@@ -14,7 +14,6 @@ such as 'https://www.yourdomain.com' for example.
 *** DO NOT INCLUDE A TRAILING SLASH AT THE END OF YOUR HOSTNAME! ***
 */
 
-#$my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap($http_hostname = $_SERVER['HTTP_HOST']);
 $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap($sitemap_type = 'xml', 
                                                                $http_hostname = 'www.testdomain.com', 
                                                                $xml_files_dir = $_SERVER['DOCUMENT_ROOT'] . '/public/sitemaps');
