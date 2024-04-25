@@ -6,7 +6,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleImageSitemap.php';
 
 
 /*
-Instansiate the PHP Google Image Sitemap Class. Pass your hostname below as an 
+Instantiate the PHP Google Image Sitemap Class. Pass your hostname below as an 
 argument using PHP's $_SERVER['HTTP_HOST'] or you can hard code your hostname
 such as 'https://www.yourdomain.com' for example.
 

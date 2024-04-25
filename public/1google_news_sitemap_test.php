@@ -5,7 +5,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/src/GoogleNewsSitemap.php';
 
 
 /*
-Instansiate the PHP Google News Sitemap Class. Pass your hostname below as an 
+Instantiate the PHP Google News Sitemap Class. Pass your hostname below as an 
 argument using PHP's $_SERVER['HTTP_HOST'] or you can hard code your hostname
 such as 'https://www.yourdomain.com' for example.
 
