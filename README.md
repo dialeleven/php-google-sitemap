@@ -42,9 +42,9 @@ Briefly, a Google Sitemap (XML/image/news/video) contains two parts:
 
 As you can see the structure is quite similar with the differences being the 'sitemapindex' vs 'urlset' as our opening tag (attributes are identical). The tags contained in our sitemapindex/urlset will contain either a 'sitemap' container tag or 'url' container tag.
 
-## Prerequisties
+## Prerequisites
 
-There should be no preq's needed. This project uses [composer](https://getcomposer.org/) to autoload class files, but the class files have been manually **include**d to avoid requiring the use of composer to simplify using the class for everyone. The /src and /public folders were copied to a separate Apache vhost that doesn't have composer.json in the root or any of the related composer files/dirs (e.g. /vendor) and they were able to generate sitemaps for xml/image/news/video properly using the sample scripts (e.g. /public/1google_xml_sitemap_test.php).
+There should be no prerequisites needed. This project uses [composer](https://getcomposer.org/) to autoload class files, but the class files have been manually **include**d to avoid requiring the use of composer to simplify using the class for everyone. The /src and /public folders were copied to a separate Apache vhost that doesn't have composer.json in the root or any of the related composer files/dirs (e.g. /vendor) and they were able to generate sitemaps for xml/image/news/video properly using the sample scripts (e.g. /public/1google_xml_sitemap_test.php).
 
 
 ## How to use the PHP Google XML Sitemap Class
@@ -82,7 +82,7 @@ By default, resulting XML files will be created in the same path as your script 
    // create new instance of the PHP Google XML Sitemap class (using default save dir - whatever script your path is in)
    /*
    SPECIFY YOUR SITEMAP TYPE:
-      - xml (for most people, you'll use this unless you need a speciality sitemap type like images, etc..)
+      - xml (for most people, you'll use this unless you need a specialty sitemap type like images, etc..)
       - image
       - video
       - news
@@ -102,7 +102,7 @@ To save the resulting XML files saved in a subdirectory, pass the full DOCUMENT_
 
 Remaining logic for usage (please adjust the sample code depending on if you're retrieving the URLs from a database or you have it stored as an array):
 ```
-   // Some configuratation methods for your sitemap file(s) to be generated.
+   // Some configuration methods for your sitemap file(s) to be generated.
    $my_sitemap->setUseHttpsUrls(true); // use "https" scheme (true) for your URLs or plain "http" (false)
    $my_sitemap->setSitemapFilenamePrefix('mysitemap'); // set name of sitemap file(s) minus ".xml" (e.g. mysitemap.xml)
    $my_sitemap->setUseGzip($use_gzip = false); // gzip the urlset files to reduce file sizes (true/false). NOTE: using gzip will unlink() (i.e. delete) the original XML file(s) after.
