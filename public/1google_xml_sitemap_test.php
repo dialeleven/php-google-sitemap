@@ -21,7 +21,7 @@ $my_sitemap = new Dialeleven\PhpGoogleSitemap\GoogleXmlSitemap($sitemap_type = '
 
 
 /*
-Some configuratation methods for your sitemap file(s) to be generated.
+Some configuration methods for your sitemap file(s) to be generated.
 */
 #$my_sitemap->setXmlMode($mode = 'file'); // For development purposes. mode = memory (browser), mode = file (save to XML file)
 $my_sitemap->setUseHttpsUrls(true); // use "https" mode for your URLs or plain "http"

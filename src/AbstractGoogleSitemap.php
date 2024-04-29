@@ -87,7 +87,7 @@ abstract class GoogleSitemap
 
    
    /**
-     * Set flag for "use HTTPS" in host name. Assemble full URL scheme+host propery string.
+     * Set flag for "use HTTPS" in host name. Assemble full URL scheme+host property string.
      * @access protected
      * @return void
      */
@@ -274,7 +274,7 @@ abstract class GoogleSitemap
       // Start the document with XML declaration and encoding
       $this->xml_writer->startDocument('1.0', 'UTF-8');
 
-      // open our cotainting tag either 'sitemapindex' or 'urlset'
+      // open our containing tag either 'sitemapindex' or 'urlset'
       $this->startXmlNsElement($xml_ns_type = 'urlset');
 
       // add additional attribute(s) to the <urlset> tag (if needed)
