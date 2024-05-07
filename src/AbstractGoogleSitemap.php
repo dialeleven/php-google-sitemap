@@ -88,7 +88,7 @@ abstract class GoogleSitemap
    
    /**
      * Set flag for "use HTTPS" in host name. Assemble full URL scheme+host property string.
-     * @access protected
+     * @access public
      * @return void
      */
    public function setUseHttpsUrls(bool $use_https_urls): void
@@ -235,7 +235,7 @@ abstract class GoogleSitemap
      *   e.g. news sitemap
      *      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
      * @param  string $xml_ns_type  values ('urlset' or 'sitemapindex') create either a <urlset xmlns> tag or <sitemapindex> tag
-     * @access protected
+     * @access public
      * @return bool
      */      
    public function startXmlDoc(string $xml_ns_type = 'urlset'): bool
@@ -286,7 +286,7 @@ abstract class GoogleSitemap
 
    /**
      * End our </url> element 
-     * @access public
+     * @access protected
      * @return bool
      * TODO: Unit test
      */
